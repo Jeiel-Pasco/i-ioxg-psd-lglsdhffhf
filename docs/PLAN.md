@@ -68,10 +68,10 @@
 - **Skills:** phaser, add-feature, test-driven-development
 
 ## M5. Landing challenge
-- [ ] `stepPhysics(s: LanderState, input: {thrust: 0|1; steer: -1|0|1}, p: LandingParams, dt = 1/60): LanderState` uses the §7.3 equations. `a_t = r*g`. Steering uses fuel at half the thrust rate. 8 px per metre at 320x180.
-- [ ] `FixedStepper` uses an accumulator and clamps the frame delta to 0.25 s. `landingOutcome(s, level): 'landed'|'too_fast'|'missed'|'no_fuel'|null`.
-- [ ] `solve(level): Input[] | null` (a search over burn timings). Level fuel = `fuelMultiplier × fuelUsed(route)`. On Mars, safe speeds are multiplied by `MARS_SPEED_SCALE = 1.51`.
-- [ ] Add Try again and Back to site. After 3 consecutive failures, offer Assist (+25% fuel, a wider platform) and Skip challenge. A failure never touches the save.
+- [x] `stepPhysics(s: LanderState, input: {thrust: 0|1; steer: -1|0|1}, p: LandingParams, dt = 1/60): LanderState` uses the §7.3 equations. `a_t = r*g`. Steering uses fuel at half the thrust rate. 8 px per metre at 320x180.
+- [x] `FixedStepper` uses an accumulator and clamps the frame delta to 0.25 s. `landingOutcome(s, level): 'landed'|'too_fast'|'missed'|'no_fuel'|null`.
+- [x] `solve(level): Input[] | null` (a search over burn timings). Level fuel = `fuelMultiplier × fuelUsed(route)`. On Mars, safe speeds are multiplied by `MARS_SPEED_SCALE = 1.51`.
+- [x] Add Try again and Back to site. After 3 consecutive failures, offer Assist (+25% fuel, a wider platform) and Skip challenge. A failure never touches the save.
 - **Files:** `src/systems/physics.ts`, `src/systems/stepper.ts`, `src/systems/outcome.ts`, `src/config/landing.ts`, `src/scenes/LandingScene.ts`, `tools/solve-levels.ts`, `data/levels/{apollo-11-site,apollo-15-lrv,surveyor-3}.json`, `tests/unit/{physics,stepper,solver}.test.ts`, `tests/e2e/landing.spec.ts`
 - **Exit tests:** `physics.test.ts › free fall matches g` and `› deterministic over 10 runs`. `solver.test.ts › every level solvable within fuel` and `› zero input fails every level`. `landing.spec.ts` checks that a scripted safe input lands and an unsafe one fails, then forces 3 failures and checks that Assist and Skip appear and the save is unchanged.
 - **Skills:** phaser, test-driven-development, add-feature

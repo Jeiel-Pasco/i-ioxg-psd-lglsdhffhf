@@ -1,4 +1,6 @@
 import type { EchoState } from '../systems/echo';
+import type { Outcome } from '../systems/outcome';
+import type { Input } from '../systems/physics';
 
 // Typed event bus: modules talk through events, never direct references.
 export const Events = {
@@ -9,6 +11,9 @@ export const Events = {
   SITE_LEAVE: 'site:leave',
   SITE_ECHO: 'site:echo',
   SITE_LAND: 'site:land',
+  LANDING_INPUT: 'landing:input',
+  LANDING_TICK: 'landing:tick',
+  LANDING_RESULT: 'landing:result',
 } as const;
 
 export interface EventPayloads {
@@ -25,6 +30,12 @@ export interface EventPayloads {
   'site:echo': { state: EchoState };
   /** The robot is ready to start a jetpack landing (M5 listens). */
   'site:land': { entryId: string };
+  /** On-screen jetpack buttons held right now (the keyboard is read inside the scene). */
+  'landing:input': Input;
+  /** About 10 times a second while flying, for the DOM meters. */
+  'landing:tick': { fuel: number; fuelMax: number; vx: number; vy: number };
+  /** The landing run ended. A failure never touches the save. */
+  'landing:result': { entryId: string; outcome: Outcome };
 }
 
 type EventName = keyof EventPayloads;

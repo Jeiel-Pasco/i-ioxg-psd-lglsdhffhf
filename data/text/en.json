@@ -68,6 +68,36 @@
       "archived": "Archived. This story is in the Archive."
     }
   },
+  "landing": {
+    "title": "Landing",
+    "difficulty": {
+      "easy": "Easy",
+      "normal": "Normal",
+      "hard": "Hard"
+    },
+    "difficultyLabel": "Level: {difficulty}",
+    "assisted": "Assist on",
+    "fuel": "Fuel: {percent}%",
+    "speedDown": "Down speed: {speed} m/s (safe: {safe} or less)",
+    "speedSide": "Side speed: {speed} m/s (safe: {safe} or less)",
+    "tooFast": "Too fast!",
+    "help": "Hold Space or Thrust to fly up. Use A and D, or the arrow buttons, to move sideways. Land softly on the striped pad.",
+    "left": "Left",
+    "right": "Right",
+    "thrust": "Thrust",
+    "controls": "Jetpack controls",
+    "result": {
+      "landed": "Landed! The echo is safe in the Archive.",
+      "too_fast": "That landing was too fast. Try a slower touchdown.",
+      "missed": "You missed the pad. Try again.",
+      "no_fuel": "The jetpack ran out of fuel. Try shorter bursts."
+    },
+    "retry": "Try again",
+    "back": "Back to site",
+    "assist": "Assist",
+    "assistHint": "Assist gives you more fuel and a wider pad.",
+    "skip": "Skip challenge"
+  },
   "save": {
     "notice": "Your browser is blocking storage, so your progress will not be kept after you leave this page."
   }

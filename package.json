@@ -12,7 +12,8 @@
     "check": "tsc --noEmit",
     "test": "vitest run",
     "e2e": "playwright test",
-    "validate": "tsx tools/validate-data.ts"
+    "validate": "tsx tools/validate-data.ts",
+    "solve": "tsx tools/solve-levels.ts"
   },
   "dependencies": {
     "phaser": "4.0.0"

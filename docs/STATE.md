@@ -1,10 +1,21 @@
 # State
 
-next: M5
+next: M6
 
 review: owner waived per-milestone human review (2026-11-09). Do not stop for review; stop only for blockers.
 
 ## Done
+- **M5 Landing challenge** (2026-11-09).
+  - Pure systems: `src/systems/{physics,stepper,outcome,level,solver}.ts`; tuning all in `src/config/landing.ts` (§7.4 table, assist +25% fuel / platform x1.5 after 3 fails, Mars speeds x1.51).
+  - Units metres; 40x22.5 m area, ground 20 m. Robot = point at feet. Out of fuel in air = `no_fuel` at once. Off left/right edge = `missed`.
+  - Solver: grid over cruise speed, braking-curve share, hover height (210 plans), picks least fuel. `npm run solve -- --write` sets level fuel = multiplier x route (rounded up 0.01 s). `npm run validate` now also fails on unwinnable levels or wrong fuel (even with `--report`).
+  - Levels `data/levels/*.json` (game design only, no facts): apollo-11 Easy 20 m, apollo-15-lrv and surveyor-3 Normal 26 m. Fuel 6.19 / 8.29 / 7.76 s.
+  - `LandingScene` (key `Landing`) + DOM `src/ui/landing/LandingHud.ts`: level word, fuel %, speeds with safe limit and "Too fast!" in words, help line, Left/Right/Thrust hold buttons (each its own pointer, so two fingers work). Result panel: Try again (focused), Back to site; Assist + Skip after 3 fails in a row (counter in memory only). Skip = recovery with `assisted: true`.
+  - Back to site puts robot beside machine (`atMachine`, 20 px left, inside ready radius). Machine drawn beside pad in landing too.
+  - Keys: Space/Up/W thrust, A/D/arrows steer. Keys released on result so Space works on DOM buttons.
+  - Hook adds `land(id)`, `landing()`, `landScript('solver'|'none')`.
+  - Tests: unit 111 passed (physics 15, stepper 4, solver 7); e2e 37 passed (landing.spec 6). site.spec jetpack test now expects Landing scene. Validator 17 / 21 / 319, 3 levels 0 errors.
+  - game-qa: screenshots desktop + 360 px, no defects. Temp `tests/e2e/zz-shots.spec.ts` left untracked: delete was not permitted; please delete it.
 - **M4 Site scene** (2026-11-09).
   - `src/scenes/SiteScene.ts` (key `Site`), pure `src/systems/{movement,echo}.ts`, tuning `src/config/site.ts` (960x540 scene, speed 90 px/s, ramp 0.15 s, near 160 px, ready 28 px).
   - Layouts: `data/sites/sites.json` (start, machine, generic rock/crater props) for the 3 flagships + apollo-12-site; others use `default`. Game layout only, no facts. Loader `src/data/sites.ts` (Zod).
@@ -75,6 +86,9 @@ review: owner waived per-milestone human review (2026-11-09). Do not stop for re
 - **Site on phone portrait:** 320x180 canvas is a thin strip at 360x740 (FIT). Works, but M6 should give portrait its own layout.
 - **Site gaps for M6:** no Esc pause, no I (Archive) key in site, no echo sound cue (audio is Stretch), no captions needed yet.
 - **Reset confirm:** uses native `window.confirm`. M6 may want an in-game confirm.
+- **Landing gaps for M6:** no Esc/Pause yet (GDD §7.2); run starts at once, no "ready" panel before the run (Hard start velocity must be shown before run, Mars only); no Skip setting (§7.6 "through a setting at any time"); controls overlap canvas on phone portrait.
+- **Gravity numbers:** 1.62 / 3.71 in config, not shown to players. Need NASA source before any screen shows them. HUD shows speeds and safe limits (game values only).
+- **Landing values:** start positions, velocities and Normal for apollo-15-lrv and surveyor-3 are my picks; tune by play-test.
 - Decisions D1 and D3 to D11 are still open (GDD §16).
 
 ## Decisions

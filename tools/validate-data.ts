@@ -4,6 +4,7 @@ import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { validateEntries, type Issue } from '../src/data/validate';
+import { checkLevels, loadLevelFiles } from './solve-levels';
 
 const DATA_DIR = 'data/artifacts';
 
@@ -40,6 +41,13 @@ function main(args: string[]): number {
   }
   for (const w of warnings) console.log(`warning ${w.id} ${w.path}: ${w.message}`);
   console.log(`${entries.length} entries, ${markers} markers, ${errors.length} errors, ${warnings.length} warnings`);
+
+  // A level the solver bot cannot win always fails, even with --report (it is not a content gap).
+  const levels = loadLevelFiles();
+  const levelIssues = checkLevels(levels.map((f) => f.level));
+  for (const i of levelIssues) console.log(`level ${i.id}: ${i.message}`);
+  console.log(`${levels.length} levels, ${levelIssues.length} level errors`);
+  if (levelIssues.length > 0) return 1;
 
   return errors.length > 0 && !args.includes('--report') ? 1 : 0;
 }

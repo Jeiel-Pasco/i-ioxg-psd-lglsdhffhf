@@ -158,7 +158,8 @@ test('a jetpack site asks for a landing instead of recovering at once', async ({
   await fly(page, 'surveyor-3');
   await driveByKeyboard(page);
   await page.locator('.interact-button').click();
-  expect((await snapshot(page)).echo).toBe('ready');
+  await expect(page.locator('#game-container')).toHaveAttribute('data-scene', 'Landing');
+  await expect(page.locator('.site-ui')).toBeHidden();
 });
 
 test('M returns to the hub and stops the site scene', async ({ page }) => {

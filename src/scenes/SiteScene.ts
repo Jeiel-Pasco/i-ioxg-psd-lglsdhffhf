@@ -14,7 +14,12 @@ export interface SiteData {
   recovery: 'jetpack' | 'visit';
   recovered: boolean;
   reducedMotion: boolean;
+  /** Start beside the machine (coming back from a landing) instead of at the layout start. */
+  atMachine?: boolean;
 }
+
+/** How far left of the machine (px) the robot stands when it comes back from a landing; inside the ready radius. */
+const BESIDE_MACHINE_PX = 20;
 
 export interface SiteSnapshot {
   entryId: string;
@@ -54,7 +59,9 @@ export class SiteScene extends Scene {
   init(data: SiteData): void {
     this.site = data;
     this.layout = siteLayout(data.entryId);
-    this.body = { ...this.layout.start, vx: 0, vy: 0 };
+    const m = this.layout.machine;
+    const start = data.atMachine ? { x: m.x - BESIDE_MACHINE_PX, y: m.y } : this.layout.start;
+    this.body = { ...start, vx: 0, vy: 0 };
     this.echo = data.recovered ? 'archived' : 'unvisited';
     this.touch = { x: 0, y: 0 };
   }

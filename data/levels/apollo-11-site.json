@@ -1,0 +1,18 @@
+{
+  "id": "apollo-11-site",
+  "world": "moon",
+  "difficulty": "easy",
+  "start": {
+    "x": 4,
+    "y": 4
+  },
+  "startVelocity": {
+    "x": 0.5,
+    "y": 0
+  },
+  "platform": {
+    "x": 24,
+    "width": 8
+  },
+  "fuel": 6.19
+}
