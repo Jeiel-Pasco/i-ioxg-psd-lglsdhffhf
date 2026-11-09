@@ -5,7 +5,15 @@ import { Events, eventBus } from '../core/events';
 import { siteLayout, type SiteLayout } from '../data/sites';
 import { echoArrowAngle, echoState, type EchoState } from '../systems/echo';
 import { stepMovement, type Body } from '../systems/movement';
-import { ROBOT_SITE_TEX, ensureEntityTextures, machineTextureKey } from '../sprites/pixelRenderer';
+import {
+  PROP_CRATER_TEX,
+  PROP_ROCK_TEX,
+  ROBOT_SITE_FRAMES,
+  ROBOT_SITE_TEX,
+  ensureEntityTextures,
+  groundTileTextureKey,
+  machineTextureKey,
+} from '../sprites/pixelRenderer';
 
 export const SITE_SCENE_KEY = 'Site';
 
@@ -46,7 +54,7 @@ export class SiteScene extends Scene {
   private keys: Keys | null = null;
   private robot: GameObjects.Image;
   private machine: GameObjects.Image;
-  private speckles: GameObjects.Graphics;
+  private groundTile: GameObjects.TileSprite;
   private pulse: GameObjects.Graphics;
   private arrow: GameObjects.Triangle;
   private prompt: GameObjects.Text;
@@ -63,26 +71,24 @@ export class SiteScene extends Scene {
     const m = this.layout.machine;
     const start = data.atMachine ? { x: m.x - BESIDE_MACHINE_PX, y: m.y } : this.layout.start;
     this.body = { ...start, vx: 0, vy: 0 };
-    this.echo = data.recovered ? 'archived' : 'unvisited';
+    this.echo = echoState(Math.hypot(this.body.x - m.x, this.body.y - m.y), data.recovered);
     this.touch = { x: 0, y: 0 };
   }
 
   create(): void {
     ensureEntityTextures(this);
     this.add.rectangle(0, 0, SITE.width, SITE.height, SITE.ground[this.site.world]).setOrigin(0);
-    this.speckles = this.add.graphics();
-    const speckleColor = this.site.world === 'mars' ? 0x522315 : 0x2c2f36;
-    this.speckles.fillStyle(speckleColor, 0.7);
-    for (let i = 0; i < 90; i++) {
-      const sx = (i * 137 + 41) % SITE.width;
-      const sy = (i * 89 + 23) % SITE.height;
-      this.speckles.fillRect(sx, sy, i % 3 === 0 ? 2 : 1, 1);
-    }
-    this.speckles.setVisible(!this.site.reducedEffects);
+    this.groundTile = this.add
+      .tileSprite(0, 0, SITE.width, SITE.height, groundTileTextureKey(this.site.world))
+      .setOrigin(0)
+      .setVisible(!this.site.reducedEffects);
 
     for (const p of this.layout.props) {
-      if (p.kind === 'crater') this.add.circle(p.x, p.y, p.r, C.crater).setStrokeStyle(2, C.rock);
-      else this.add.circle(p.x, p.y, p.r, C.rock);
+      if (p.kind === 'crater') {
+        this.add.image(p.x, p.y, PROP_CRATER_TEX).setScale(Math.max(0.75, p.r / 8));
+      } else {
+        this.add.image(p.x, p.y, PROP_ROCK_TEX).setScale(Math.max(0.75, p.r / 5));
+      }
     }
 
     const m = this.layout.machine;
@@ -125,6 +131,9 @@ export class SiteScene extends Scene {
     const dt = Math.min(delta / 1000, MAX_DT);
     this.body = stepMovement(this.body, this.readInput(), dt, SITE);
     this.robot.setPosition(Math.round(this.body.x), Math.round(this.body.y));
+    const moving = !this.site.reducedMotion && Math.hypot(this.body.vx, this.body.vy) > 4;
+    const frameKey = moving ? ROBOT_SITE_FRAMES[Math.floor(time / 140) % ROBOT_SITE_FRAMES.length] : ROBOT_SITE_TEX;
+    if (this.robot.texture.key !== frameKey) this.robot.setTexture(frameKey);
 
     const m = this.layout.machine;
     const next = echoState(Math.hypot(this.body.x - m.x, this.body.y - m.y), this.site.recovered);
@@ -140,10 +149,10 @@ export class SiteScene extends Scene {
     this.cameras.main.setLerp(lerp, lerp);
   }
 
-  /** Toggles decorative surface speckles while the scene runs. */
+  /** Toggles decorative surface regolith tiles while the scene runs. */
   setReducedEffects(on: boolean): void {
     this.site.reducedEffects = on;
-    this.speckles?.setVisible(!on);
+    this.groundTile?.setVisible(!on);
   }
 
   snapshot(): SiteSnapshot {

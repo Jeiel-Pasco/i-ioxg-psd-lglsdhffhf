@@ -32,8 +32,7 @@ html[data-motion='reduced'] *::after {
 }
 
 /* Reduced effects: drop decorative layers such as the map grid lines and basemap illustration. */
-html[data-effects='reduced'] .hub-map,
-html[data-effects='reduced'] .hub-map[data-world='mars'] {
+html[data-effects='reduced'] .hub-map {
   background-image: none;
 }
 

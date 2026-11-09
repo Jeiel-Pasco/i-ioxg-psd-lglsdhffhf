@@ -54,6 +54,7 @@ export class LandingHud {
   private readonly held = { left: false, right: false, thrust: false };
   private readonly holds: HTMLButtonElement[];
   private level: ResolvedLevel | null = null;
+  private lastResult: { outcome: Outcome; offerHelp: boolean; assisted: boolean } | null = null;
 
   constructor(
     parent: HTMLElement,
@@ -101,12 +102,14 @@ export class LandingHud {
     this.info.textContent =
       fill(t.difficultyLabel, { difficulty: word }) + startDrift + (level.assisted ? ` · ${t.assisted}` : '');
     this.root.dataset.difficulty = level.difficulty;
+    this.lastResult = null;
     this.result.hidden = true;
     this.meters(level.fuel, level.fuel, level.start.vx, level.start.vy);
     this.root.hidden = false;
   }
 
   hide(): void {
+    this.lastResult = null;
     this.root.hidden = true;
     this.result.hidden = true;
     this.releaseAll();
@@ -115,6 +118,7 @@ export class LandingHud {
   /** Shows the end of a run. Assist appears after enough failures in a row; Skip also shows when enabled in Settings. */
   showResult(outcome: Outcome, opts: { offerHelp: boolean; offerSkip?: boolean; assisted: boolean }): void {
     this.releaseAll();
+    this.lastResult = { outcome, offerHelp: opts.offerHelp, assisted: opts.assisted };
     const landed = outcome === 'landed';
     this.message.textContent = t.result[outcome];
     this.root.dataset.outcome = outcome;
@@ -125,6 +129,13 @@ export class LandingHud {
     this.skipBtn.hidden = landed || !(opts.offerHelp || opts.offerSkip);
     this.result.hidden = false;
     (landed ? this.readBtn : this.retryBtn).focus();
+  }
+
+  /** Updates Skip button visibility if the player toggles `alwaysOfferSkip` while the result panel is open. */
+  refreshSkip(alwaysOfferSkip: boolean): void {
+    if (!this.lastResult || this.result.hidden) return;
+    const landed = this.lastResult.outcome === 'landed';
+    this.skipBtn.hidden = landed || !(this.lastResult.offerHelp || alwaysOfferSkip);
   }
 
   private meters(fuel: number, fuelMax: number, vx: number, vy: number): void {

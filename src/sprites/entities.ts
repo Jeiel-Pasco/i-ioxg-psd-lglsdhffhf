@@ -23,6 +23,22 @@ export const ROBOT_PIXELS: PixelMatrix = [
   [0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0],
 ];
 
+/** Walk frame 1: left tread forward, right tread back. */
+export const ROBOT_WALK1_PIXELS: PixelMatrix = [
+  ...ROBOT_PIXELS.slice(0, 11),
+  [0, 1, 3, 2, 1, 0, 0, 1, 2, 3, 1, 0],
+  [0, 1, 2, 2, 1, 0, 0, 0, 1, 1, 0, 0],
+  [0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+];
+
+/** Walk frame 2: right tread forward, left tread back. */
+export const ROBOT_WALK2_PIXELS: PixelMatrix = [
+  ...ROBOT_PIXELS.slice(0, 11),
+  [0, 1, 2, 3, 1, 0, 0, 1, 3, 2, 1, 0],
+  [0, 0, 1, 1, 0, 0, 0, 1, 2, 2, 1, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0],
+];
+
 /**
  * 12x14 pixel art robot with side jetpack pods for the landing scene (GDD 4.3, 7.1).
  */

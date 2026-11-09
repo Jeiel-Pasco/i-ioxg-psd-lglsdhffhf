@@ -30,7 +30,10 @@ export class SettingsMenu {
     title.id = 'settings-title';
     const close = el('button', 'dialog-button settings-close', t.close);
     close.type = 'button';
-    close.addEventListener('click', () => this.dialog.close());
+    close.addEventListener('click', () => {
+      this.dialog.close();
+      this.opts.onOpenChange();
+    });
     const head = el('header', 'dialog-head');
     head.append(title, close);
 

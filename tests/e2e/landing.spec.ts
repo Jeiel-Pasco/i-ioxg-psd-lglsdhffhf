@@ -114,6 +114,20 @@ test('after 3 failures Assist and Skip appear, and the save is unchanged', async
   expect(await save(page)).toContain('apollo-15-lrv');
 });
 
+test('alwaysOfferSkip setting shows Skip on first failure and Hard level shows Drift', async ({ page }) => {
+  await startLanding(page, 'ingenuity');
+  await expect(page.locator('.landing-info')).toContainText('Drift: 1.8 m/s');
+  await script(page, 'none');
+  await expect.poll(() => outcome(page), { timeout: 20_000 }).not.toBeNull();
+  await expect(page.locator('.landing-skip')).toBeHidden();
+
+  // Toggling alwaysOfferSkip in Settings while the failure screen is open reveals Skip immediately.
+  await page.locator('.landing-settings').click();
+  await page.locator('.settings-skip').check();
+  await page.locator('.settings-close').click();
+  await expect(page.locator('.landing-skip')).toBeVisible();
+});
+
 test('thrust+steer together on the keyboard', async ({ page }) => {
   await startLanding(page, 'apollo-11-site');
   await page.keyboard.down('Space');

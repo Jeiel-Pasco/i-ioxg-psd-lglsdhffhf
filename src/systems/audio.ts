@@ -128,29 +128,29 @@ export class AudioSystem {
     osc.stop(now + 0.12);
   }
 
+  private playNotes(notes: readonly number[], stepSec: number, durationSec: number, peakGain: number): void {
+    const ctx = this.getContext();
+    if (!ctx) return;
+    const now = ctx.currentTime;
+    notes.forEach((freq, idx) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      const start = now + idx * stepSec;
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, start);
+      gain.gain.setValueAtTime(peakGain, start);
+      gain.gain.exponentialRampToValueAtTime(0.001, start + durationSec);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(start);
+      osc.stop(start + durationSec);
+    });
+  }
+
   /** Echo ready: dual harmonic chime indicating the target is found. */
   echoReady(): void {
     this.showCaption(t.echoReady);
-    const ctx = this.getContext();
-    if (!ctx) return;
-
-    const freqs = [587.33, 880];
-    const now = ctx.currentTime;
-
-    for (const f of freqs) {
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(f, now);
-
-      gain.gain.setValueAtTime(0.09, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
-
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.start(now);
-      osc.stop(now + 0.25);
-    }
+    this.playNotes([587.33, 880], 0, 0.25, 0.09);
   }
 
   /** Starts the thruster drone loop. */
@@ -187,6 +187,8 @@ export class AudioSystem {
 
     if (this.thrustGain && this.ctx) {
       const now = this.ctx.currentTime;
+      this.thrustGain.gain.cancelScheduledValues(now);
+      this.thrustGain.gain.setValueAtTime(this.thrustGain.gain.value, now);
       this.thrustGain.gain.linearRampToValueAtTime(0.001, now + 0.05);
       const osc = this.thrustOsc;
       setTimeout(() => {
@@ -206,28 +208,7 @@ export class AudioSystem {
   landed(): void {
     this.stopThrust();
     this.showCaption(t.landed);
-    const ctx = this.getContext();
-    if (!ctx) return;
-
-    const notes = [523.25, 659.25, 783.99]; // C5, E5, G5
-    const now = ctx.currentTime;
-
-    notes.forEach((freq, idx) => {
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      const start = now + idx * 0.08;
-
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(freq, start);
-
-      gain.gain.setValueAtTime(0.1, start);
-      gain.gain.exponentialRampToValueAtTime(0.001, start + 0.35);
-
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.start(start);
-      osc.stop(start + 0.35);
-    });
+    this.playNotes([523.25, 659.25, 783.99], 0.08, 0.35, 0.1);
   }
 
   /** Crash or hard impact thump. */
@@ -258,28 +239,7 @@ export class AudioSystem {
   recovered(): void {
     this.stopThrust();
     this.showCaption(t.recovered);
-    const ctx = this.getContext();
-    if (!ctx) return;
-
-    const notes = [440, 554.37, 659.25, 880]; // A4, C#5, E5, A5
-    const now = ctx.currentTime;
-
-    notes.forEach((freq, idx) => {
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      const start = now + idx * 0.09;
-
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(freq, start);
-
-      gain.gain.setValueAtTime(0.09, start);
-      gain.gain.exponentialRampToValueAtTime(0.001, start + 0.4);
-
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.start(start);
-      osc.stop(start + 0.4);
-    });
+    this.playNotes([440, 554.37, 659.25, 880], 0.09, 0.4, 0.09);
   }
 
   /** Stops any ongoing audio when leaving scenes or opening overlays. */

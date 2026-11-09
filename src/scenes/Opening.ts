@@ -1,7 +1,7 @@
 import { Scene, type GameObjects } from 'phaser';
 import { DISPLAY } from '../config/display';
 import { SITE } from '../config/site';
-import { ROBOT_SITE_TEX, ensureEntityTextures } from '../sprites/pixelRenderer';
+import { PROP_CRATER_TEX, PROP_ROCK_TEX, ROBOT_SITE_TEX, ensureEntityTextures } from '../sprites/pixelRenderer';
 
 export const OPENING_SCENE_KEY = 'Opening';
 
@@ -68,9 +68,9 @@ export class Opening extends Scene {
     const echo = this.add.circle(w * 0.65, h * 0.42, 14).setStrokeStyle(1, 0x4fd8ff);
     const topDown = this.add.container(0, 0, [
       this.add.rectangle(w / 2, h / 2, w, h, SITE.ground.moon),
-      this.add.circle(w * 0.25, h * 0.72, 18, 0x2c2f36).setStrokeStyle(2, 0x5a5f69),
-      this.add.circle(w * 0.78, h * 0.76, 12, 0x2c2f36).setStrokeStyle(2, 0x5a5f69),
-      this.add.circle(w * 0.48, h * 0.28, 5, 0x5a5f69),
+      this.add.image(w * 0.25, h * 0.72, PROP_CRATER_TEX).setScale(2),
+      this.add.image(w * 0.78, h * 0.76, PROP_CRATER_TEX).setScale(1.5),
+      this.add.image(w * 0.48, h * 0.28, PROP_ROCK_TEX),
       this.add.image(w * 0.65, h * 0.42, 'machine-lander'),
       this.add.image(w * 0.36, h * 0.62, ROBOT_SITE_TEX),
       echo,

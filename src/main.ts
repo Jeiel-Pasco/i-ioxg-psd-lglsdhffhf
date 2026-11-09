@@ -141,6 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
       l.setReducedMotion(reduced);
       l.setReducedEffects(reducedFx);
     }
+    landingHud.refreshSkip(progress.settings.alwaysOfferSkip);
     hub?.refresh();
     archive.refresh();
     showNotice();

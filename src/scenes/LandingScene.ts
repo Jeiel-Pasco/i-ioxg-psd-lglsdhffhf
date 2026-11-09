@@ -7,7 +7,14 @@ import { landingOutcome, type Outcome } from '../systems/outcome';
 import { stepPhysics, type Input, type LanderState } from '../systems/physics';
 import { startState } from '../systems/solver';
 import { FixedStepper } from '../systems/stepper';
-import { ROBOT_LANDING_TEX, ensureEntityTextures, machineTextureKey } from '../sprites/pixelRenderer';
+import {
+  FX_FLAME_TEX,
+  FX_PUFF_TEX,
+  ROBOT_LANDING_TEX,
+  ensureEntityTextures,
+  groundTileTextureKey,
+  machineTextureKey,
+} from '../sprites/pixelRenderer';
 
 export const LANDING_SCENE_KEY = 'Landing';
 
@@ -48,9 +55,10 @@ export class LandingScene extends Scene {
   private steps = 0;
   private keys: Keys | null = null;
   private robot: GameObjects.Image;
-  private flame: GameObjects.Triangle;
-  private puff: GameObjects.Rectangle;
+  private flame: GameObjects.Image;
+  private puff: GameObjects.Image;
   private skyDecor: GameObjects.Graphics;
+  private groundTile: GameObjects.TileSprite;
   private offs: (() => void)[] = [];
   private wasThrusting = false;
 
@@ -88,13 +96,17 @@ export class LandingScene extends Scene {
     this.skyDecor.setVisible(!this.data_.reducedEffects);
 
     this.add.rectangle(0, ground, wPx, hPx - ground, SITE.ground[level.world]).setOrigin(0);
+    this.groundTile = this.add
+      .tileSprite(0, ground, wPx, hPx - ground, groundTileTextureKey(level.world))
+      .setOrigin(0)
+      .setVisible(!this.data_.reducedEffects);
     this.drawPlatform();
     // The real machine stays in the scene beside the pad (CLAUDE.md rule 5).
     const mx = (level.platform.x + level.platform.width / 2 + 2.5) * PX;
     this.add.image(mx, ground, machineTextureKey(this.data_.entryId)).setOrigin(0.5, 1);
 
-    this.flame = this.add.triangle(0, 0, -3, 0, 3, 0, 0, 6, C.amber).setOrigin(0.5, 0).setVisible(false);
-    this.puff = this.add.rectangle(0, 0, 3, 2, C.cyan).setVisible(false);
+    this.flame = this.add.image(0, 0, FX_FLAME_TEX).setOrigin(0.5, 0).setVisible(false);
+    this.puff = this.add.image(0, 0, FX_PUFF_TEX).setVisible(false);
     this.robot = this.add.image(0, 0, ROBOT_LANDING_TEX).setOrigin(0.5, 1);
     this.cameras.main.setRoundPixels(true);
 
@@ -123,10 +135,11 @@ export class LandingScene extends Scene {
     this.data_.reducedMotion = on;
   }
 
-  /** Toggles decorative sky stars and horizon ridges while the scene runs. */
+  /** Toggles decorative sky stars, horizon ridges, and ground tile texture while the scene runs. */
   setReducedEffects(on: boolean): void {
     this.data_.reducedEffects = on;
     this.skyDecor?.setVisible(!on);
+    this.groundTile?.setVisible(!on);
   }
 
   level(): ResolvedLevel {
