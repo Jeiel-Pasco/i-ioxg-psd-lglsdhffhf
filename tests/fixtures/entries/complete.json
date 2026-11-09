@@ -1,0 +1,36 @@
+{
+  "id": "fixture-lander",
+  "name": "Fixture Lander",
+  "world": "moon",
+  "tier": "standard",
+  "status": "dormant",
+  "launch_date": "2000-01-01",
+  "end_date": null,
+  "locations": [
+    {
+      "label": "Fixture site",
+      "lat": 10,
+      "lon": 20,
+      "source_url": "https://www.nasa.gov/fixture",
+      "approximate": false
+    }
+  ],
+  "summary": "Fixture summary.",
+  "hook": "Fixture hook.",
+  "how_it_worked": "Fixture text.",
+  "science": "Fixture science.",
+  "facts": [
+    { "text": "Fixture fact one.", "source_url": "https://www.nasa.gov/fixture-1" },
+    { "text": "Fixture fact two.", "source_url": "https://science.nasa.gov/fixture-2" }
+  ],
+  "image": {
+    "nasa_id": "FIXTURE-001",
+    "credit": "Fixture credit",
+    "source_url": "https://images.nasa.gov/fixture",
+    "alt": "Fixture alt text."
+  },
+  "written_by": "Writer A",
+  "verified_by": "Verifier B",
+  "last_verified": "2026-01-01",
+  "recovery": "visit"
+}

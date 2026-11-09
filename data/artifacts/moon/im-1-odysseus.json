@@ -1,0 +1,42 @@
+{
+  "id": "im-1-odysseus",
+  "name": "IM-1 Odysseus",
+  "world": "moon",
+  "tier": "standard",
+  "status": "TODO",
+  "launch_date": "TODO",
+  "end_date": "TODO",
+  "locations": [
+    {
+      "label": "Near Malapert A, south polar region",
+      "lat": -80.13,
+      "lon": 1.44,
+      "source_url": "TODO",
+      "approximate": true
+    }
+  ],
+  "summary": "TODO",
+  "hook": "TODO",
+  "how_it_worked": "TODO",
+  "science": "TODO",
+  "facts": [
+    {
+      "text": "TODO",
+      "source_url": "TODO"
+    },
+    {
+      "text": "TODO",
+      "source_url": "TODO"
+    }
+  ],
+  "image": {
+    "nasa_id": "TODO",
+    "credit": "TODO",
+    "source_url": "TODO",
+    "alt": "TODO"
+  },
+  "written_by": null,
+  "verified_by": null,
+  "last_verified": null,
+  "recovery": "visit"
+}

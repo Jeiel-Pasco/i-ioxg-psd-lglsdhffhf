@@ -1,0 +1,42 @@
+{
+  "id": "apollo-17-site",
+  "name": "Apollo 17 landing site",
+  "world": "moon",
+  "tier": "standard",
+  "status": "TODO",
+  "launch_date": "TODO",
+  "end_date": "TODO",
+  "locations": [
+    {
+      "label": "LM descent stage",
+      "lat": 20.1908,
+      "lon": 30.77168,
+      "source_url": "https://www.nasa.gov/wp-content/uploads/2024/02/final-catalogue-of-manmade-material-on-the-moon.pdf",
+      "approximate": false
+    }
+  ],
+  "summary": "TODO",
+  "hook": "TODO",
+  "how_it_worked": "TODO",
+  "science": "TODO",
+  "facts": [
+    {
+      "text": "TODO",
+      "source_url": "TODO"
+    },
+    {
+      "text": "TODO",
+      "source_url": "TODO"
+    }
+  ],
+  "image": {
+    "nasa_id": "TODO",
+    "credit": "TODO",
+    "source_url": "TODO",
+    "alt": "TODO"
+  },
+  "written_by": null,
+  "verified_by": null,
+  "last_verified": null,
+  "recovery": "visit"
+}

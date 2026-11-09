@@ -1,0 +1,49 @@
+{
+  "id": "viking-1-2",
+  "name": "Viking 1 and 2 landers",
+  "world": "mars",
+  "tier": "standard",
+  "status": "TODO",
+  "launch_date": "TODO",
+  "end_date": "TODO",
+  "locations": [
+    {
+      "label": "Chryse Planitia (Viking 1)",
+      "lat": 22.27,
+      "lon": -47.95,
+      "source_url": "TODO",
+      "approximate": false
+    },
+    {
+      "label": "Utopia Planitia (Viking 2)",
+      "lat": 47.668,
+      "lon": 134.28,
+      "source_url": "TODO",
+      "approximate": false
+    }
+  ],
+  "summary": "TODO",
+  "hook": "TODO",
+  "how_it_worked": "TODO",
+  "science": "TODO",
+  "facts": [
+    {
+      "text": "TODO",
+      "source_url": "TODO"
+    },
+    {
+      "text": "TODO",
+      "source_url": "TODO"
+    }
+  ],
+  "image": {
+    "nasa_id": "TODO",
+    "credit": "TODO",
+    "source_url": "TODO",
+    "alt": "TODO"
+  },
+  "written_by": null,
+  "verified_by": null,
+  "last_verified": null,
+  "recovery": "visit"
+}

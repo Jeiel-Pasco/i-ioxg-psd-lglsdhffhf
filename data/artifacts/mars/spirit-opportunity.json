@@ -1,0 +1,49 @@
+{
+  "id": "spirit-opportunity",
+  "name": "Spirit and Opportunity",
+  "world": "mars",
+  "tier": "flagship",
+  "status": "TODO",
+  "launch_date": "TODO",
+  "end_date": "TODO",
+  "locations": [
+    {
+      "label": "Gusev Crater (Spirit)",
+      "lat": -14.5692,
+      "lon": 175.4729,
+      "source_url": "TODO",
+      "approximate": false
+    },
+    {
+      "label": "Meridiani Planum (Opportunity)",
+      "lat": -1.9462,
+      "lon": -5.5266,
+      "source_url": "TODO",
+      "approximate": false
+    }
+  ],
+  "summary": "TODO",
+  "hook": "TODO",
+  "how_it_worked": "TODO",
+  "science": "TODO",
+  "facts": [
+    {
+      "text": "TODO",
+      "source_url": "TODO"
+    },
+    {
+      "text": "TODO",
+      "source_url": "TODO"
+    }
+  ],
+  "image": {
+    "nasa_id": "TODO",
+    "credit": "TODO",
+    "source_url": "TODO",
+    "alt": "TODO"
+  },
+  "written_by": null,
+  "verified_by": null,
+  "last_verified": null,
+  "recovery": "visit"
+}

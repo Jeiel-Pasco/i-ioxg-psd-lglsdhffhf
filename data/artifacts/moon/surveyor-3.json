@@ -1,0 +1,42 @@
+{
+  "id": "surveyor-3",
+  "name": "Surveyor 3",
+  "world": "moon",
+  "tier": "flagship",
+  "status": "TODO",
+  "launch_date": "TODO",
+  "end_date": "TODO",
+  "locations": [
+    {
+      "label": "Surveyor 3 site",
+      "lat": -3.015,
+      "lon": -23.418,
+      "source_url": "https://www.nasa.gov/wp-content/uploads/2024/02/final-catalogue-of-manmade-material-on-the-moon.pdf",
+      "approximate": false
+    }
+  ],
+  "summary": "TODO",
+  "hook": "TODO",
+  "how_it_worked": "TODO",
+  "science": "TODO",
+  "facts": [
+    {
+      "text": "TODO",
+      "source_url": "TODO"
+    },
+    {
+      "text": "TODO",
+      "source_url": "TODO"
+    }
+  ],
+  "image": {
+    "nasa_id": "TODO",
+    "credit": "TODO",
+    "source_url": "TODO",
+    "alt": "TODO"
+  },
+  "written_by": null,
+  "verified_by": null,
+  "last_verified": null,
+  "recovery": "jetpack"
+}

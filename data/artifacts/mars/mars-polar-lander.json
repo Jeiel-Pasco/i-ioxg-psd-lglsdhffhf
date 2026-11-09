@@ -1,0 +1,42 @@
+{
+  "id": "mars-polar-lander",
+  "name": "Mars Polar Lander",
+  "world": "mars",
+  "tier": "standard",
+  "status": "TODO",
+  "launch_date": "TODO",
+  "end_date": "TODO",
+  "locations": [
+    {
+      "label": "South polar region",
+      "lat": -76.57,
+      "lon": 165.2,
+      "source_url": "TODO",
+      "approximate": true
+    }
+  ],
+  "summary": "TODO",
+  "hook": "TODO",
+  "how_it_worked": "TODO",
+  "science": "TODO",
+  "facts": [
+    {
+      "text": "TODO",
+      "source_url": "TODO"
+    },
+    {
+      "text": "TODO",
+      "source_url": "TODO"
+    }
+  ],
+  "image": {
+    "nasa_id": "TODO",
+    "credit": "TODO",
+    "source_url": "TODO",
+    "alt": "TODO"
+  },
+  "written_by": null,
+  "verified_by": null,
+  "last_verified": null,
+  "recovery": "visit"
+}

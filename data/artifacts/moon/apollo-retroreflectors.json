@@ -1,0 +1,56 @@
+{
+  "id": "apollo-retroreflectors",
+  "name": "Apollo laser retroreflectors",
+  "world": "moon",
+  "tier": "standard",
+  "status": "TODO",
+  "launch_date": "TODO",
+  "end_date": "TODO",
+  "locations": [
+    {
+      "label": "Apollo 11",
+      "lat": 0.67337,
+      "lon": 23.47293,
+      "source_url": "https://www.nasa.gov/wp-content/uploads/2024/02/final-catalogue-of-manmade-material-on-the-moon.pdf",
+      "approximate": false
+    },
+    {
+      "label": "Apollo 14",
+      "lat": -3.64421,
+      "lon": -17.4788,
+      "source_url": "https://www.nasa.gov/wp-content/uploads/2024/02/final-catalogue-of-manmade-material-on-the-moon.pdf",
+      "approximate": false
+    },
+    {
+      "label": "Apollo 15",
+      "lat": 26.13333,
+      "lon": 3.62837,
+      "source_url": "https://www.nasa.gov/wp-content/uploads/2024/02/final-catalogue-of-manmade-material-on-the-moon.pdf",
+      "approximate": false
+    }
+  ],
+  "summary": "TODO",
+  "hook": "TODO",
+  "how_it_worked": "TODO",
+  "science": "TODO",
+  "facts": [
+    {
+      "text": "TODO",
+      "source_url": "TODO"
+    },
+    {
+      "text": "TODO",
+      "source_url": "TODO"
+    }
+  ],
+  "image": {
+    "nasa_id": "TODO",
+    "credit": "TODO",
+    "source_url": "TODO",
+    "alt": "TODO"
+  },
+  "written_by": null,
+  "verified_by": null,
+  "last_verified": null,
+  "recovery": "visit"
+}
