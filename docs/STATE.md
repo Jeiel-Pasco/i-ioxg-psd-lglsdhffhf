@@ -1,10 +1,22 @@
 # State
 
-next: M4
+next: M5
 
 review: owner waived per-milestone human review (2026-11-09). Do not stop for review; stop only for blockers.
 
 ## Done
+- **M4 Site scene** (2026-11-09).
+  - `src/scenes/SiteScene.ts` (key `Site`), pure `src/systems/{movement,echo}.ts`, tuning `src/config/site.ts` (960x540 scene, speed 90 px/s, ramp 0.15 s, near 160 px, ready 28 px).
+  - Layouts: `data/sites/sites.json` (start, machine, generic rock/crater props) for the 3 flagships + apollo-12-site; others use `default`. Game layout only, no facts. Loader `src/data/sites.ts` (Zod).
+  - Flow: Fly here → hub hidden, `Site` starts; Map button or M → `site:leave`, hub back, focus to marker card, `data-scene="Hub"`. Shutdown removes bus listeners and key capture.
+  - Interact (E or Recover button) only when ready. `visit` → `entry:recovered`, machine stays, amber "Archived" tag. `jetpack` → emits `site:land`; nothing listens until M5 (flagships dead-end at Ready for now).
+  - DOM HUD `src/ui/site/SiteHud.ts` + `src/ui/touch/{Joystick,InteractButton}.ts`: shown on all devices; status line is a live region; disabled Recover = dashed border (not colour only). Joystick tracks one pointer, so Recover works with a second finger.
+  - Edge arrow only in `near` while the machine is off screen. Pulse faster when near; reduced motion = steady ring, no camera easing.
+  - New events: `site:move|interact|leave|echo|land`. Test hook adds `fly(id)`, `site()`.
+  - Sprites: placeholder original pixel art (robot, generic lander) drawn in code. Real per-entry machine sprites are later art work.
+  - Tests: unit 87 passed (echo 15, movement 6); e2e 31 passed (site.spec 11: keyboard + touch (CDP) to Ready at all 3 flagships, near before ready, visit keeps machine + saved, 44 px controls, M back). Validator unchanged (17 / 21 / 319).
+  - game-qa: JS helpers skipped again (TS-only); visual check by screenshots, desktop and 360 px. No defects found.
+  - D5 used as proposed default (8-dir, ramp, follow camera); team still to confirm.
 - **M3 Archive and save** (2026-11-09).
   - Save: `src/save/{save,migrate,memoryStore}.ts`. `openStore` probes localStorage, falls back to `MemoryStore`. Failed write (quota) switches to memory too. `migrate` never throws; bad data gives fresh save. `Progress` autosaves on `recover`, `markRead`, `updateSettings`; sets `unlocks.mars`.
   - Key `still-out-there:save`. v0 = assumed unversioned `{archived: string[], read?: string[]}` (no real v0 ever shipped; shape is my pick).
@@ -59,7 +71,9 @@ review: owner waived per-milestone human review (2026-11-09). Do not stop for re
 - **Mars marker URLs:** the GDD names a source type (Mars24, PDS) but no URLs, so every Mars `source_url` is `TODO`. The GDD §14 conflicts are still open.
 - **Strict validation in the build:** `npm run validate` fails until the content track fills the entries, so it is not yet part of `npm run build` (planned for M7).
 - **Leftovers:** the template's `README.md`, `screenshot.png` and `public/favicon.png` are still there.
-- **Archive focus:** PLAN says focus returns to canvas on close. Hub covers canvas now, so focus returns to the Archive button instead (canvas only if opener gone). Revisit in M4 when site scene is live.
+- **Archive focus:** PLAN says focus returns to canvas on close. Hub covers canvas now, so focus returns to the Archive button instead (canvas only if opener gone). M4 has no Archive button in site scene (I key / icon), so unchanged; add in M6.
+- **Site on phone portrait:** 320x180 canvas is a thin strip at 360x740 (FIT). Works, but M6 should give portrait its own layout.
+- **Site gaps for M6:** no Esc pause, no I (Archive) key in site, no echo sound cue (audio is Stretch), no captions needed yet.
 - **Reset confirm:** uses native `window.confirm`. M6 may want an in-game confirm.
 - Decisions D1 and D3 to D11 are still open (GDD §16).
 

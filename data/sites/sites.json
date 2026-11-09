@@ -1,0 +1,49 @@
+{
+  "_note": "Game layout only (positions in scene px on a 960x540 site). Not a historical record: props are generic rocks and craters, not real features.",
+  "default": {
+    "start": { "x": 120, "y": 440 },
+    "machine": { "x": 600, "y": 220 },
+    "props": [
+      { "kind": "crater", "x": 300, "y": 160, "r": 40 },
+      { "kind": "rock", "x": 760, "y": 420, "r": 8 }
+    ]
+  },
+  "sites": {
+    "apollo-11-site": {
+      "start": { "x": 120, "y": 440 },
+      "machine": { "x": 640, "y": 200 },
+      "props": [
+        { "kind": "crater", "x": 260, "y": 140, "r": 46 },
+        { "kind": "crater", "x": 820, "y": 430, "r": 30 },
+        { "kind": "rock", "x": 470, "y": 330, "r": 7 },
+        { "kind": "rock", "x": 700, "y": 300, "r": 5 }
+      ]
+    },
+    "apollo-15-lrv": {
+      "start": { "x": 840, "y": 460 },
+      "machine": { "x": 220, "y": 160 },
+      "props": [
+        { "kind": "crater", "x": 600, "y": 120, "r": 52 },
+        { "kind": "rock", "x": 420, "y": 300, "r": 9 },
+        { "kind": "rock", "x": 150, "y": 380, "r": 6 }
+      ]
+    },
+    "surveyor-3": {
+      "start": { "x": 480, "y": 480 },
+      "machine": { "x": 480, "y": 120 },
+      "props": [
+        { "kind": "crater", "x": 480, "y": 150, "r": 70 },
+        { "kind": "rock", "x": 260, "y": 330, "r": 8 },
+        { "kind": "rock", "x": 740, "y": 280, "r": 6 }
+      ]
+    },
+    "apollo-12-site": {
+      "start": { "x": 120, "y": 270 },
+      "machine": { "x": 760, "y": 300 },
+      "props": [
+        { "kind": "crater", "x": 420, "y": 120, "r": 40 },
+        { "kind": "rock", "x": 560, "y": 420, "r": 7 }
+      ]
+    }
+  }
+}

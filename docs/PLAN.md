@@ -60,9 +60,9 @@
 - **Skills:** design-taste-frontend, add-feature, test-driven-development
 
 ## M4. Site scene
-- [ ] A shared Moon template about 3x3 screens, with props per entry from data. 8-direction movement with an acceleration ramp. The camera is clamped to the scene (D5).
-- [ ] `echoState(dist, recovered): 'unvisited'|'near'|'ready'|'archived'`, with the thresholds in config. Add an edge arrow and an interaction prompt (E, or the touch button).
-- [ ] A recovered machine stays in the scene, tagged "Archived". `recovery: "visit"` unlocks on interact.
+- [x] A shared Moon template about 3x3 screens, with props per entry from data. 8-direction movement with an acceleration ramp. The camera is clamped to the scene (D5).
+- [x] `echoState(dist, recovered): 'unvisited'|'near'|'ready'|'archived'`, with the thresholds in config. Add an edge arrow and an interaction prompt (E, or the touch button).
+- [x] A recovered machine stays in the scene, tagged "Archived". `recovery: "visit"` unlocks on interact.
 - **Files:** `src/scenes/SiteScene.ts`, `src/systems/movement.ts`, `src/systems/echo.ts`, `src/ui/touch/{Joystick,InteractButton}.ts`, `tests/unit/echo.test.ts`, `tests/unit/movement.test.ts`, `tests/e2e/site.spec.ts`
 - **Exit tests:** `echo.test.ts` covers every state transition. `site.spec.ts` drives the robot by keyboard and by touch to Ready at each of the 3 flagship sites, and checks that the machine sprite remains after a visit recovery.
 - **Skills:** phaser, add-feature, test-driven-development

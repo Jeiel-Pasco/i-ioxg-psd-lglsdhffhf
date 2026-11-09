@@ -1,0 +1,103 @@
+/* Site scene controls. Shown on every device, so mouse and touch users have the same buttons. */
+.site-ui {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 12px;
+  color: var(--ink);
+  font: 16px/1.4 system-ui, sans-serif;
+}
+
+.site-ui[hidden] {
+  display: none;
+}
+
+.site-top,
+.site-bottom {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.site-bottom {
+  align-items: flex-end;
+}
+
+.site-map,
+.interact-button,
+.joystick {
+  pointer-events: auto;
+}
+
+.site-map,
+.interact-button {
+  min-width: var(--target);
+  min-height: var(--target);
+  padding: 8px 16px;
+  border: 2px solid var(--cyan);
+  border-radius: var(--radius);
+  background: var(--panel);
+  color: var(--ink);
+  font: inherit;
+  cursor: pointer;
+}
+
+.site-map:focus-visible,
+.interact-button:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.interact-button {
+  min-width: 96px;
+  min-height: 72px;
+  font-weight: 600;
+}
+
+/* Disabled is shown by a dashed border and dim text, not by colour alone. */
+.interact-button:disabled {
+  border-style: dashed;
+  border-color: var(--line);
+  color: var(--muted);
+  cursor: default;
+}
+
+.site-status {
+  margin: 0;
+  max-width: 28em;
+  padding: 8px 12px;
+  border: 2px solid var(--cyan);
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+
+.site-ui[data-echo='archived'] .site-status {
+  border-color: var(--amber);
+}
+
+.joystick {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border: 2px solid var(--line);
+  border-radius: 50%;
+  background: rgba(14, 19, 32, 0.6);
+  touch-action: none;
+  user-select: none;
+}
+
+.joystick-knob {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 48px;
+  height: 48px;
+  margin: -24px 0 0 -24px;
+  border: 2px solid var(--cyan);
+  border-radius: 50%;
+  background: var(--panel);
+}

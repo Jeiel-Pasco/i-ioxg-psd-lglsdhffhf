@@ -55,6 +55,19 @@
     "sources": "Sources",
     "noSources": "No sources added yet."
   },
+  "site": {
+    "map": "Map",
+    "interact": "Recover",
+    "joystick": "Move the robot",
+    "prompt": "E: Recover",
+    "archivedTag": "Archived",
+    "echo": {
+      "unvisited": "Follow the echo. It is faint here.",
+      "near": "The echo is getting stronger.",
+      "ready": "You found it. Press E or tap Recover.",
+      "archived": "Archived. This story is in the Archive."
+    }
+  },
   "save": {
     "notice": "Your browser is blocking storage, so your progress will not be kept after you leave this page."
   }
