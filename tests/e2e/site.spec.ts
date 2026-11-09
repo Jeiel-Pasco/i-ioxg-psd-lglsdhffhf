@@ -171,3 +171,20 @@ test('M returns to the hub and stops the site scene', async ({ page }) => {
   const s = await page.evaluate(() => (window as unknown as { __stillOutThere: TestHook }).__stillOutThere.site());
   expect(s).toBeNull();
 });
+
+test('site Archive button and I key open the archive from site', async ({ page }) => {
+  await fly(page, 'apollo-11-site');
+  await expect(page.locator('.site-archive')).toBeVisible();
+
+  // Test button click
+  await page.locator('.site-archive').click();
+  await expect(page.locator('.archive')).toBeVisible();
+  await page.locator('.archive-close').click();
+  await expect(page.locator('.archive')).toBeHidden();
+
+  // Test 'I' shortcut
+  await page.keyboard.press('i');
+  await expect(page.locator('.archive')).toBeVisible();
+  await page.locator('.archive-close').click();
+  await expect(page.locator('.archive')).toBeHidden();
+});

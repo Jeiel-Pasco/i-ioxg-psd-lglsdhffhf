@@ -20,6 +20,8 @@ export class HubMap {
   private readonly byId: Map<string, Entry>;
   private readonly tabs = new Map<World, HTMLButtonElement>();
   private readonly lock = el('p', 'hub-lock');
+  private readonly progress = el('p', 'hub-progress');
+  private readonly storyBanner = el('div', 'story-frame hub-mars-story');
   private readonly map = el('div', 'hub-map');
   private readonly card = el('section', 'hub-card');
   private readonly resize = new ResizeObserver(() => this.renderMarkers());
@@ -50,6 +52,12 @@ export class HubMap {
     this.lock.id = LOCK_REASON_ID;
     this.lock.append(el('strong', '', t.marsLocked), ' ', t.marsLockedReason);
 
+    this.storyBanner.append(
+      el('span', 'story-tag', text.story.tag),
+      el('p', '', fill(t.marsUnlockedStory, { count: String(entries.filter((e) => e.world === 'mars').length) })),
+    );
+    this.storyBanner.hidden = true;
+
     this.map.setAttribute('role', 'group');
     this.card.setAttribute('aria-live', 'polite');
     this.card.tabIndex = -1;
@@ -75,12 +83,15 @@ export class HubMap {
     this.epilogueButton = menuButton('hub-open-epilogue', text.epilogue.open, menus.epilogue);
     this.epilogueButton.hidden = !this.epilogueReady();
     actions.append(switcher, menuButton('hub-open-archive', t.openArchive, menus.archive), this.epilogueButton);
-    header.append(settings, el('h1', '', t.title), actions);
+    const titleWrap = el('div', 'hub-title-wrap');
+    titleWrap.append(el('h1', '', t.title), this.progress);
+    header.append(settings, titleWrap, actions);
     const inner = el('div', 'hub-inner');
-    inner.append(header, this.lock, layout);
+    inner.append(header, this.lock, this.storyBanner, layout);
     root.append(inner);
 
     this.resize.observe(this.map);
+    this.updateProgress();
     this.setWorld('moon');
   }
 
@@ -90,20 +101,41 @@ export class HubMap {
 
   /** Redraws after progress changes (a recovery or a reset). */
   refresh(): void {
+    const unlocked = isMarsUnlocked(this.getArchived());
     this.lock.hidden = !this.marsLocked();
+    this.storyBanner.hidden = !(this.world === 'mars' && unlocked);
     this.epilogueButton.hidden = !this.epilogueReady();
+    this.updateProgress();
     this.renderMarkers();
+  }
+
+  private updateProgress(): void {
+    const archived = this.getArchived();
+    const moonEntries = this.entries.filter((e) => e.world === 'moon');
+    const marsEntries = this.entries.filter((e) => e.world === 'mars');
+    const moonDone = moonEntries.filter((e) => archived.has(e.id)).length;
+    const marsDone = marsEntries.filter((e) => archived.has(e.id)).length;
+    this.progress.textContent = fill(t.progress, {
+      done: String(moonDone + marsDone),
+      total: String(this.entries.length),
+      moonDone: String(moonDone),
+      moonTotal: String(moonEntries.length),
+      marsDone: String(marsDone),
+      marsTotal: String(marsEntries.length),
+    });
   }
 
   private marsLocked(): boolean {
     return this.world === 'mars' && !isMarsUnlocked(this.getArchived());
   }
 
-  private setWorld(world: World): void {
+  setWorld(world: World): void {
     this.world = world;
     this.selectedAnchor = null;
     for (const [w, b] of this.tabs) b.setAttribute('aria-pressed', String(w === world));
+    const unlocked = isMarsUnlocked(this.getArchived());
     this.lock.hidden = !this.marsLocked();
+    this.storyBanner.hidden = !(world === 'mars' && unlocked);
     this.map.dataset.world = world;
     this.map.setAttribute('aria-label', fill(t.mapLabel, { world: t.worlds[world] }));
     renderEmptyCard(this.card);

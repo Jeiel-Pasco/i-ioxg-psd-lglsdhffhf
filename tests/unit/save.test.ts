@@ -91,11 +91,11 @@ describe('migrate', () => {
     expect(v1.read).toEqual(['surveyor-3']);
   });
 
-  it('keeps a valid v1 save', () => {
+  it('keeps a valid v1 save and strips legacy position and results fields', () => {
     const s = defaultSave();
     s.archived['ingenuity'] = { assisted: true };
-    s.position = { world: 'mars', siteId: 'ingenuity' };
-    expect(migrate(JSON.parse(JSON.stringify(s)))).toEqual(s);
+    const rawWithLegacy = { ...s, position: { world: 'mars', siteId: 'ingenuity' }, results: { 'apollo-11-site': { attempts: 2, completed: true } } };
+    expect(migrate(JSON.parse(JSON.stringify(rawWithLegacy)))).toEqual(s);
   });
 
   it('keeps a v1 save written before the opening flag existed', () => {

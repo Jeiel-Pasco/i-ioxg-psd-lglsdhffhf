@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" fill="none">
+  <!-- Stylized equirectangular Martian albedo, basin, and canyon silhouette map (original vector art, zero external requests) -->
+  <g fill="#542315" opacity="0.65">
+    <!-- Northern lowlands (Vastitas Borealis, Acidalia, Utopia Planitia) -->
+    <path d="M0 0 H720 V95 Q580 120 460 88 Q340 130 220 96 Q100 115 0 90 Z" />
+    <!-- Syrtis Major & Elysium dark albedo regions -->
+    <ellipse cx="495" cy="162" rx="28" ry="34" />
+    <ellipse cx="615" cy="155" rx="34" ry="20" />
+    <!-- Hellas & Argyre Planitia basins -->
+    <ellipse cx="500" cy="262" rx="42" ry="26" />
+    <ellipse cx="272" cy="278" rx="26" ry="18" />
+    <!-- Valles Marineris canyon system -->
+    <path d="M180 192 Q225 202 270 196 Q230 208 180 198 Z" fill="#3d170d" />
+  </g>
+  <g stroke="#944730" stroke-width="1.5" fill="#612a1a" opacity="0.55">
+    <!-- Tharsis Montes & Olympus Mons -->
+    <circle cx="94" cy="144" r="15" />
+    <circle cx="134" cy="178" r="9" />
+    <circle cx="148" cy="162" r="9" />
+    <circle cx="162" cy="146" r="9" />
+    <!-- Gale, Jezero, Gusev, and Schiaparelli craters -->
+    <circle cx="635" cy="190" r="8" />
+    <circle cx="515" cy="144" r="7" />
+    <circle cx="710" cy="208" r="8" />
+    <circle cx="394" cy="186" r="11" />
+  </g>
+</svg>
+

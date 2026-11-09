@@ -39,9 +39,22 @@
   margin-bottom: 12px;
 }
 
+.hub-title-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
 .hub-header h1 {
   margin: 0;
   font-size: 1.5rem;
+}
+
+.hub-progress {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.875rem;
 }
 
 .hub-worlds {
@@ -109,6 +122,15 @@
   content: '🔒 ';
 }
 
+.hub-mars-story {
+  margin: 0 0 12px;
+  padding: 8px 16px;
+}
+
+.hub-mars-story p {
+  margin: 4px 0 0;
+}
+
 .hub-layout {
   display: grid;
   gap: 16px;
@@ -133,16 +155,24 @@
   position: relative;
   aspect-ratio: 2 / 1;
   background-color: var(--moon-ground);
-  /* 30-degree graticule: 12 columns of longitude, 6 rows of latitude. */
+  /* 30-degree graticule over local equirectangular SVG basemap (zero third-party requests). */
   background-image:
     linear-gradient(var(--line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--line) 1px, transparent 1px);
-  background-size: calc(100% / 12) calc(100% / 6);
+    linear-gradient(90deg, var(--line) 1px, transparent 1px),
+    url('/assets/maps/moon.svg');
+  background-size:
+    calc(100% / 12) calc(100% / 6),
+    calc(100% / 12) calc(100% / 6),
+    100% 100%;
   outline: 1px solid var(--line);
 }
 
 .hub-map[data-world='mars'] {
   background-color: var(--mars-ground);
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px),
+    url('/assets/maps/mars.svg');
 }
 
 .hub-marker {
@@ -158,7 +188,17 @@
   cursor: pointer;
 }
 
-/* Unvisited echo: cyan ring (GDD 6.4). */
+/* Unvisited echo: cyan ring with a gentle beacon pulse (GDD 6.4). */
+@keyframes echo-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(79, 216, 255, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 5px rgba(79, 216, 255, 0);
+  }
+}
+
 .hub-marker::before {
   content: '';
   position: absolute;
@@ -167,6 +207,10 @@
   border-radius: 50%;
   background: var(--space);
   transition: transform 120ms ease-out;
+}
+
+.hub-marker[data-archived='none']::before {
+  animation: echo-pulse 2.4s ease-in-out infinite;
 }
 
 .hub-marker--cluster::before {
@@ -265,8 +309,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hub-marker::before {
+  .hub-marker::before,
+  .hub-marker[data-archived='none']::before {
     transition: none;
+    animation: none;
   }
 
   .hub-marker:hover::before {

@@ -27,8 +27,14 @@
   align-items: flex-end;
 }
 
+.site-actions {
+  display: flex;
+  gap: 8px;
+}
+
 .site-settings,
 .site-map,
+.site-archive,
 .interact-button,
 .joystick {
   pointer-events: auto;
@@ -36,6 +42,7 @@
 
 .site-settings,
 .site-map,
+.site-archive,
 .interact-button {
   min-width: var(--target);
   min-height: var(--target);
@@ -48,7 +55,12 @@
   cursor: pointer;
 }
 
+.site-archive {
+  border-color: var(--amber);
+}
+
 .site-map:focus-visible,
+.site-archive:focus-visible,
 .interact-button:focus-visible {
   outline: 3px solid var(--ink);
   outline-offset: 2px;

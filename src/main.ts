@@ -23,6 +23,7 @@ import { OPENING_SCENE_KEY, Opening } from './scenes/Opening';
 import { OpeningPanel } from './ui/OpeningPanel';
 import { Epilogue } from './ui/Epilogue';
 import { epilogueSummary } from './systems/epilogue';
+import { AudioSystem } from './systems/audio';
 import './ui/styles/mobile.css';
 
 export function startGame(parent: string): Game {
@@ -46,6 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const progress = new Progress(openStore());
   const getArchived = () => progress.archivedIds();
   applySettings(progress.settings);
+  const audio = new AudioSystem(document.body);
+  audio.updateSettings(progress.settings);
 
   // While any DOM dialog is open, Phaser must not read or swallow key presses, and the
   // site or landing scene pauses (GDD 11.1: pause available everywhere, no timed menus).
@@ -58,8 +61,12 @@ document.addEventListener('DOMContentLoaded', () => {
       if (open && game.scene.isActive(key)) game.scene.pause(key);
       else if (!open && game.scene.isPaused(key)) game.scene.resume(key);
     }
-    if (open) landingHud.releaseAll();
-    else if (inScene() && (document.activeElement === null || document.activeElement === document.body)) game.canvas.focus();
+    if (open) {
+      landingHud.releaseAll();
+      audio.stopAll();
+    } else if (inScene() && (document.activeElement === null || document.activeElement === document.body)) {
+      game.canvas.focus();
+    }
   };
 
   const about = new About(syncOverlay);
@@ -119,16 +126,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
   progress.onChange(() => {
     applySettings(progress.settings);
-    // A running scene follows a reduced-motion change at once (paused counts as running here).
+    audio.updateSettings(progress.settings);
+    // A running scene follows a reduced-motion or reduced-effects change at once (paused counts as running here).
     const reduced = progress.settings.reducedMotion;
+    const reducedFx = progress.settings.reducedEffects;
     const live = (key: string) => game.scene.isActive(key) || game.scene.isPaused(key);
-    if (live(SITE_SCENE_KEY)) (game.scene.getScene(SITE_SCENE_KEY) as SiteScene).setReducedMotion(reduced);
-    if (live(LANDING_SCENE_KEY)) (game.scene.getScene(LANDING_SCENE_KEY) as LandingScene).setReducedMotion(reduced);
+    if (live(SITE_SCENE_KEY)) {
+      const s = game.scene.getScene(SITE_SCENE_KEY) as SiteScene;
+      s.setReducedMotion(reduced);
+      s.setReducedEffects(reducedFx);
+    }
+    if (live(LANDING_SCENE_KEY)) {
+      const l = game.scene.getScene(LANDING_SCENE_KEY) as LandingScene;
+      l.setReducedMotion(reduced);
+      l.setReducedEffects(reducedFx);
+    }
     hub?.refresh();
     archive.refresh();
     showNotice();
   });
   eventBus.on(Events.ENTRY_RECOVERED, ({ entryId, assisted }) => {
+    audio.recovered();
     const wasComplete = summary().complete;
     progress.recover(entryId, assisted);
     if (wasComplete || !summary().complete) return;
@@ -138,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Hub -> site scene -> hub. The hub hides while a site is open so the canvas is visible.
-  const siteHud = new SiteHud(document.body, openSettings);
+  const siteHud = new SiteHud(document.body, openSettings, (opener) => archive.open(opener));
   const byId = new Map(entries.map((e) => [e.id, e]));
   const startSite = (entryId: string, atMachine: boolean) => {
     const entry = byId.get(entryId);
@@ -151,6 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
       recovery: entry.recovery,
       recovered: progress.archivedIds().has(entryId),
       reducedMotion: progress.settings.reducedMotion,
+      reducedEffects: progress.settings.reducedEffects,
       atMachine,
     });
     game.canvas.tabIndex = -1;
@@ -163,6 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const failures = new Map<string, number>();
   let landing: { entryId: string; level: ResolvedLevel } | null = null;
   const startLanding = (entryId: string, assist: boolean) => {
+    audio.stopAll();
     const level = levels.get(entryId);
     if (!level) return;
     const resolved = resolveLevel(level, { assist });
@@ -170,11 +190,17 @@ document.addEventListener('DOMContentLoaded', () => {
     game.scene.stop(SITE_SCENE_KEY);
     siteHud.hide();
     if (game.scene.isActive(LANDING_SCENE_KEY)) game.scene.stop(LANDING_SCENE_KEY);
-    game.scene.start(LANDING_SCENE_KEY, { entryId, level: resolved, reducedMotion: progress.settings.reducedMotion });
+    game.scene.start(LANDING_SCENE_KEY, {
+      entryId,
+      level: resolved,
+      reducedMotion: progress.settings.reducedMotion,
+      reducedEffects: progress.settings.reducedEffects,
+    });
     landingHud.show(resolved);
     game.canvas.focus();
   };
   const backToSite = () => {
+    audio.stopAll();
     if (!landing) return;
     const { entryId } = landing;
     landing = null;
@@ -196,19 +222,35 @@ document.addEventListener('DOMContentLoaded', () => {
     },
   });
   eventBus.on(Events.SITE_LAND, ({ entryId }) => startLanding(entryId, false));
+  eventBus.on(Events.SITE_ECHO, ({ state }) => {
+    if (state === 'near') audio.echoNear();
+    else if (state === 'ready') audio.echoReady();
+  });
+  eventBus.on(Events.LANDING_THRUST, ({ thrusting }) => {
+    if (thrusting) audio.startThrust();
+    else audio.stopThrust();
+  });
   eventBus.on(Events.LANDING_RESULT, ({ entryId, outcome }) => {
     if (!landing || landing.entryId !== entryId) return;
     const assisted = landing.level.assisted;
     if (outcome === 'landed') {
+      audio.landed();
       failures.delete(entryId);
       eventBus.emit(Events.ENTRY_RECOVERED, { entryId, assisted });
     } else {
+      audio.crash();
       failures.set(entryId, (failures.get(entryId) ?? 0) + 1);
     }
     const offerHelp = (failures.get(entryId) ?? 0) >= LANDING.assist.afterFailures;
-    landingHud.showResult(outcome, { offerHelp, assisted });
+    landingHud.showResult(outcome, {
+      offerHelp,
+      offerSkip: offerHelp || progress.settings.alwaysOfferSkip,
+      assisted,
+    });
   });
+  eventBus.on(Events.SITE_ARCHIVE, () => archive.open(null));
   eventBus.on(Events.SITE_LEAVE, () => {
+    audio.stopAll();
     game.scene.stop(SITE_SCENE_KEY);
     game.canvas.parentElement?.setAttribute('data-scene', 'Hub');
     siteHud.hide();
@@ -224,6 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const wantOpening = import.meta.env.MODE !== 'e2e' || new URLSearchParams(location.search).has('opening');
   if (hubRoot && wantOpening && !progress.openingSeen) {
     hubRoot.hidden = true;
+    audio.openingBoot();
     game.scene.start(OPENING_SCENE_KEY, { reducedMotion: progress.settings.reducedMotion });
     new OpeningPanel(document.body, {
       echoCount: entries.filter((e) => e.world === 'moon').length,

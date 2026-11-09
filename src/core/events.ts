@@ -9,9 +9,11 @@ export const Events = {
   SITE_MOVE: 'site:move',
   SITE_INTERACT: 'site:interact',
   SITE_LEAVE: 'site:leave',
+  SITE_ARCHIVE: 'site:archive',
   SITE_ECHO: 'site:echo',
   SITE_LAND: 'site:land',
   LANDING_INPUT: 'landing:input',
+  LANDING_THRUST: 'landing:thrust',
   LANDING_TICK: 'landing:tick',
   LANDING_RESULT: 'landing:result',
 } as const;
@@ -26,12 +28,16 @@ export interface EventPayloads {
   'site:interact': Record<string, never>;
   /** Back to the hub map (Map button or M). */
   'site:leave': Record<string, never>;
+  /** Open the Archive from the site scene (Archive button or I). */
+  'site:archive': Record<string, never>;
   /** The echo state changed, for the DOM HUD. */
   'site:echo': { state: EchoState };
   /** The robot is ready to start a jetpack landing (M5 listens). */
   'site:land': { entryId: string };
   /** On-screen jetpack buttons held right now (the keyboard is read inside the scene). */
   'landing:input': Input;
+  /** Whether the thrusters are currently firing. */
+  'landing:thrust': { thrusting: boolean };
   /** About 10 times a second while flying, for the DOM meters. */
   'landing:tick': { fuel: number; fuelMax: number; vx: number; vy: number };
   /** The landing run ended. A failure never touches the save. */

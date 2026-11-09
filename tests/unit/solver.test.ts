@@ -10,8 +10,21 @@ const levels: Level[] = readdirSync(DIR)
   .map((f) => LevelSchema.parse(JSON.parse(readFileSync(`${DIR}/${f}`, 'utf8'))));
 
 describe('level files', () => {
-  it('cover the three Moon flagships', () => {
-    expect(levels.map((l) => l.id).sort()).toEqual(['apollo-11-site', 'apollo-15-lrv', 'surveyor-3']);
+  it('cover the Moon and Mars flagships', () => {
+    expect(levels.map((l) => l.id).sort()).toEqual([
+      'apollo-11-site',
+      'apollo-15-lrv',
+      'ingenuity',
+      'sojourner-pathfinder',
+      'spirit-opportunity',
+      'surveyor-3',
+    ]);
+  });
+
+  it('sets Mars flagships on Mars and puts Ingenuity on Hard', () => {
+    const marsLevels = levels.filter((l) => l.world === 'mars');
+    expect(marsLevels.map((l) => l.id).sort()).toEqual(['ingenuity', 'sojourner-pathfinder', 'spirit-opportunity']);
+    expect(levels.find((l) => l.id === 'ingenuity')?.difficulty).toBe('hard');
   });
 
   it('use the difficulty platform width and the GDD travel distance', () => {

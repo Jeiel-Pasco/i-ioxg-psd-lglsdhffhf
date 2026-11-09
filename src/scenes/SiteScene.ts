@@ -5,6 +5,7 @@ import { Events, eventBus } from '../core/events';
 import { siteLayout, type SiteLayout } from '../data/sites';
 import { echoArrowAngle, echoState, type EchoState } from '../systems/echo';
 import { stepMovement, type Body } from '../systems/movement';
+import { ROBOT_SITE_TEX, ensureEntityTextures, machineTextureKey } from '../sprites/pixelRenderer';
 
 export const SITE_SCENE_KEY = 'Site';
 
@@ -14,6 +15,7 @@ export interface SiteData {
   recovery: 'jetpack' | 'visit';
   recovered: boolean;
   reducedMotion: boolean;
+  reducedEffects?: boolean;
   /** Start beside the machine (coming back from a landing) instead of at the layout start. */
   atMachine?: boolean;
 }
@@ -28,13 +30,11 @@ export interface SiteSnapshot {
   machine: { x: number; y: number; visible: boolean; archivedTag: boolean };
 }
 
-const ROBOT_TEX = 'site-robot';
-const MACHINE_TEX = 'site-machine';
 const C = SITE.colors;
 /** Longest step a single frame may take, so a hidden tab does not make the robot jump. */
 const MAX_DT = 0.1;
 
-type Keys = Record<'W' | 'A' | 'S' | 'D' | 'UP' | 'DOWN' | 'LEFT' | 'RIGHT' | 'E' | 'M', Input.Keyboard.Key>;
+type Keys = Record<'W' | 'A' | 'S' | 'D' | 'UP' | 'DOWN' | 'LEFT' | 'RIGHT' | 'E' | 'M' | 'I', Input.Keyboard.Key>;
 
 /** Top-down site scene (GDD 5.1, 6.3, 6.4). One shared template per world plus the entry's layout. */
 export class SiteScene extends Scene {
@@ -46,6 +46,7 @@ export class SiteScene extends Scene {
   private keys: Keys | null = null;
   private robot: GameObjects.Image;
   private machine: GameObjects.Image;
+  private speckles: GameObjects.Graphics;
   private pulse: GameObjects.Graphics;
   private arrow: GameObjects.Triangle;
   private prompt: GameObjects.Text;
@@ -67,8 +68,18 @@ export class SiteScene extends Scene {
   }
 
   create(): void {
-    this.makeTextures();
+    ensureEntityTextures(this);
     this.add.rectangle(0, 0, SITE.width, SITE.height, SITE.ground[this.site.world]).setOrigin(0);
+    this.speckles = this.add.graphics();
+    const speckleColor = this.site.world === 'mars' ? 0x522315 : 0x2c2f36;
+    this.speckles.fillStyle(speckleColor, 0.7);
+    for (let i = 0; i < 90; i++) {
+      const sx = (i * 137 + 41) % SITE.width;
+      const sy = (i * 89 + 23) % SITE.height;
+      this.speckles.fillRect(sx, sy, i % 3 === 0 ? 2 : 1, 1);
+    }
+    this.speckles.setVisible(!this.site.reducedEffects);
+
     for (const p of this.layout.props) {
       if (p.kind === 'crater') this.add.circle(p.x, p.y, p.r, C.crater).setStrokeStyle(2, C.rock);
       else this.add.circle(p.x, p.y, p.r, C.rock);
@@ -77,11 +88,11 @@ export class SiteScene extends Scene {
     const m = this.layout.machine;
     this.pulse = this.add.graphics();
     // The real machine always stays in the scene, recovered or not (CLAUDE.md rule 5).
-    this.machine = this.add.image(m.x, m.y, MACHINE_TEX);
+    this.machine = this.add.image(m.x, m.y, machineTextureKey(this.site.entryId));
     const label = { fontFamily: 'system-ui, sans-serif', fontSize: '8px', resolution: 4 };
     this.tag = this.add.text(m.x, m.y - 20, text.site.archivedTag, { ...label, color: '#ffbf5e' }).setOrigin(0.5, 1);
     this.prompt = this.add.text(m.x + 16, m.y, text.site.prompt, { ...label, color: '#4fd8ff' }).setOrigin(0, 0.5);
-    this.robot = this.add.image(this.body.x, this.body.y, ROBOT_TEX);
+    this.robot = this.add.image(this.body.x, this.body.y, ROBOT_SITE_TEX);
     this.arrow = this.add.triangle(0, 0, 0, -5, 10, 0, 0, 5, C.cyan).setScrollFactor(0).setVisible(false);
 
     const cam = this.cameras.main;
@@ -92,9 +103,10 @@ export class SiteScene extends Scene {
 
     const kb = this.input.keyboard;
     if (kb) {
-      this.keys = kb.addKeys('W,A,S,D,UP,DOWN,LEFT,RIGHT,E,M') as Keys;
+      this.keys = kb.addKeys('W,A,S,D,UP,DOWN,LEFT,RIGHT,E,M,I') as Keys;
       this.keys.E.on('down', () => this.interact());
       this.keys.M.on('down', () => eventBus.emit(Events.SITE_LEAVE, {}));
+      this.keys.I.on('down', () => eventBus.emit(Events.SITE_ARCHIVE, {}));
     }
     this.offs = [
       eventBus.on(Events.SITE_MOVE, (v) => (this.touch = v)),
@@ -126,6 +138,12 @@ export class SiteScene extends Scene {
     this.site.reducedMotion = on;
     const lerp = on ? 1 : SITE.camera.lerp;
     this.cameras.main.setLerp(lerp, lerp);
+  }
+
+  /** Toggles decorative surface speckles while the scene runs. */
+  setReducedEffects(on: boolean): void {
+    this.site.reducedEffects = on;
+    this.speckles?.setVisible(!on);
   }
 
   snapshot(): SiteSnapshot {
@@ -187,24 +205,6 @@ export class SiteScene extends Scene {
     const hh = v.height / 2 - 10;
     const s = Math.min(hw / Math.abs(Math.cos(angle) || 1e-6), hh / Math.abs(Math.sin(angle) || 1e-6));
     this.arrow.setPosition(v.width / 2 + Math.cos(angle) * s, v.height / 2 + Math.sin(angle) * s).setRotation(angle);
-  }
-
-  /** Original placeholder pixel art: a small upright robot and a generic lander shape. */
-  private makeTextures(): void {
-    if (!this.textures.exists(ROBOT_TEX)) {
-      const g = this.make.graphics({}, false);
-      g.fillStyle(C.robot).fillRect(3, 0, 6, 5).fillRect(1, 5, 10, 7).fillStyle(C.cyan).fillRect(4, 2, 4, 1);
-      g.fillStyle(C.rock).fillRect(1, 12, 3, 2).fillRect(8, 12, 3, 2);
-      g.generateTexture(ROBOT_TEX, 12, 14);
-      g.destroy();
-    }
-    if (!this.textures.exists(MACHINE_TEX)) {
-      const g = this.make.graphics({}, false);
-      g.fillStyle(C.machine).fillRect(5, 3, 14, 9).fillStyle(C.amber).fillRect(8, 0, 8, 3);
-      g.lineStyle(2, C.machine).lineBetween(6, 12, 1, 20).lineBetween(18, 12, 23, 20).lineBetween(12, 12, 12, 20);
-      g.generateTexture(MACHINE_TEX, 24, 21);
-      g.destroy();
-    }
   }
 
   private cleanup(): void {

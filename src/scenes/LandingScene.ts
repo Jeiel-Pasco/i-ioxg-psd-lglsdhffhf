@@ -7,6 +7,7 @@ import { landingOutcome, type Outcome } from '../systems/outcome';
 import { stepPhysics, type Input, type LanderState } from '../systems/physics';
 import { startState } from '../systems/solver';
 import { FixedStepper } from '../systems/stepper';
+import { ROBOT_LANDING_TEX, ensureEntityTextures, machineTextureKey } from '../sprites/pixelRenderer';
 
 export const LANDING_SCENE_KEY = 'Landing';
 
@@ -14,6 +15,7 @@ export interface LandingData {
   entryId: string;
   level: ResolvedLevel;
   reducedMotion: boolean;
+  reducedEffects?: boolean;
 }
 
 export interface LandingSnapshot {
@@ -26,8 +28,6 @@ export interface LandingSnapshot {
 }
 
 const PX = LANDING.pxPerMetre;
-const ROBOT_TEX = 'landing-robot';
-const MACHINE_TEX = 'site-machine';
 const C = SITE.colors;
 const NONE: Input = { thrust: 0, steer: 0 };
 /** Meters in the DOM update every this many physics steps (about 10 times a second). */
@@ -50,7 +50,9 @@ export class LandingScene extends Scene {
   private robot: GameObjects.Image;
   private flame: GameObjects.Triangle;
   private puff: GameObjects.Rectangle;
+  private skyDecor: GameObjects.Graphics;
   private offs: (() => void)[] = [];
+  private wasThrusting = false;
 
   constructor() {
     super(LANDING_SCENE_KEY);
@@ -64,18 +66,36 @@ export class LandingScene extends Scene {
 
   create(): void {
     const level = this.data_.level;
-    this.makeTextures();
+    ensureEntityTextures(this);
+    const wPx = LANDING.widthM * PX;
+    const hPx = LANDING.heightM * PX;
     const ground = level.groundM * PX;
-    this.add.rectangle(0, ground, LANDING.widthM * PX, LANDING.heightM * PX - ground, SITE.ground[level.world]).setOrigin(0);
+
+    // Sky stars and distant horizon ridge (GDD 4.2), hidden when reducedEffects is enabled.
+    this.skyDecor = this.add.graphics();
+    const starColor = level.world === 'mars' ? 0xffd2a6 : 0xe8edf5;
+    this.skyDecor.fillStyle(starColor, level.world === 'mars' ? 0.55 : 0.85);
+    for (let i = 0; i < 28; i++) {
+      const sx = (i * 67 + 19) % wPx;
+      const sy = (i * 31 + 7) % Math.max(16, ground - 24);
+      this.skyDecor.fillRect(sx, sy, 1, 1);
+    }
+    const ridgeColor = level.world === 'mars' ? 0x4b2013 : 0x252830;
+    this.skyDecor.fillStyle(ridgeColor, 1);
+    this.skyDecor.fillTriangle(0, ground, 56, ground - 18, 128, ground);
+    this.skyDecor.fillTriangle(96, ground, 176, ground - 24, 256, ground);
+    this.skyDecor.fillTriangle(216, ground, 276, ground - 15, wPx, ground);
+    this.skyDecor.setVisible(!this.data_.reducedEffects);
+
+    this.add.rectangle(0, ground, wPx, hPx - ground, SITE.ground[level.world]).setOrigin(0);
     this.drawPlatform();
     // The real machine stays in the scene beside the pad (CLAUDE.md rule 5).
     const mx = (level.platform.x + level.platform.width / 2 + 2.5) * PX;
-    if (this.textures.exists(MACHINE_TEX)) this.add.image(mx, ground, MACHINE_TEX).setOrigin(0.5, 1);
-    else this.add.rectangle(mx, ground, 20, 16, C.machine).setOrigin(0.5, 1);
+    this.add.image(mx, ground, machineTextureKey(this.data_.entryId)).setOrigin(0.5, 1);
 
     this.flame = this.add.triangle(0, 0, -3, 0, 3, 0, 0, 6, C.amber).setOrigin(0.5, 0).setVisible(false);
     this.puff = this.add.rectangle(0, 0, 3, 2, C.cyan).setVisible(false);
-    this.robot = this.add.image(0, 0, ROBOT_TEX).setOrigin(0.5, 1);
+    this.robot = this.add.image(0, 0, ROBOT_LANDING_TEX).setOrigin(0.5, 1);
     this.cameras.main.setRoundPixels(true);
 
     const kb = this.input.keyboard;
@@ -103,6 +123,12 @@ export class LandingScene extends Scene {
     this.data_.reducedMotion = on;
   }
 
+  /** Toggles decorative sky stars and horizon ridges while the scene runs. */
+  setReducedEffects(on: boolean): void {
+    this.data_.reducedEffects = on;
+    this.skyDecor?.setVisible(!on);
+  }
+
   level(): ResolvedLevel {
     return this.data_.level;
   }
@@ -119,6 +145,10 @@ export class LandingScene extends Scene {
   }
 
   private reset(script: readonly Input[] | null): void {
+    if (this.wasThrusting) {
+      this.wasThrusting = false;
+      eventBus.emit(Events.LANDING_THRUST, { thrusting: false });
+    }
     this.state = startState(this.data_.level);
     this.stepper = new FixedStepper();
     this.outcome = null;
@@ -165,7 +195,12 @@ export class LandingScene extends Scene {
     const y = Math.round(s.y * PX);
     this.robot.setPosition(x, y);
     const flying = !this.outcome && s.fuel > 0;
-    this.flame.setPosition(x, y).setVisible(flying && this.input_.thrust === 1);
+    const thrusting = flying && this.input_.thrust === 1;
+    if (thrusting !== this.wasThrusting) {
+      this.wasThrusting = thrusting;
+      eventBus.emit(Events.LANDING_THRUST, { thrusting });
+    }
+    this.flame.setPosition(x, y).setVisible(thrusting);
     this.puff.setPosition(x - this.input_.steer * 8, y - 8).setVisible(flying && this.input_.steer !== 0);
     // A failed run tips the robot over a little: short and not punishing (GDD 7.6). No motion if reduced.
     const tipped = this.outcome && this.outcome !== 'landed' && !this.data_.reducedMotion;
@@ -185,18 +220,11 @@ export class LandingScene extends Scene {
     g.fillStyle(C.amber).fillRect(left, top - 6, 1, 6).fillRect(left + w - 1, top - 6, 1, 6);
   }
 
-  /** Original placeholder pixel art: the same small upright robot with a jetpack. */
-  private makeTextures(): void {
-    if (this.textures.exists(ROBOT_TEX)) return;
-    const g = this.make.graphics({}, false);
-    g.fillStyle(C.robot).fillRect(3, 0, 6, 5).fillRect(1, 5, 10, 7).fillStyle(C.cyan).fillRect(4, 2, 4, 1);
-    g.fillStyle(C.machine).fillRect(0, 6, 1, 5).fillRect(11, 6, 1, 5);
-    g.fillStyle(C.rock).fillRect(1, 12, 3, 2).fillRect(8, 12, 3, 2);
-    g.generateTexture(ROBOT_TEX, 12, 14);
-    g.destroy();
-  }
-
   private cleanup(): void {
+    if (this.wasThrusting) {
+      this.wasThrusting = false;
+      eventBus.emit(Events.LANDING_THRUST, { thrusting: false });
+    }
     for (const off of this.offs) off();
     this.offs = [];
     this.input.keyboard?.removeAllKeys(true, true);

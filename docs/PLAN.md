@@ -46,7 +46,7 @@
 - [x] Use an equirectangular `project(lat, lon, w, h): {x, y}`. Group markers closer than 24 px into a numbered cluster badge that expands on select (§5.5).
 - [x] The marker card shows the name, status badge, coordinates (with "approximate" where it applies) and a **Fly here** button.
 - [x] The Moon/Mars switch shows Mars as locked, with a reason (D4: the 3 Moon flagships).
-- [ ] Map tiles from `data.zip` are hosted under `public/assets/maps/`, with credit.
+- [x] Map tiles from `data.zip` are hosted under `public/assets/maps/`, with credit.
 - **Files:** `src/ui/hub/HubMap.ts`, `src/ui/hub/markers.ts` (`project`, `clusterMarkers`), `src/ui/hub/MarkerCard.ts`, `src/ui/styles/hub.css`, `tests/unit/markers.test.ts`, `tests/e2e/hub.spec.ts`
 - **Exit tests:** `markers.test.ts` covers projection corners and the Surveyor 3 / Apollo 12 cluster. `hub.spec.ts` selects all 21 markers, both with a mouse and with touch emulation at 360x740, and checks the card fields plus the Mars lock reason.
 - **Skills:** design-taste-frontend, add-feature, test-driven-development

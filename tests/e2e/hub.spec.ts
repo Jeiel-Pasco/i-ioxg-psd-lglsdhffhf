@@ -104,8 +104,9 @@ test('markers are at least 44 by 44 px and reachable by keyboard', async ({ page
   await expect(page.locator('.hub-card')).toHaveAttribute('data-marker-key', /.+/);
 });
 
-test('Fly here is enabled on Moon markers', async ({ page }) => {
+test('Fly here is enabled on Moon markers and hub shows recovery progress', async ({ page }) => {
   await page.goto('/');
+  await expect(page.locator('.hub-progress')).toContainText('0 of 17 (0 of 8 Moon · 0 of 9 Mars)');
   const first = page.locator('.hub-marker').first();
   await first.click();
   const member = page.locator('.hub-card .hub-cluster-member').first();

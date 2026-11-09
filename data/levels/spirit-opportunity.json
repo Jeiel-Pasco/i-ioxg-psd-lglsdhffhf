@@ -1,0 +1,18 @@
+{
+  "id": "spirit-opportunity",
+  "world": "mars",
+  "difficulty": "normal",
+  "start": {
+    "x": 4,
+    "y": 3
+  },
+  "startVelocity": {
+    "x": 1.5,
+    "y": 0.5
+  },
+  "platform": {
+    "x": 30,
+    "width": 6
+  },
+  "fuel": 5.46
+}

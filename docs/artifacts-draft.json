@@ -1,0 +1,177 @@
+{
+  "_meta": {
+    "researched_on": "2026-11-09",
+    "drafted_by": "AI draft (Claude). Every claim below must be re-checked by a human against the linked source.",
+    "human_fields_note": "written_by, verified_by and last_verified are intentionally null. A human fills them (CLAUDE.md data rules). The build gate must fail until they are set and writer differs from verifier.",
+    "catalogue": {
+      "title": "Catalogue of Manmade Material on the Moon, NASA History Program Office, 7-05-12",
+      "url": "https://www.nasa.gov/wp-content/uploads/2024/02/final-catalogue-of-manmade-material-on-the-moon.pdf"
+    }
+  },
+  "entries": [
+    {
+      "id": "apollo-11-site",
+      "name": "Apollo 11 Tranquility Base (Eagle descent stage)",
+      "world": "moon",
+      "tier": "flagship",
+      "status": "dormant",
+      "launch_date": "1969-07-16",
+      "end_date": null,
+      "locations": [
+        {
+          "label": "Lunar module descent stage (plaque attached)",
+          "lat": 0.67408,
+          "lon": 23.47297,
+          "source_url": "https://www.nasa.gov/wp-content/uploads/2024/02/final-catalogue-of-manmade-material-on-the-moon.pdf",
+          "approximate": false
+        }
+      ],
+      "summary": "Apollo 11 landed the first people on the Moon in July 1969. When the astronauts flew home, they left the bottom half of the Eagle lander on the surface. A metal plaque is still attached to one of its legs. A mirror array they set up nearby is still used by scientists today.",
+      "hook": "I am the part of Eagle that stayed behind. A plaque is attached to my landing gear, and a mirror array left close by is still being used.",
+      "how_it_worked": "Eagle had two stages. The descent stage carried the crew down to the surface. The ascent stage flew them back up. NASA's catalogue lists the descent stage on the Moon with the plaque attached. NASA History says the ascent stage was left in lunar orbit and later hit the Moon at an unknown place.",
+      "science": "The crew spent about 2.5 hours outside, staying within about 100 meters of Eagle. They set up science tools and brought home 21.7 kg of samples, about 3.6 billion years old.",
+      "facts": [
+        {
+          "text": "The Apollo 11 astronauts spent about 2.5 hours outside Eagle and stayed within about 100 meters of it.",
+          "source_url": "https://science.nasa.gov/wp-content/uploads/2024/01/apollo11-anniversar-litho.pdf"
+        },
+        {
+          "text": "The mirror array (retroreflector) left by Apollo 11 needs no power and is still used today to measure the distance to the Moon.",
+          "source_url": "https://www.jpl.nasa.gov/news/the-apollo-experiment-that-keeps-on-giving/"
+        }
+      ],
+      "additional_sources": [
+        {"claim": "Plaque is on the ladder of a descent stage landing gear strut", "source_url": "https://science.nasa.gov/resource/apollo-11-plaque/"},
+        {"claim": "Ascent stage left in lunar orbit, later impacted at an unknown location", "source_url": "https://www.nasa.gov/wp-content/uploads/static/history/humanartifacts.html"},
+        {"claim": "Launch 1969-07-16; 21.7 kg samples; samples about 3.6 billion years old", "source_url": "https://science.nasa.gov/wp-content/uploads/2024/01/apollo11-anniversar-litho.pdf"}
+      ],
+      "image": {
+        "nasa_id": "337294main-pg62-as11-40-5903-full",
+        "credit": "NASA",
+        "source_url": "https://www.nasa.gov/image-detail/337294main-pg62-as11-40-5903-full/",
+        "alt": "Astronaut Buzz Aldrin on the Moon near the leg of the lunar module Eagle, during Apollo 11."
+      },
+      "written_by": null,
+      "verified_by": null,
+      "last_verified": null,
+      "recovery": "jetpack",
+      "researched_on": "2026-11-09",
+      "notes": [
+        "Marker is the catalogue's descent stage position (0.67408, 23.47297). The catalogue's separate 'landing location' (0.41 N, 23.26 E) and the retroreflector (0.67337, 23.47293) differ; keep the reflector for the retroreflectors entry.",
+        "end_date is null: no NASA source for a dormant date. Decide whether the schema allows null for dormant entries.",
+        "Landing date 1969-07-20 appears in the litho PDF but is not used. A NASA source for the landing time was not found.",
+        "The plaque text itself was not read; a human should check the exact wording before quoting it.",
+        "Image AS11-40-5903 was identified from the NASA image page text; a human should view it and confirm the alt text."
+      ]
+    },
+    {
+      "id": "apollo-15-lrv",
+      "name": "Apollo 15 Lunar Roving Vehicle",
+      "world": "moon",
+      "tier": "flagship",
+      "status": "dormant",
+      "launch_date": "1971-07-26",
+      "end_date": null,
+      "locations": [
+        {
+          "label": "Lunar module descent stage; rover parked about 160 m east (LROC) / about 500 ft (NASA History)",
+          "lat": 26.13222,
+          "lon": 3.63386,
+          "source_url": "https://www.nasa.gov/wp-content/uploads/2024/02/final-catalogue-of-manmade-material-on-the-moon.pdf",
+          "approximate": true
+        }
+      ],
+      "summary": "The Apollo 15 rover was the first car driven on the Moon. It arrived folded up and opened by itself. Commander David Scott drove it in 1971, and then parked it where a TV camera could watch the crew lift off. It is still parked there.",
+      "hook": "I was parked about 500 feet from the lander so a TV camera could watch the crew leave. I am still there.",
+      "how_it_worked": "The rover was folded to fit on the lander and unfolded on its own. It was 3.9 meters long and 1.8 meters wide. It could drive up to 15 km/h. Over three trips outside, the crew drove it more than 25 km in total.",
+      "science": "The rover let the crew travel farther from the lander than they could on foot, so they could study more of the Hadley-Apennine area.",
+      "facts": [
+        {
+          "text": "David Scott was the first human to drive on the Moon. On the return of the second moonwalk, the rover set a land speed record of 12 km/h.",
+          "source_url": "https://www.nasa.gov/history/50-years-ago-apollo-15-on-the-moon-at-hadley-apennine/"
+        },
+        {
+          "text": "Scott parked the rover about 500 feet from the lunar module so the remote-controlled TV camera could show the liftoff.",
+          "source_url": "https://www.nasa.gov/history/50-years-ago-apollo-15-on-the-moon-at-hadley-apennine/"
+        }
+      ],
+      "additional_sources": [
+        {"claim": "Speed up to 15 km/h; over 25 km total; 3.9 m long, 1.8 m wide; arrived folded and unfolded automatically; still visible in LROC images; parked about 160 m east of the lunar module", "source_url": "https://lroc.im-ldi.com/images/1198"},
+        {"claim": "Launch 1971-07-26", "source_url": "https://www.nasa.gov/history/50-years-ago-apollo-15-on-the-moon-at-hadley-apennine/"}
+      ],
+      "image": {
+        "nasa_id": "AS15-88-11901",
+        "credit": "NASA",
+        "source_url": "https://www.nasa.gov/history/50-years-ago-apollo-15-on-the-moon-at-hadley-apennine/",
+        "alt": "The Apollo 15 lunar rover in its final parked position on the Moon's surface."
+      },
+      "written_by": null,
+      "verified_by": null,
+      "last_verified": null,
+      "recovery": "jetpack",
+      "researched_on": "2026-11-09",
+      "notes": [
+        "The catalogue lists no coordinates for the rover. The marker uses the lunar module descent stage (26.13222, 3.63386), so approximate is true.",
+        "CONFLICT: rover parking distance is about 160 m east (LROC) vs about 500 ft, roughly 152 m (NASA History). Both are stated as written; the hook uses the NASA History figure.",
+        "CONFLICT: moonwalk durations differ between LROC (6:28, 7:01, 4:44) and NASA History (6 h 34, 7 h 12, 4 h 50). Not used in the entry.",
+        "Image AS15-88-11901 is captioned 'rover's final parked position' in the NASA History article. The image was not viewed and the credit line was not confirmed on the image page; a human should check both.",
+        "end_date is null: no NASA source for a dormant date."
+      ]
+    },
+    {
+      "id": "surveyor-3",
+      "name": "Surveyor 3",
+      "world": "moon",
+      "tier": "flagship",
+      "status": "dormant",
+      "launch_date": "1967-04-17",
+      "end_date": "1967-05-04",
+      "locations": [
+        {
+          "label": "Surveyor 3 landing site, Oceanus Procellarum",
+          "lat": -3.015,
+          "lon": -23.418,
+          "source_url": "https://www.nasa.gov/wp-content/uploads/2024/02/final-catalogue-of-manmade-material-on-the-moon.pdf",
+          "approximate": false
+        }
+      ],
+      "summary": "Surveyor 3 landed on the Moon in April 1967 to test the soil before astronauts came. It bounced twice before it stopped. It dug trenches and sent back thousands of pictures. Two years later, Apollo 12 astronauts walked to it and took parts home.",
+      "hook": "I bounced twice before I stopped, and later Apollo 12 astronauts walked up to me and took my scoop and camera.",
+      "how_it_worked": "Its radar was confused by shiny rocks, and its engine did not shut off at about 14 feet. It bounced about 33 feet, then about 10 feet, before it settled. A scoop on a robot arm could reach 5 feet and dig 7 inches deep.",
+      "science": "The scoop dug four trenches, ran four bearing tests and thirteen impact tests. The soil acted like wet sand and was strong enough to hold an Apollo lunar module.",
+      "facts": [
+        {
+          "text": "Surveyor 3 sent back 6,326 pictures. NASA lists its last contact as 4 May 1967.",
+          "source_url": "https://science.nasa.gov/mission/surveyor-3/"
+        },
+        {
+          "text": "Apollo 12 landed about 180 meters from Surveyor 3, and the astronauts brought back its scoop and camera system.",
+          "source_url": "https://science.nasa.gov/mission/surveyor-3/"
+        }
+      ],
+      "additional_sources": [
+        {"claim": "About 600 ft away; bolt cutters used", "source_url": "https://science.nasa.gov/image-article/apod-1999-april-08-apollo-12-surveyor-3-and-intrepid/"},
+        {"claim": "Landing site 3 S, 23.41 W in southeastern Oceanus Procellarum", "source_url": "https://science.nasa.gov/mission/surveyor-3/"}
+      ],
+      "image": {
+        "nasa_id": "AS12-48-7121",
+        "credit": "NASA/JSC",
+        "source_url": "https://science.nasa.gov/resource/view-of-surveyor-iii-in-its-crater/",
+        "alt": "Surveyor 3 sitting in its crater on the Moon, photographed by Apollo 12 astronauts in November 1969."
+      },
+      "written_by": null,
+      "verified_by": null,
+      "last_verified": null,
+      "recovery": "jetpack",
+      "researched_on": "2026-11-09",
+      "notes": [
+        "Coordinates in the catalogue (-3.015, -23.418) match the NASA page (3 S, 23.41 W). Longitude here is positive east, so it is negative.",
+        "DATE CAVEAT: final touchdown is 20 April 1967 00:04:17 UT, which is 19 April in US time. The entry avoids stating a landing date.",
+        "CONFLICT: last contact is 4 May (NASA mission page) vs 3 May (Wikipedia). NASA used.",
+        "CONFLICT: distance to Apollo 12 is about 180 m / 600 ft (NASA) vs 163 m (data.zip). NASA used.",
+        "CONFLICT: Apollo 12 dates on NASA pages (Nov 18/19 landing, Nov 19/20 moonwalk) differ by US vs UT dates. Not used in the entry.",
+        "The 'dormant' status and end_date follow NASA's last-contact date."
+      ]
+    }
+  ]
+}

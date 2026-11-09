@@ -9,6 +9,7 @@ const SettingsSchema = z.object({
   reducedEffects: z.boolean(),
   audio: z.boolean(),
   captions: z.boolean(),
+  alwaysOfferSkip: z.boolean().default(false),
 });
 
 const SaveV1Schema = z.object({
@@ -16,8 +17,6 @@ const SaveV1Schema = z.object({
   // Whether an entry was assisted is kept for the player's own record only; the Archive never shows it.
   archived: z.record(z.string(), z.object({ assisted: z.boolean() })),
   read: z.array(z.string()),
-  results: z.record(z.string(), z.object({ attempts: z.number().int().min(0), completed: z.boolean() })),
-  position: z.object({ world: z.enum(['moon', 'mars']), siteId: z.string().nullable() }),
   unlocks: z.object({ mars: z.boolean() }),
   settings: SettingsSchema,
   // Added in M7 without a version bump: older v1 saves simply have not seen the opening.
@@ -32,8 +31,6 @@ export function defaultSave(): SaveV1 {
     version: SAVE_VERSION,
     archived: {},
     read: [],
-    results: {},
-    position: { world: 'moon', siteId: null },
     unlocks: { mars: false },
     settings: {
       textScale: 1,
@@ -42,6 +39,7 @@ export function defaultSave(): SaveV1 {
       reducedEffects: false,
       audio: false,
       captions: true,
+      alwaysOfferSkip: false,
     },
     openingSeen: false,
   };

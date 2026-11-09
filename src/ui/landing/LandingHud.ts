@@ -94,7 +94,12 @@ export class LandingHud {
   show(level: ResolvedLevel): void {
     this.level = level;
     const word = t.difficulty[level.difficulty];
-    this.info.textContent = fill(t.difficultyLabel, { difficulty: word }) + (level.assisted ? ` · ${t.assisted}` : '');
+    const startDrift =
+      level.difficulty === 'hard' && level.start.vx !== 0
+        ? ` · ${fill(t.startSpeed, { vx: Math.abs(level.start.vx).toFixed(1) })}`
+        : '';
+    this.info.textContent =
+      fill(t.difficultyLabel, { difficulty: word }) + startDrift + (level.assisted ? ` · ${t.assisted}` : '');
     this.root.dataset.difficulty = level.difficulty;
     this.result.hidden = true;
     this.meters(level.fuel, level.fuel, level.start.vx, level.start.vy);
@@ -107,8 +112,8 @@ export class LandingHud {
     this.releaseAll();
   }
 
-  /** Shows the end of a run. Assist and Skip appear only after enough failures in a row. */
-  showResult(outcome: Outcome, opts: { offerHelp: boolean; assisted: boolean }): void {
+  /** Shows the end of a run. Assist appears after enough failures in a row; Skip also shows when enabled in Settings. */
+  showResult(outcome: Outcome, opts: { offerHelp: boolean; offerSkip?: boolean; assisted: boolean }): void {
     this.releaseAll();
     const landed = outcome === 'landed';
     this.message.textContent = t.result[outcome];
@@ -117,7 +122,7 @@ export class LandingHud {
     this.readBtn.hidden = !landed;
     this.assistBtn.hidden = landed || !opts.offerHelp || opts.assisted;
     this.hint.hidden = this.assistBtn.hidden;
-    this.skipBtn.hidden = landed || !opts.offerHelp;
+    this.skipBtn.hidden = landed || !(opts.offerHelp || opts.offerSkip);
     this.result.hidden = false;
     (landed ? this.readBtn : this.retryBtn).focus();
   }

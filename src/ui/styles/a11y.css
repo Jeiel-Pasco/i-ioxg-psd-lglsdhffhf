@@ -31,8 +31,9 @@ html[data-motion='reduced'] *::after {
   scroll-behavior: auto !important;
 }
 
-/* Reduced effects: drop decorative layers such as the map grid lines. */
-html[data-effects='reduced'] .hub-map {
+/* Reduced effects: drop decorative layers such as the map grid lines and basemap illustration. */
+html[data-effects='reduced'] .hub-map,
+html[data-effects='reduced'] .hub-map[data-world='mars'] {
   background-image: none;
 }
 
@@ -57,7 +58,8 @@ html[data-effects='reduced'] .hub-map {
 /* Settings and About dialogs share the Archive's look. */
 .settings,
 .about,
-.epilogue {
+.epilogue,
+.mars-unlock {
   box-sizing: border-box;
   width: min(32rem, 100vw - 16px);
   max-width: none;
@@ -73,13 +75,15 @@ html[data-effects='reduced'] .hub-map {
 
 .settings::backdrop,
 .about::backdrop,
-.epilogue::backdrop {
+.epilogue::backdrop,
+.mars-unlock::backdrop {
   background: rgba(5, 7, 13, 0.85);
 }
 
 .settings h1,
 .about h1,
-.epilogue h1 {
+.epilogue h1,
+.mars-unlock h1 {
   margin: 0;
   font-size: 1.5rem;
 }
@@ -183,4 +187,26 @@ html[data-effects='reduced'] .hub-map {
 
 .record-frame .story-tag {
   color: var(--amber);
+}
+
+/* Sound captions (GDD 11.1, 11.4): floating caption notification for all sound cues. */
+.audio-caption {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  pointer-events: none;
+  padding: 6px 14px;
+  border: 1px solid var(--cyan);
+  border-radius: var(--radius);
+  background: rgba(14, 19, 32, 0.92);
+  color: var(--ink);
+  font: 0.875rem/1.3 system-ui, sans-serif;
+  letter-spacing: 0.04em;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.audio-caption[hidden] {
+  display: none;
 }

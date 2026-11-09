@@ -44,6 +44,145 @@
         { "kind": "crater", "x": 420, "y": 120, "r": 40 },
         { "kind": "rock", "x": 560, "y": 420, "r": 7 }
       ]
+    },
+    "sojourner-pathfinder": {
+      "start": { "x": 140, "y": 420 },
+      "machine": { "x": 720, "y": 180 },
+      "props": [
+        { "kind": "crater", "x": 320, "y": 150, "r": 44 },
+        { "kind": "crater", "x": 820, "y": 380, "r": 36 },
+        { "kind": "rock", "x": 520, "y": 280, "r": 10 },
+        { "kind": "rock", "x": 640, "y": 360, "r": 8 },
+        { "kind": "rock", "x": 200, "y": 300, "r": 6 }
+      ]
+    },
+    "spirit-opportunity": {
+      "start": { "x": 800, "y": 440 },
+      "machine": { "x": 240, "y": 180 },
+      "props": [
+        { "kind": "crater", "x": 480, "y": 140, "r": 60 },
+        { "kind": "rock", "x": 360, "y": 320, "r": 9 },
+        { "kind": "rock", "x": 650, "y": 260, "r": 7 },
+        { "kind": "rock", "x": 180, "y": 380, "r": 5 }
+      ]
+    },
+    "ingenuity": {
+      "start": { "x": 160, "y": 380 },
+      "machine": { "x": 680, "y": 200 },
+      "props": [
+        { "kind": "crater", "x": 440, "y": 120, "r": 48 },
+        { "kind": "rock", "x": 520, "y": 380, "r": 8 },
+        { "kind": "rock", "x": 300, "y": 260, "r": 7 }
+      ]
+    },
+    "apollo-17-site": {
+      "start": { "x": 140, "y": 420 },
+      "machine": { "x": 740, "y": 220 },
+      "props": [
+        { "kind": "crater", "x": 300, "y": 160, "r": 42 },
+        { "kind": "crater", "x": 800, "y": 380, "r": 34 },
+        { "kind": "rock", "x": 460, "y": 300, "r": 8 },
+        { "kind": "rock", "x": 620, "y": 380, "r": 7 },
+        { "kind": "rock", "x": 220, "y": 260, "r": 6 }
+      ]
+    },
+    "apollo-retroreflectors": {
+      "start": { "x": 160, "y": 270 },
+      "machine": { "x": 680, "y": 270 },
+      "props": [
+        { "kind": "crater", "x": 420, "y": 140, "r": 36 },
+        { "kind": "crater", "x": 480, "y": 400, "r": 30 },
+        { "kind": "rock", "x": 320, "y": 320, "r": 6 },
+        { "kind": "rock", "x": 580, "y": 220, "r": 5 }
+      ]
+    },
+    "blue-ghost-1": {
+      "start": { "x": 200, "y": 460 },
+      "machine": { "x": 700, "y": 160 },
+      "props": [
+        { "kind": "crater", "x": 400, "y": 200, "r": 50 },
+        { "kind": "crater", "x": 780, "y": 360, "r": 28 },
+        { "kind": "rock", "x": 350, "y": 380, "r": 9 },
+        { "kind": "rock", "x": 560, "y": 260, "r": 7 },
+        { "kind": "rock", "x": 250, "y": 220, "r": 6 }
+      ]
+    },
+    "im-1-odysseus": {
+      "start": { "x": 820, "y": 420 },
+      "machine": { "x": 220, "y": 180 },
+      "props": [
+        { "kind": "crater", "x": 520, "y": 260, "r": 64 },
+        { "kind": "crater", "x": 200, "y": 380, "r": 35 },
+        { "kind": "rock", "x": 380, "y": 140, "r": 8 },
+        { "kind": "rock", "x": 660, "y": 320, "r": 7 },
+        { "kind": "rock", "x": 740, "y": 160, "r": 6 }
+      ]
+    },
+    "viking-1-2": {
+      "start": { "x": 160, "y": 440 },
+      "machine": { "x": 740, "y": 180 },
+      "props": [
+        { "kind": "crater", "x": 340, "y": 180, "r": 45 },
+        { "kind": "crater", "x": 780, "y": 400, "r": 32 },
+        { "kind": "rock", "x": 280, "y": 340, "r": 9 },
+        { "kind": "rock", "x": 480, "y": 260, "r": 10 },
+        { "kind": "rock", "x": 620, "y": 320, "r": 8 },
+        { "kind": "rock", "x": 520, "y": 420, "r": 7 }
+      ]
+    },
+    "curiosity": {
+      "start": { "x": 140, "y": 200 },
+      "machine": { "x": 780, "y": 380 },
+      "props": [
+        { "kind": "crater", "x": 460, "y": 140, "r": 50 },
+        { "kind": "crater", "x": 320, "y": 400, "r": 38 },
+        { "kind": "rock", "x": 300, "y": 240, "r": 8 },
+        { "kind": "rock", "x": 560, "y": 300, "r": 9 },
+        { "kind": "rock", "x": 680, "y": 220, "r": 7 }
+      ]
+    },
+    "perseverance": {
+      "start": { "x": 800, "y": 160 },
+      "machine": { "x": 240, "y": 420 },
+      "props": [
+        { "kind": "crater", "x": 500, "y": 360, "r": 48 },
+        { "kind": "crater", "x": 280, "y": 160, "r": 36 },
+        { "kind": "rock", "x": 420, "y": 220, "r": 9 },
+        { "kind": "rock", "x": 600, "y": 280, "r": 8 },
+        { "kind": "rock", "x": 360, "y": 360, "r": 7 }
+      ]
+    },
+    "insight": {
+      "start": { "x": 180, "y": 380 },
+      "machine": { "x": 720, "y": 200 },
+      "props": [
+        { "kind": "crater", "x": 450, "y": 160, "r": 32 },
+        { "kind": "crater", "x": 800, "y": 360, "r": 26 },
+        { "kind": "rock", "x": 360, "y": 280, "r": 6 },
+        { "kind": "rock", "x": 580, "y": 320, "r": 6 }
+      ]
+    },
+    "mars-polar-lander": {
+      "start": { "x": 220, "y": 460 },
+      "machine": { "x": 680, "y": 160 },
+      "props": [
+        { "kind": "crater", "x": 420, "y": 220, "r": 44 },
+        { "kind": "crater", "x": 760, "y": 320, "r": 30 },
+        { "kind": "rock", "x": 320, "y": 340, "r": 7 },
+        { "kind": "rock", "x": 540, "y": 240, "r": 8 },
+        { "kind": "rock", "x": 620, "y": 380, "r": 6 }
+      ]
+    },
+    "phoenix": {
+      "start": { "x": 140, "y": 360 },
+      "machine": { "x": 760, "y": 220 },
+      "props": [
+        { "kind": "crater", "x": 380, "y": 160, "r": 40 },
+        { "kind": "crater", "x": 680, "y": 420, "r": 34 },
+        { "kind": "rock", "x": 260, "y": 240, "r": 8 },
+        { "kind": "rock", "x": 500, "y": 300, "r": 7 },
+        { "kind": "rock", "x": 600, "y": 180, "r": 6 }
+      ]
     }
   }
 }

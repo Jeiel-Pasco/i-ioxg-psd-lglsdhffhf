@@ -14,9 +14,9 @@ export interface SettingsOptions {
   onOpenChange: () => void;
 }
 
-type Toggle = 'highContrast' | 'reducedMotion' | 'reducedEffects';
+type Toggle = 'highContrast' | 'reducedMotion' | 'reducedEffects' | 'audio' | 'captions' | 'alwaysOfferSkip';
 
-/** Settings (GDD 11.1): text size, high contrast, reduced motion and reduced effects. Each change saves at once. */
+/** Settings (GDD 11.1, 11.4): text size, contrast, motion, effects, audio and captions. Each change saves at once. */
 export class SettingsMenu {
   private readonly dialog = el('dialog', 'settings');
   private readonly size = el('select', 'settings-text-size');
@@ -47,6 +47,9 @@ export class SettingsMenu {
       ['highContrast', 'settings-contrast', t.highContrast],
       ['reducedMotion', 'settings-motion', t.reducedMotion],
       ['reducedEffects', 'settings-effects', t.reducedEffects],
+      ['audio', 'settings-audio', t.audio],
+      ['captions', 'settings-captions', t.captions],
+      ['alwaysOfferSkip', 'settings-skip', t.alwaysOfferSkip],
     ];
     const toggleRows = rows.map(([key, className, label]) => {
       const box = el('input', className);

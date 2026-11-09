@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { clusterMarkers, markerPoints, project, type MarkerPoint } from '../../src/ui/hub/markers';
+import { formatCoords } from '../../src/ui/hub/MarkerCard';
 import { isMarsUnlocked } from '../../src/systems/unlock';
 import { EntrySchema, type Entry } from '../../src/data/schema';
 import { loadEntryFiles } from '../../tools/validate-data';
@@ -89,5 +90,23 @@ describe('isMarsUnlocked (D4 proposal: the three Moon flagships)', () => {
   });
   it('unlocks with all three flagships', () => {
     expect(isMarsUnlocked(new Set(['apollo-11-site', 'apollo-15-lrv', 'surveyor-3']))).toBe(true);
+  });
+});
+
+describe('formatCoords', () => {
+  it('formats positive latitude and longitude with N and E', () => {
+    expect(formatCoords({ label: 'test', lat: 22.5, lon: 45.2, source_url: 'https://nasa.gov', approximate: false })).toBe('22.5° N, 45.2° E');
+  });
+
+  it('formats negative latitude and longitude with S and W', () => {
+    expect(formatCoords({ label: 'test', lat: -14.2, lon: -120.8, source_url: 'https://nasa.gov', approximate: false })).toBe('14.2° S, 120.8° W');
+  });
+
+  it('formats zero degrees without directional letters', () => {
+    expect(formatCoords({ label: 'test', lat: 0, lon: 0, source_url: 'https://nasa.gov', approximate: false })).toBe('0°, 0°');
+  });
+
+  it('appends approximate notice when marked approximate', () => {
+    expect(formatCoords({ label: 'test', lat: 10, lon: -20, source_url: 'https://nasa.gov', approximate: true })).toBe('10° N, 20° W (approximate)');
   });
 });

@@ -22,7 +22,12 @@
       "ended": "Ended",
       "lost": "Lost",
       "drifting": "Drifting"
-    }
+    },
+    "marsUnlockedTitle": "New signals detected",
+    "marsUnlockedStory": "SIGNAL DETECTED ACROSS THE VOID. ECHOES FOUND: {count}. OBJECTIVE: VISIT THE RED PLANET.",
+    "viewMars": "View Mars",
+    "stayMoon": "Stay on Moon",
+    "progress": "{done} of {total} ({moonDone} of {moonTotal} Moon · {marsDone} of {marsTotal} Mars)"
   },
   "archive": {
     "title": "Archive",
@@ -57,6 +62,7 @@
   },
   "site": {
     "map": "Map",
+    "archive": "Archive",
     "interact": "Recover",
     "joystick": "Move the robot",
     "prompt": "E: Recover",
@@ -76,6 +82,7 @@
       "hard": "Hard"
     },
     "difficultyLabel": "Level: {difficulty}",
+    "startSpeed": "Drift: {vx} m/s",
     "assisted": "Assist on",
     "fuel": "Fuel: {percent}%",
     "speedDown": "Down speed: {speed} m/s (safe: {safe} or less)",
@@ -138,8 +145,20 @@
     "highContrast": "High contrast",
     "reducedMotion": "Reduce motion (no camera easing or shaking)",
     "reducedEffects": "Reduce effects (fewer decorations, for slower devices)",
+    "audio": "Audio (synthesized sound effects)",
+    "captions": "Sound captions",
+    "alwaysOfferSkip": "Always show Skip challenge in landings",
     "about": "About",
     "close": "Close"
+  },
+  "captions": {
+    "opening": "Faint electronic hum",
+    "echoNear": "Echo pulse detected",
+    "echoReady": "Echo signal locked",
+    "thrust": "Thruster firing",
+    "landed": "Soft touchdown",
+    "crash": "Hard impact",
+    "recovered": "Archive record restored"
   },
   "about": {
     "open": "About",

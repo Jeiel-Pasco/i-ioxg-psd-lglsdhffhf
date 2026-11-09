@@ -65,9 +65,27 @@ test('every hub menu opens by Tab and Enter and closes by Escape', async ({ page
 
 test('settings controls are reachable by keyboard inside the dialog', async ({ page }) => {
   await page.locator('.hub-open-settings').click();
-  for (const sel of ['.settings-text-size', '.settings-contrast', '.settings-motion', '.settings-effects', '.settings-close']) {
+  for (const sel of [
+    '.settings-text-size',
+    '.settings-contrast',
+    '.settings-motion',
+    '.settings-effects',
+    '.settings-audio',
+    '.settings-captions',
+    '.settings-skip',
+    '.settings-close',
+  ]) {
     await tabTo(page, sel);
   }
+});
+
+test('sound captions appear when events trigger and disappear', async ({ page }) => {
+  const caption = page.locator('.audio-caption');
+  await expect(caption).toBeHidden();
+  await hook(page);
+  await page.evaluate(() => (window as unknown as { __stillOutThere: { recover: (id: string, a: boolean) => void } }).__stillOutThere.recover('apollo-11-site', false));
+  await expect(caption).toBeVisible();
+  await expect(caption).toContainText('Archive record restored');
 });
 
 test('text size changes computed font size and is saved', async ({ page }) => {

@@ -89,3 +89,31 @@ test('the Epilogue opens when every entry is recovered', async ({ page }) => {
   await expect(epilogue).toBeHidden();
   await expect(page.locator('.hub-open-epilogue')).toBeVisible();
 });
+
+test('Mars unlock story line and Mars flagship landing', async ({ page }) => {
+  test.setTimeout(90_000);
+  await page.goto('/');
+  await page.evaluate((list) => {
+    const h = (window as unknown as { __stillOutThere: { recover(id: string, a: boolean): void } }).__stillOutThere;
+    for (const id of list) h.recover(id, false);
+  }, MOON_FLAGSHIPS);
+
+  // Switch to Mars
+  await page.locator('.hub-world[data-world="mars"]').click();
+  const story = page.locator('.hub-mars-story');
+  await expect(story).toBeVisible();
+  await expect(story.locator('.story-tag')).toHaveText('Game story');
+  await expect(story).toContainText('9');
+
+  // Fly to Sojourner / Pathfinder on Mars, walk to machine, and land with solver bot
+  await flyFromHub(page, 'sojourner-pathfinder');
+  await walkToMachine(page);
+  await landWithSolver(page);
+
+  const archive = page.locator('dialog.archive');
+  await expect(page.locator('.landing-read')).toBeVisible();
+  await page.locator('.landing-read').click();
+  await expect(archive).toBeVisible();
+  await expect(archive.locator('.archive-entry-view article')).toHaveAttribute('data-id', 'sojourner-pathfinder');
+  await archive.locator('.archive-close').click();
+});

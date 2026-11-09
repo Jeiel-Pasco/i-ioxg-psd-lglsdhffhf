@@ -10,6 +10,7 @@ const hook = <T>(page: Page, fn: (h: TestHook) => T) =>
   page.evaluate(`(${fn.toString()})(window.__stillOutThere)`) as Promise<T>;
 
 export const MOON_FLAGSHIPS = ['apollo-11-site', 'apollo-15-lrv', 'surveyor-3'];
+export const MARS_FLAGSHIPS = ['sojourner-pathfinder', 'spirit-opportunity', 'ingenuity'];
 
 /** Clicks through the opening, one line at a time, to the hub. */
 export async function playOpening(page: Page): Promise<void> {

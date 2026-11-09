@@ -1,0 +1,18 @@
+{
+  "id": "ingenuity",
+  "world": "mars",
+  "difficulty": "hard",
+  "start": {
+    "x": 4,
+    "y": 2
+  },
+  "startVelocity": {
+    "x": 1.8,
+    "y": 0
+  },
+  "platform": {
+    "x": 36,
+    "width": 4
+  },
+  "fuel": 6.87
+}
