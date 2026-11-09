@@ -13,6 +13,7 @@ export interface LandingActions {
   back(): void;
   assist(): void;
   skip(): void;
+  settings(opener: HTMLElement): void;
 }
 
 /** A button that counts as held while a finger, pen or mouse is down on it. Each button tracks its own pointer. */
@@ -58,7 +59,9 @@ export class LandingHud {
     const top = el('div', 'landing-top');
     const meters = el('div', 'landing-meters');
     meters.append(this.fuel, this.down, this.side);
-    top.append(this.info, meters, el('p', 'landing-help', t.help));
+    // GDD 9.1: pause and settings top left.
+    const settings = this.action('landing-settings', text.settings.open, () => this.actions.settings(settings));
+    top.append(settings, this.info, meters, el('p', 'landing-help', t.help));
 
     const controls = el('div', 'landing-controls');
     controls.setAttribute('role', 'group');
@@ -142,7 +145,8 @@ export class LandingHud {
     eventBus.emit(Events.LANDING_INPUT, input);
   }
 
-  private releaseAll(): void {
+  /** Lets go of every hold button, for example when the game pauses. */
+  releaseAll(): void {
     for (const b of this.holds) b.dataset.held = 'false';
     this.hold('left', false);
     this.hold('right', false);

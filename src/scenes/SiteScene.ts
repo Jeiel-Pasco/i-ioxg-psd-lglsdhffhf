@@ -121,6 +121,13 @@ export class SiteScene extends Scene {
     this.drawArrow();
   }
 
+  /** Applies a settings change while the scene runs: no camera easing and a steady echo ring. */
+  setReducedMotion(on: boolean): void {
+    this.site.reducedMotion = on;
+    const lerp = on ? 1 : SITE.camera.lerp;
+    this.cameras.main.setLerp(lerp, lerp);
+  }
+
   snapshot(): SiteSnapshot {
     const m = this.layout.machine;
     return {

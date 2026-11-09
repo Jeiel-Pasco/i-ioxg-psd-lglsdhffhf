@@ -12,6 +12,7 @@ export function installTestHook(game: Game): void {
     __stillOutThere: {
       recover: (entryId: string, assisted: boolean) => eventBus.emit(Events.ENTRY_RECOVERED, { entryId, assisted }),
       keyboardEnabled: () => game.input.keyboard?.enabled ?? false,
+      paused: () => game.scene.isPaused(SITE_SCENE_KEY) || game.scene.isPaused(LANDING_SCENE_KEY),
       fly: (entryId: string) => eventBus.emit(Events.HUB_FLY, { entryId, markerIndex: 0 }),
       site: () =>
         game.scene.isActive(SITE_SCENE_KEY) ? (game.scene.getScene(SITE_SCENE_KEY) as SiteScene).snapshot() : null,

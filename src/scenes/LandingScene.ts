@@ -98,6 +98,11 @@ export class LandingScene extends Scene {
     this.reset(route);
   }
 
+  /** Applies a settings change while the scene runs. */
+  setReducedMotion(on: boolean): void {
+    this.data_.reducedMotion = on;
+  }
+
   level(): ResolvedLevel {
     return this.data_.level;
   }

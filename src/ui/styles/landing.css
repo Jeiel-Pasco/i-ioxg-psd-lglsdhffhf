@@ -8,7 +8,7 @@
   justify-content: space-between;
   padding: 12px;
   color: var(--ink);
-  font: 16px/1.4 system-ui, sans-serif;
+  font: 1rem/1.4 system-ui, sans-serif;
 }
 
 .landing-ui[hidden],
@@ -49,7 +49,7 @@
 
 .landing-help {
   max-width: 28em;
-  font-size: 14px;
+  font-size: 0.875rem;
 }
 
 .landing-controls {

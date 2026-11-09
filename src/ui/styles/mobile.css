@@ -1,0 +1,53 @@
+/* Narrow portrait phones (GDD 9.4, 11.2): a layout of its own, not a scaled-down desktop.
+   The 16:9 canvas is a band across the middle of the screen, so the HUD uses the space
+   above it (info) and below it (thumb controls) instead of covering the game. */
+@media (orientation: portrait) and (max-width: 600px) {
+  .hub-inner {
+    padding: 8px;
+  }
+
+  .hub-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hub-header h1 {
+    order: -1;
+    font-size: 1.25rem;
+  }
+
+  .hub-header .hub-actions {
+    justify-content: space-between;
+  }
+
+  .site-ui,
+  .landing-ui {
+    padding: 8px;
+  }
+
+  .site-top {
+    flex-wrap: wrap;
+  }
+
+  /* The echo message gets its own full-width line under the two buttons. */
+  .site-story {
+    order: 3;
+    flex-basis: 100%;
+    max-width: none;
+  }
+
+  .landing-top {
+    gap: 6px 8px;
+  }
+
+  /* There is room under the canvas, so thumb buttons grow. */
+  .landing-hold {
+    min-width: 88px;
+    min-height: 88px;
+  }
+
+  .landing-thrust {
+    min-width: 120px;
+    min-height: 104px;
+  }
+}

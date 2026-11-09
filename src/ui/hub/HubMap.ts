@@ -28,7 +28,7 @@ export class HubMap {
     root: HTMLElement,
     private readonly entries: readonly Entry[],
     private readonly getArchived: () => ReadonlySet<string>,
-    onOpenArchive: (opener: HTMLElement) => void,
+    menus: Record<'archive' | 'settings' | 'about', (opener: HTMLElement) => void>,
   ) {
     this.byId = new Map(entries.map((e) => [e.id, e]));
 
@@ -56,12 +56,21 @@ export class HubMap {
     const layout = el('div', 'hub-layout');
     layout.append(frame, this.card);
     const header = el('header', 'hub-header');
-    const archive = el('button', 'hub-open-archive', t.openArchive);
-    archive.type = 'button';
-    archive.addEventListener('click', () => onOpenArchive(archive));
+    const menuButton = (className: string, label: string, open: (opener: HTMLElement) => void) => {
+      const b = el('button', `hub-menu ${className}`, label);
+      b.type = 'button';
+      b.addEventListener('click', () => open(b));
+      return b;
+    };
+    // GDD 9.1: settings on the left, the Archive on the right.
+    const settings = el('div', 'hub-actions hub-menus');
+    settings.append(
+      menuButton('hub-open-settings', text.settings.open, menus.settings),
+      menuButton('hub-open-about', text.about.open, menus.about),
+    );
     const actions = el('div', 'hub-actions');
-    actions.append(switcher, archive);
-    header.append(el('h1', '', t.title), actions);
+    actions.append(switcher, menuButton('hub-open-archive', t.openArchive, menus.archive));
+    header.append(settings, el('h1', '', t.title), actions);
     const inner = el('div', 'hub-inner');
     inner.append(header, this.lock, layout);
     root.append(inner);

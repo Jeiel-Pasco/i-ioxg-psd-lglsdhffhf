@@ -21,7 +21,7 @@
   overflow-y: auto;
   background: var(--space);
   color: var(--ink);
-  font: 16px/1.5 system-ui, sans-serif;
+  font: 1rem/1.5 system-ui, sans-serif;
 }
 
 .hub-inner {
@@ -57,7 +57,7 @@
 
 .hub-world,
 .hub-fly,
-.hub-open-archive,
+.hub-menu,
 .hub-cluster-member {
   min-height: var(--target);
   padding: 0 16px;
@@ -80,7 +80,7 @@
 
 .hub-world:hover,
 .hub-cluster-member:hover,
-.hub-open-archive:hover,
+.hub-menu:hover,
 .hub-fly:enabled:hover {
   border-color: var(--cyan);
 }

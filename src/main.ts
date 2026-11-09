@@ -16,6 +16,10 @@ import { loadLevels } from './data/loadLevels';
 import { LANDING_SCENE_KEY, LandingScene } from './scenes/LandingScene';
 import { resolveLevel, type ResolvedLevel } from './systems/level';
 import { LandingHud } from './ui/landing/LandingHud';
+import { About } from './ui/About';
+import { applySettings } from './ui/settings/applySettings';
+import { SettingsMenu } from './ui/settings/Settings';
+import './ui/styles/mobile.css';
 
 export function startGame(parent: string): Game {
   return new Game({
@@ -37,19 +41,53 @@ document.addEventListener('DOMContentLoaded', () => {
   const entries = loadEntries();
   const progress = new Progress(openStore());
   const getArchived = () => progress.archivedIds();
+  applySettings(progress.settings);
+
+  // While any DOM dialog is open, Phaser must not read or swallow key presses, and the
+  // site or landing scene pauses (GDD 11.1: pause available everywhere, no timed menus).
+  const playScenes = [SITE_SCENE_KEY, LANDING_SCENE_KEY];
+  const inScene = () => playScenes.some((k) => game.scene.isActive(k) || game.scene.isPaused(k));
+  const syncOverlay = () => {
+    const open = document.querySelector('dialog[open]') !== null;
+    if (game.input.keyboard) game.input.keyboard.enabled = !open;
+    for (const key of playScenes) {
+      if (open && game.scene.isActive(key)) game.scene.pause(key);
+      else if (!open && game.scene.isPaused(key)) game.scene.resume(key);
+    }
+    if (open) landingHud.releaseAll();
+    else if (inScene() && (document.activeElement === null || document.activeElement === document.body)) game.canvas.focus();
+  };
+
+  const about = new About(syncOverlay);
+  const settings = new SettingsMenu({
+    get: () => progress.settings,
+    update: (patch) => progress.updateSettings(patch),
+    onAbout: (opener) => about.open(opener),
+    onOpenChange: syncOverlay,
+  });
+  const openSettings = (opener: HTMLElement | null) => settings.open(opener, inScene());
+  document.addEventListener('keydown', (e) => {
+    // Escape opens the pause menu in a scene. When a dialog is open, Escape closes it instead.
+    if (e.key !== 'Escape' || document.querySelector('dialog[open]') || !inScene()) return;
+    e.preventDefault();
+    openSettings(null);
+  });
 
   const archive = new Archive(entries, {
     getArchived,
     onRead: (id) => progress.markRead(id),
     onReset: () => progress.reset(),
-    // While a DOM overlay is open, Phaser must not read or swallow key presses.
-    onOpenChange: (open) => {
-      if (game.input.keyboard) game.input.keyboard.enabled = !open;
-    },
+    onOpenChange: syncOverlay,
   });
 
   const hubRoot = document.getElementById('hub');
-  const hub = hubRoot ? new HubMap(hubRoot, entries, getArchived, (opener) => archive.open(opener)) : null;
+  const hub = hubRoot
+    ? new HubMap(hubRoot, entries, getArchived, {
+        archive: (opener) => archive.open(opener),
+        settings: openSettings,
+        about: (opener) => about.open(opener),
+      })
+    : null;
 
   const showNotice = () => {
     if (progress.persistent || document.querySelector('.save-notice')) return;
@@ -60,6 +98,12 @@ document.addEventListener('DOMContentLoaded', () => {
   showNotice();
 
   progress.onChange(() => {
+    applySettings(progress.settings);
+    // A running scene follows a reduced-motion change at once (paused counts as running here).
+    const reduced = progress.settings.reducedMotion;
+    const live = (key: string) => game.scene.isActive(key) || game.scene.isPaused(key);
+    if (live(SITE_SCENE_KEY)) (game.scene.getScene(SITE_SCENE_KEY) as SiteScene).setReducedMotion(reduced);
+    if (live(LANDING_SCENE_KEY)) (game.scene.getScene(LANDING_SCENE_KEY) as LandingScene).setReducedMotion(reduced);
     hub?.refresh();
     archive.refresh();
     showNotice();
@@ -67,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
   eventBus.on(Events.ENTRY_RECOVERED, ({ entryId, assisted }) => progress.recover(entryId, assisted));
 
   // Hub -> site scene -> hub. The hub hides while a site is open so the canvas is visible.
-  const siteHud = new SiteHud(document.body);
+  const siteHud = new SiteHud(document.body, openSettings);
   const byId = new Map(entries.map((e) => [e.id, e]));
   const startSite = (entryId: string, atMachine: boolean) => {
     const entry = byId.get(entryId);
@@ -115,6 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
     retry: () => landing && startLanding(landing.entryId, landing.level.assisted),
     assist: () => landing && startLanding(landing.entryId, true),
     back: backToSite,
+    settings: openSettings,
     // Skip completes a visit-only recovery; the save marks it assisted, the Archive never shows that.
     skip: () => {
       if (!landing) return;

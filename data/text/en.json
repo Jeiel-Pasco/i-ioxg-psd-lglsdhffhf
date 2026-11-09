@@ -98,6 +98,37 @@
     "assistHint": "Assist gives you more fuel and a wider pad.",
     "skip": "Skip challenge"
   },
+  "story": {
+    "tag": "Game story"
+  },
+  "settings": {
+    "open": "Settings",
+    "title": "Settings",
+    "paused": "The game is paused while this menu is open.",
+    "textSize": "Text size",
+    "textSizes": [
+      { "value": "1", "label": "Normal" },
+      { "value": "1.25", "label": "Large" },
+      { "value": "1.5", "label": "Larger" },
+      { "value": "2", "label": "Largest" }
+    ],
+    "highContrast": "High contrast",
+    "reducedMotion": "Reduce motion (no camera easing or shaking)",
+    "reducedEffects": "Reduce effects (fewer decorations, for slower devices)",
+    "about": "About",
+    "close": "Close"
+  },
+  "about": {
+    "open": "About",
+    "title": "About this game",
+    "intro": "Still Out There mixes a made-up story with real records. The two kinds of text look different, so you can always tell them apart.",
+    "storyTag": "Game story",
+    "story": "Text in a cyan frame with this tag is part of the made-up story. The robot, its messages and the echoes are not real.",
+    "recordTag": "Verified record",
+    "record": "Text in an amber frame with this tag is from the Archive. Each record lists its sources and the date a person last checked it.",
+    "privacy": "This game has no accounts, no ads and no tracking. It keeps your progress and settings only in this browser.",
+    "close": "Close"
+  },
   "save": {
     "notice": "Your browser is blocking storage, so your progress will not be kept after you leave this page."
   }

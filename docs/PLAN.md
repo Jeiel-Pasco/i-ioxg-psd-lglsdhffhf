@@ -77,9 +77,9 @@
 - **Skills:** phaser, test-driven-development, add-feature
 
 ## M6. Access and polish
-- [ ] Settings for text size, high contrast and reduced motion (no camera easing or shake), all saved. Touch targets are at least 44x44. No flashing. Captions for every cue.
-- [ ] A dedicated portrait layout for the mobile hub, Archive and HUD (§9.1). Load assets per world. A reduced-effects option.
-- [ ] Fiction and fact frames (cyan "Game story" vs amber "Verified record"), plus an About screen.
+- [x] Settings for text size, high contrast and reduced motion (no camera easing or shake), all saved. Touch targets are at least 44x44. No flashing. Captions for every cue.
+- [x] A dedicated portrait layout for the mobile hub, Archive and HUD (§9.1). Load assets per world. A reduced-effects option.
+- [x] Fiction and fact frames (cyan "Game story" vs amber "Verified record"), plus an About screen.
 - **Files:** `src/ui/settings/Settings.ts`, `src/ui/About.ts`, `src/ui/styles/{a11y,mobile}.css`, `tests/e2e/a11y.spec.ts`, `tests/e2e/mobile.spec.ts`
 - **Exit tests:** `a11y.spec.ts` reaches every menu by Tab/Enter/Esc, checks that each setting changes the computed styles, and checks that every button is at least 44x44 and every `img` has `alt`. `mobile.spec.ts` runs at 360x740 with no horizontal scroll. The team runs a manual checklist of §15.2 on a real phone and records the result in STATE.
 - **Skills:** design-taste-frontend, add-feature

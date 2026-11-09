@@ -1,0 +1,151 @@
+/* Player settings (GDD 11.1). src/ui/settings/applySettings.ts sets these attributes on <html>. */
+
+/* Text size: every DOM layer sizes its text in rem, so one root value scales them all. */
+html {
+  font-size: calc(100% * var(--text-scale, 1));
+}
+
+/* High contrast: pure black and white with brighter accents and solid lines. */
+html[data-contrast='high'] {
+  --space: #000;
+  --panel: #000;
+  --ink: #fff;
+  --muted: #fff;
+  --line: #fff;
+  --cyan: #7fe9ff;
+  --amber: #ffd27f;
+  --warn: #ffb08f;
+}
+
+html[data-contrast='high'] button,
+html[data-contrast='high'] select {
+  border-color: var(--ink) !important;
+}
+
+/* Reduced motion: no transitions or animations in the DOM. The scenes read the same setting. */
+html[data-motion='reduced'] *,
+html[data-motion='reduced'] *::before,
+html[data-motion='reduced'] *::after {
+  transition: none !important;
+  animation: none !important;
+  scroll-behavior: auto !important;
+}
+
+/* Reduced effects: drop decorative layers such as the map grid lines. */
+html[data-effects='reduced'] .hub-map {
+  background-image: none;
+}
+
+/* Fiction frame (GDD 3.6): game story text sits in a cyan frame with a "Game story" tag. */
+.story-frame {
+  margin: 0;
+  padding: 4px 8px;
+  border: 2px solid var(--cyan);
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+
+.story-tag {
+  display: block;
+  color: var(--cyan);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Settings and About dialogs share the Archive's look. */
+.settings,
+.about {
+  box-sizing: border-box;
+  width: min(32rem, 100vw - 16px);
+  max-width: none;
+  max-height: calc(100dvh - 16px);
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--space);
+  color: var(--ink);
+  font: 1rem/1.5 system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+.settings::backdrop,
+.about::backdrop {
+  background: rgba(5, 7, 13, 0.85);
+}
+
+.settings h1,
+.about h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.dialog-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.settings-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: var(--target);
+  margin: 0 0 8px;
+}
+
+.settings-row input[type='checkbox'] {
+  width: 24px;
+  height: 24px;
+  margin: 0;
+}
+
+.dialog-button,
+.settings select {
+  min-width: var(--target);
+  min-height: var(--target);
+  padding: 0 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+  color: var(--ink);
+  font: inherit;
+  cursor: pointer;
+}
+
+.dialog-button:focus-visible,
+.settings select:focus-visible,
+.settings-row input:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.dialog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.about p {
+  margin: 0 0 12px;
+}
+
+.about .story-frame,
+.about .record-frame {
+  padding: 8px 12px;
+  margin-bottom: 12px;
+}
+
+.record-frame {
+  border: 2px solid var(--amber);
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+
+.record-frame .story-tag {
+  color: var(--amber);
+}

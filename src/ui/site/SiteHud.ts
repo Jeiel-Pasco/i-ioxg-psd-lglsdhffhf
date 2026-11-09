@@ -14,13 +14,19 @@ export class SiteHud {
   private readonly joystick = new Joystick(t.joystick, (v) => eventBus.emit(Events.SITE_MOVE, v));
   private readonly interact = new InteractButton(t.interact, () => eventBus.emit(Events.SITE_INTERACT, {}));
 
-  constructor(parent: HTMLElement) {
+  constructor(parent: HTMLElement, onSettings: (opener: HTMLElement) => void) {
+    // GDD 9.1: pause and settings top left, world map top right.
+    const settings = el('button', 'site-settings', text.settings.open);
+    settings.type = 'button';
+    settings.addEventListener('click', () => onSettings(settings));
     const map = el('button', 'site-map', t.map);
     map.type = 'button';
     map.addEventListener('click', () => eventBus.emit(Events.SITE_LEAVE, {}));
     this.status.setAttribute('role', 'status');
+    const story = el('div', 'story-frame site-story');
+    story.append(el('span', 'story-tag', text.story.tag), this.status);
     const top = el('div', 'site-top');
-    top.append(map, this.status);
+    top.append(settings, story, map);
     const bottom = el('div', 'site-bottom');
     bottom.append(this.joystick.root, this.interact.root);
     this.root.append(top, bottom);

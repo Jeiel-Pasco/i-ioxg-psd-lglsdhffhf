@@ -8,7 +8,7 @@
   justify-content: space-between;
   padding: 12px;
   color: var(--ink);
-  font: 16px/1.4 system-ui, sans-serif;
+  font: 1rem/1.4 system-ui, sans-serif;
 }
 
 .site-ui[hidden] {
@@ -27,12 +27,14 @@
   align-items: flex-end;
 }
 
+.site-settings,
 .site-map,
 .interact-button,
 .joystick {
   pointer-events: auto;
 }
 
+.site-settings,
 .site-map,
 .interact-button {
   min-width: var(--target);
@@ -66,17 +68,14 @@
   cursor: default;
 }
 
-.site-status {
-  margin: 0;
+/* Echo messages are game story text, so they sit in the cyan story frame (a11y.css). */
+.site-story {
+  flex: 1 1 auto;
   max-width: 28em;
-  padding: 8px 12px;
-  border: 2px solid var(--cyan);
-  border-radius: var(--radius);
-  background: var(--panel);
 }
 
-.site-ui[data-echo='archived'] .site-status {
-  border-color: var(--amber);
+.site-status {
+  margin: 0;
 }
 
 .joystick {
