@@ -1,8 +1,23 @@
 # State
 
-next: M3 (after human review of M2)
+next: M4
+
+review: owner waived per-milestone human review (2026-11-09). Do not stop for review; stop only for blockers.
 
 ## Done
+- **M3 Archive and save** (2026-11-09).
+  - Save: `src/save/{save,migrate,memoryStore}.ts`. `openStore` probes localStorage, falls back to `MemoryStore`. Failed write (quota) switches to memory too. `migrate` never throws; bad data gives fresh save. `Progress` autosaves on `recover`, `markRead`, `updateSettings`; sets `unlocks.mars`.
+  - Key `still-out-there:save`. v0 = assumed unversioned `{archived: string[], read?: string[]}` (no real v0 ever shipped; shape is my pick).
+  - Settings defaults in `defaultSave()`: textScale 1, highContrast/reducedMotion/reducedEffects/audio off, captions on. UI for them waits for M6.
+  - Archive: `src/ui/archive/{ArchiveGrid,EntryPage}.ts`, `src/ui/styles/archive.css`, card model `src/systems/archive.ts` (no `assisted` field). Native `<dialog>` over hub; opened by hub **Archive** button. Escape closes; focus back to opener (canvas if opener gone). Phaser keyboard off while open.
+  - Locked cards: silhouette, "Echo not yet visited", world only. Status filter shows open cards only (no spoilers). Moon cards first.
+  - Entry page: §8.2 order, amber frame, "Verified record" tag. `TODO` text shows "Not yet written."; no link for `TODO` URLs. Image path `assets/archive/<nasa_id>.jpg` (fetch-assets must write that name).
+  - Hub: recovered marker = amber square (shape + colour + "recovered" in label); part-recovered cluster gets amber corner badge. Storage-blocked notice above map.
+  - New event `entry:recovered {entryId, assisted}`; M5 emits it.
+  - Test hook `window.__stillOutThere` only in `vite build --mode e2e` (Playwright uses that); grep confirms absent from prod build.
+  - Tests: unit 67 passed (save.test.ts 21); e2e 20 passed (archive.spec.ts 11, incl. unlock survives reload, keyboard focus, blocked storage, 360 px phone). Validator report unchanged (17 / 21 / 319).
+  - game-qa: JS helpers skipped (TS-only rule). Used its visual-inspection method via Playwright screenshots. Fixed: cluster badge covered count; dialog wider than 360 px screen.
+  - Not done: glossary tooltips (§9.3); need sourced definitions first.
 - **M2 Hub map** (2026-11-09).
   - A DOM hub over the canvas: `src/ui/hub/{HubMap,MarkerCard,markers}.ts`, `src/ui/styles/hub.css`, `src/ui/dom.ts`.
   - Added the typed `src/core/events.ts` (`hub:fly`), `src/data/loadEntries.ts` (bundled with `import.meta.glob`, no fetch), `src/systems/unlock.ts`, `src/config/hub.ts`, and UI text in `data/text/en.json`.
@@ -44,6 +59,8 @@ next: M3 (after human review of M2)
 - **Mars marker URLs:** the GDD names a source type (Mars24, PDS) but no URLs, so every Mars `source_url` is `TODO`. The GDD §14 conflicts are still open.
 - **Strict validation in the build:** `npm run validate` fails until the content track fills the entries, so it is not yet part of `npm run build` (planned for M7).
 - **Leftovers:** the template's `README.md`, `screenshot.png` and `public/favicon.png` are still there.
+- **Archive focus:** PLAN says focus returns to canvas on close. Hub covers canvas now, so focus returns to the Archive button instead (canvas only if opener gone). Revisit in M4 when site scene is live.
+- **Reset confirm:** uses native `window.confirm`. M6 may want an in-game confirm.
 - Decisions D1 and D3 to D11 are still open (GDD §16).
 
 ## Decisions

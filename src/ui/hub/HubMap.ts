@@ -28,6 +28,7 @@ export class HubMap {
     root: HTMLElement,
     private readonly entries: readonly Entry[],
     private readonly getArchived: () => ReadonlySet<string>,
+    onOpenArchive: (opener: HTMLElement) => void,
   ) {
     this.byId = new Map(entries.map((e) => [e.id, e]));
 
@@ -55,7 +56,12 @@ export class HubMap {
     const layout = el('div', 'hub-layout');
     layout.append(frame, this.card);
     const header = el('header', 'hub-header');
-    header.append(el('h1', '', t.title), switcher);
+    const archive = el('button', 'hub-open-archive', t.openArchive);
+    archive.type = 'button';
+    archive.addEventListener('click', () => onOpenArchive(archive));
+    const actions = el('div', 'hub-actions');
+    actions.append(switcher, archive);
+    header.append(el('h1', '', t.title), actions);
     const inner = el('div', 'hub-inner');
     inner.append(header, this.lock, layout);
     root.append(inner);
@@ -66,6 +72,12 @@ export class HubMap {
 
   destroy(): void {
     this.resize.disconnect();
+  }
+
+  /** Redraws after progress changes (a recovery or a reset). */
+  refresh(): void {
+    this.lock.hidden = !this.marsLocked();
+    this.renderMarkers();
   }
 
   private marsLocked(): boolean {
@@ -89,6 +101,7 @@ export class HubMap {
     this.map.replaceChildren();
     if (w === 0 || h === 0) return;
 
+    const archived = this.getArchived();
     const inWorld = this.entries.filter((e) => e.world === this.world);
     for (const c of clusterMarkers(markerPoints(inWorld, w, h), HUB.clusterRadiusPx)) {
       const anchor = c.members[0].key;
@@ -97,8 +110,12 @@ export class HubMap {
       b.style.left = `${(c.x / w) * 100}%`;
       b.style.top = `${(c.y / h) * 100}%`;
       b.dataset.anchor = anchor;
+      const ids = c.members.map((m) => m.key.split(':')[0]);
+      const done = ids.filter((id) => archived.has(id)).length;
+      b.dataset.entries = [...new Set(ids)].join(' ');
+      b.dataset.archived = done === 0 ? 'none' : done === ids.length ? 'all' : 'some';
       b.setAttribute('aria-pressed', String(anchor === this.selectedAnchor));
-      b.setAttribute('aria-label', this.markerLabel(c));
+      b.setAttribute('aria-label', this.markerLabel(c, done));
       if (c.members.length > 1) b.append(el('span', 'hub-count', String(c.members.length)));
       b.addEventListener('click', () => this.select(c));
       this.map.append(b);
@@ -111,10 +128,15 @@ export class HubMap {
     return { key, name: entry?.name ?? id, label: entry?.locations[Number(index)]?.label ?? '' };
   }
 
-  private markerLabel(c: Cluster): string {
-    if (c.members.length === 1) return fill(t.markerLabel, this.memberInfo(c.members[0].key));
+  private markerLabel(c: Cluster, done: number): string {
+    const total = c.members.length;
+    if (total === 1) {
+      const label = fill(t.markerLabel, this.memberInfo(c.members[0].key));
+      return done ? `${label} (${t.recovered})` : label;
+    }
     const names = c.members.map((m) => this.memberInfo(m.key).name).join(', ');
-    return fill(t.clusterLabel, { count: String(c.members.length), names });
+    const label = fill(t.clusterLabel, { count: String(total), names });
+    return done ? `${label} (${fill(t.someRecovered, { count: String(done), total: String(total) })})` : label;
   }
 
   private select(c: Cluster): void {

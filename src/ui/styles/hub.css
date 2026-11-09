@@ -49,8 +49,15 @@
   gap: 8px;
 }
 
+.hub-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
 .hub-world,
 .hub-fly,
+.hub-open-archive,
 .hub-cluster-member {
   min-height: var(--target);
   padding: 0 16px;
@@ -67,8 +74,13 @@
   box-shadow: inset 0 -3px 0 var(--cyan);
 }
 
+.hub-open-archive {
+  border-color: var(--amber);
+}
+
 .hub-world:hover,
 .hub-cluster-member:hover,
+.hub-open-archive:hover,
 .hub-fly:enabled:hover {
   border-color: var(--cyan);
 }
@@ -162,6 +174,26 @@
   background: var(--cyan);
 }
 
+/* Recovered echo: amber square instead of a cyan ring, so shape also tells it apart (GDD 4.2, 10.1). */
+.hub-marker[data-archived='all']::before {
+  border-color: var(--amber);
+  border-radius: 2px;
+  background: var(--amber);
+}
+
+/* Part of a cluster recovered: amber corner badge on the cyan cluster. */
+.hub-marker[data-archived='some']::after {
+  content: '';
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--space);
+  border-radius: 2px;
+  background: var(--amber);
+}
+
 .hub-count {
   position: relative;
   font-size: 0.8rem;
@@ -179,6 +211,7 @@
 .hub-marker:focus-visible,
 .hub-world:focus-visible,
 .hub-fly:focus-visible,
+.hub-open-archive:focus-visible,
 .hub-cluster-member:focus-visible,
 .hub-card:focus-visible {
   outline: 3px solid var(--ink);

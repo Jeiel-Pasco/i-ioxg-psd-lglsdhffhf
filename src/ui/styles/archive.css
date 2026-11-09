@@ -1,0 +1,228 @@
+/* Archive (GDD 9.3). Uses the palette variables from hub.css. Archive text sits in an amber frame (GDD 3.6). */
+.archive {
+  box-sizing: border-box;
+  width: min(1000px, 100vw - 16px);
+  max-width: none;
+  max-height: calc(100dvh - 16px);
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--space);
+  color: var(--ink);
+  font: 16px/1.5 system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+.archive::backdrop {
+  background: rgba(5, 7, 13, 0.85);
+}
+
+.archive-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.archive-head h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.archive-button,
+.archive select {
+  min-height: var(--target);
+  padding: 0 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+  color: var(--ink);
+  font: inherit;
+  cursor: pointer;
+}
+
+.archive-button:hover,
+.archive select:hover {
+  border-color: var(--amber);
+}
+
+.archive-button:focus-visible,
+.archive select:focus-visible,
+.archive a:focus-visible,
+.archive summary:focus-visible,
+.archive h2:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.archive-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.archive-filter {
+  display: grid;
+  gap: 4px;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.archive-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 13rem), 1fr));
+  gap: 12px;
+  margin: 0 0 16px;
+  padding: 0;
+  list-style: none;
+}
+
+.archive-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+
+.archive-card h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.archive-card p {
+  margin: 0;
+}
+
+.archive-card .hub-status {
+  align-self: start;
+}
+
+.archive-open {
+  margin-top: auto;
+}
+
+/* Locked: dashed border and a plain silhouette, never a name or picture. */
+.archive-card--locked {
+  border-style: dashed;
+  color: var(--muted);
+}
+
+.archive-silhouette {
+  height: 64px;
+  border-radius: var(--radius);
+  background:
+    radial-gradient(circle at 50% 70%, var(--line) 0 18px, transparent 19px),
+    var(--space);
+}
+
+.archive-empty {
+  color: var(--muted);
+}
+
+.record-frame {
+  border: 2px solid var(--amber);
+}
+
+.record-tag {
+  align-self: start;
+  margin: 0;
+  padding: 0 6px;
+  border: 1px solid var(--amber);
+  border-radius: var(--radius);
+  color: var(--amber);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.entry-world {
+  color: var(--muted);
+}
+
+.archive-back {
+  margin-bottom: 12px;
+}
+
+.entry {
+  padding: 16px;
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+
+.entry h2 {
+  margin: 4px 0 8px;
+  font-size: 1.4rem;
+}
+
+.entry h3 {
+  margin: 0 0 4px;
+  font-size: 1rem;
+}
+
+.entry section {
+  margin-bottom: 16px;
+}
+
+.entry figure {
+  margin: 0;
+}
+
+.entry img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+}
+
+.entry figcaption {
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.entry blockquote {
+  margin: 0;
+  padding-left: 12px;
+  border-left: 3px solid var(--amber);
+  font-style: italic;
+}
+
+.entry summary {
+  min-height: var(--target);
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.entry ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.entry a {
+  color: var(--cyan);
+  overflow-wrap: anywhere;
+}
+
+.entry-pending {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.entry-verified {
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.save-notice {
+  margin: 0 0 12px;
+  padding: 12px 16px;
+  border: 1px dashed var(--warn);
+  border-radius: var(--radius);
+}

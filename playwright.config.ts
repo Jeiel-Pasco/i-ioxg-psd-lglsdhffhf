@@ -10,7 +10,8 @@ export default defineConfig({
     channel: 'chrome',
   },
   webServer: {
-    command: `npm run build && npx vite preview --port ${PORT} --strictPort`,
+    // The e2e mode adds a small test hook (src/testHook.ts) that production builds leave out.
+    command: `npm run check && npx vite build --mode e2e && npx vite preview --port ${PORT} --strictPort`,
     url: `http://localhost:${PORT}`,
     reuseExistingServer: false,
     timeout: 120_000,

@@ -52,9 +52,9 @@
 - **Skills:** design-taste-frontend, add-feature, test-driven-development
 
 ## M3. Archive and save
-- [ ] The card grid has locked cards (silhouette, "Echo not yet visited"), world and status filters, and a "Verified record" amber frame.
-- [ ] The entry page follows the §8.2 order. Images use `alt`, with credit and the source list.
-- [ ] `SaveV1 { version: 1; archived: Record<id, {assisted: boolean}>; read: id[]; results; position; unlocks; settings }`. Add `loadSave()`, `writeSave(s)`, `migrate(raw): SaveV1` and `resetProgress()`. Autosave on recovery, on read, and on a settings change.
+- [x] The card grid has locked cards (silhouette, "Echo not yet visited"), world and status filters, and a "Verified record" amber frame.
+- [x] The entry page follows the §8.2 order. Images use `alt`, with credit and the source list.
+- [x] `SaveV1 { version: 1; archived: Record<id, {assisted: boolean}>; read: id[]; results; position; unlocks; settings }`. Add `loadSave()`, `writeSave(s)`, `migrate(raw): SaveV1` and `resetProgress()`. Autosave on recovery, on read, and on a settings change.
 - **Files:** `src/ui/archive/{ArchiveGrid,EntryPage}.ts`, `src/ui/styles/archive.css`, `src/save/{save,migrate,memoryStore}.ts`, `tests/unit/save.test.ts`, `tests/e2e/archive.spec.ts`
 - **Exit tests:** `archive.spec.ts › unlock survives reload` unlocks `surveyor-3`, reloads, and checks that the card is open and the marker is amber. `save.test.ts` covers the memory fallback, migration, corrupt JSON, reset, and checks that the archive never shows `assisted`.
 - **Skills:** design-taste-frontend, add-feature, test-driven-development

@@ -11,6 +11,9 @@
     "markerLabel": "{name}: {label}",
     "clusterLabel": "{count} echoes: {names}",
     "flyHere": "Fly here",
+    "openArchive": "Archive",
+    "recovered": "recovered",
+    "someRecovered": "{count} of {total} recovered",
     "approximate": "approximate",
     "statusPending": "Status not yet verified",
     "status": {
@@ -20,5 +23,39 @@
       "lost": "Lost",
       "drifting": "Drifting"
     }
+  },
+  "archive": {
+    "title": "Archive",
+    "close": "Close",
+    "back": "Back to Archive",
+    "filterWorld": "World",
+    "filterStatus": "Status",
+    "all": "All",
+    "locked": "Echo not yet visited",
+    "lockedLabel": "Locked echo on the {world}",
+    "open": "Read entry",
+    "empty": "No entries match these filters.",
+    "reset": "Reset progress",
+    "resetConfirm": "Reset all progress? Every recovered entry will lock again.",
+    "verifiedTag": "Verified record",
+    "lastVerified": "Last verified: {date}",
+    "notVerified": "Not yet verified",
+    "pending": "Not yet written.",
+    "imagePending": "Picture not yet added.",
+    "imageCredit": "Picture: {credit}",
+    "howItWorked": "How it worked",
+    "science": "The science",
+    "facts": "Key facts",
+    "dates": "Dates",
+    "launched": "Launched: {date}",
+    "ended": "Ended: {date}",
+    "locations": "Locations",
+    "coordinateSource": "Coordinate source",
+    "source": "Source",
+    "sources": "Sources",
+    "noSources": "No sources added yet."
+  },
+  "save": {
+    "notice": "Your browser is blocking storage, so your progress will not be kept after you leave this page."
   }
 }

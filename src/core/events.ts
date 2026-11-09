@@ -1,10 +1,13 @@
 // Typed event bus: modules talk through events, never direct references.
 export const Events = {
   HUB_FLY: 'hub:fly',
+  ENTRY_RECOVERED: 'entry:recovered',
 } as const;
 
 export interface EventPayloads {
   'hub:fly': { entryId: string; markerIndex: number };
+  /** A landing or visit finished; `assisted` is saved but never shown in the Archive. */
+  'entry:recovered': { entryId: string; assisted: boolean };
 }
 
 type EventName = keyof EventPayloads;

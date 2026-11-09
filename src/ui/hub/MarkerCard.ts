@@ -4,7 +4,7 @@ import { el, fill } from '../dom';
 
 const t = text.hub;
 
-function formatCoords(loc: EntryLocation): string {
+export function formatCoords(loc: EntryLocation): string {
   const lat = `${Math.abs(loc.lat)}° ${loc.lat >= 0 ? 'N' : 'S'}`;
   const lon = `${Math.abs(loc.lon)}° ${loc.lon >= 0 ? 'E' : 'W'}`;
   return `${lat}, ${lon}${loc.approximate ? ` (${t.approximate})` : ''}`;
