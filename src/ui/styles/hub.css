@@ -1,0 +1,242 @@
+/* Palette from GDD 4.2. Color is never the only signal: every state also has text or shape. */
+:root {
+  --space: #05070d;
+  --panel: #0e1320;
+  --ink: #e8edf5;
+  --muted: #a9b4c6;
+  --line: rgba(232, 237, 245, 0.14);
+  --cyan: #4fd8ff;
+  --amber: #ffbf5e;
+  --warn: #ff8a5c;
+  --moon-ground: #3b3f47;
+  --mars-ground: #6e3220;
+  --radius: 6px;
+  --target: 44px;
+}
+
+#hub {
+  position: fixed;
+  inset: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: var(--space);
+  color: var(--ink);
+  font: 16px/1.5 system-ui, sans-serif;
+}
+
+.hub-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.hub-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.hub-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.hub-worlds {
+  display: flex;
+  gap: 8px;
+}
+
+.hub-world,
+.hub-fly,
+.hub-cluster-member {
+  min-height: var(--target);
+  padding: 0 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+  color: var(--ink);
+  font: inherit;
+  cursor: pointer;
+}
+
+.hub-world[aria-pressed='true'] {
+  border-color: var(--cyan);
+  box-shadow: inset 0 -3px 0 var(--cyan);
+}
+
+.hub-world:hover,
+.hub-cluster-member:hover,
+.hub-fly:enabled:hover {
+  border-color: var(--cyan);
+}
+
+.hub-fly {
+  width: 100%;
+  margin-top: 8px;
+  border-color: var(--cyan);
+  font-weight: 600;
+}
+
+.hub-fly:disabled {
+  border-style: dashed;
+  color: var(--muted);
+  cursor: not-allowed;
+}
+
+.hub-lock {
+  margin: 0 0 12px;
+  padding: 12px 16px;
+  border: 1px dashed var(--warn);
+  border-radius: var(--radius);
+}
+
+.hub-lock::before {
+  content: '🔒 ';
+}
+
+.hub-layout {
+  display: grid;
+  gap: 16px;
+}
+
+@media (min-width: 900px) {
+  .hub-layout {
+    grid-template-columns: minmax(0, 2fr) minmax(16rem, 1fr);
+    align-items: start;
+  }
+}
+
+/* Padding of half a target keeps every marker hit area inside the frame. */
+.hub-map-frame {
+  padding: calc(var(--target) / 2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+
+.hub-map {
+  position: relative;
+  aspect-ratio: 2 / 1;
+  background-color: var(--moon-ground);
+  /* 30-degree graticule: 12 columns of longitude, 6 rows of latitude. */
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: calc(100% / 12) calc(100% / 6);
+  outline: 1px solid var(--line);
+}
+
+.hub-map[data-world='mars'] {
+  background-color: var(--mars-ground);
+}
+
+.hub-marker {
+  position: absolute;
+  width: var(--target);
+  height: var(--target);
+  padding: 0;
+  transform: translate(-50%, -50%);
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--space);
+  cursor: pointer;
+}
+
+/* Unvisited echo: cyan ring (GDD 6.4). */
+.hub-marker::before {
+  content: '';
+  position: absolute;
+  inset: 15px;
+  border: 3px solid var(--cyan);
+  border-radius: 50%;
+  background: var(--space);
+  transition: transform 120ms ease-out;
+}
+
+.hub-marker--cluster::before {
+  inset: 10px;
+  background: var(--cyan);
+}
+
+.hub-count {
+  position: relative;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.hub-marker:hover::before {
+  transform: scale(1.2);
+}
+
+.hub-marker[aria-pressed='true']::before {
+  box-shadow: 0 0 0 3px var(--space), 0 0 0 5px var(--ink);
+}
+
+.hub-marker:focus-visible,
+.hub-world:focus-visible,
+.hub-fly:focus-visible,
+.hub-cluster-member:focus-visible,
+.hub-card:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.hub-card {
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+
+.hub-card h2 {
+  margin: 0 0 8px;
+  font-size: 1.15rem;
+}
+
+.hub-card p {
+  margin: 0 0 4px;
+}
+
+.hub-hint,
+.hub-place {
+  color: var(--muted);
+}
+
+.hub-status {
+  display: inline-block;
+  padding: 2px 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+}
+
+.hub-status--pending {
+  border-style: dashed;
+}
+
+.hub-cluster-list {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hub-cluster-member {
+  width: 100%;
+  text-align: left;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hub-marker::before {
+    transition: none;
+  }
+
+  .hub-marker:hover::before {
+    transform: none;
+  }
+}

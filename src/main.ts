@@ -1,6 +1,8 @@
 import { AUTO, Game, Scale } from 'phaser';
 import { DISPLAY } from './config/display';
 import { Boot } from './scenes/Boot';
+import { loadEntries } from './data/loadEntries';
+import { HubMap } from './ui/hub/HubMap';
 
 export function startGame(parent: string): Game {
   return new Game({
@@ -19,4 +21,7 @@ export function startGame(parent: string): Game {
 
 document.addEventListener('DOMContentLoaded', () => {
   startGame(DISPLAY.parentId);
+  const hubRoot = document.getElementById('hub');
+  // Nothing is archived until the save system lands (M3).
+  if (hubRoot) new HubMap(hubRoot, loadEntries(), () => new Set());
 });

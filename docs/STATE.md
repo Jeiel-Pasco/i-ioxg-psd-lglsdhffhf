@@ -1,8 +1,18 @@
 # State
 
-next: M2 (after human review of M1)
+next: M3 (after human review of M2)
 
 ## Done
+- **M2 Hub map** (2026-11-09).
+  - A DOM hub over the canvas: `src/ui/hub/{HubMap,MarkerCard,markers}.ts`, `src/ui/styles/hub.css`, `src/ui/dom.ts`.
+  - Added the typed `src/core/events.ts` (`hub:fly`), `src/data/loadEntries.ts` (bundled with `import.meta.glob`, no fetch), `src/systems/unlock.ts`, `src/config/hub.ts`, and UI text in `data/text/en.json`.
+  - Equirectangular projection with clusters that expand into a member list. The marker card shows the name, status badge, place, coordinates (with "approximate" where it applies) and **Fly here**.
+  - Mars shows a lock banner with its reason, and Fly here is disabled there.
+  - Tests: `npm test` 46 passed; e2e 10 passed. All 21 markers are selected by mouse at 1280x720 and by tap at 360x740. Also covered: the Mars lock, no sideways scroll, 44 px targets, keyboard selection.
+  - Validator report unchanged (17 / 21 / 319 gaps).
+  - Deviation: the cluster radius is 44 px, not the plan's 24 px. That equals the touch target, so marker hit areas never overlap. Clusters sit on their first member's true position, so no marker is moved.
+  - Not done: map imagery (see open questions). The map is a 30° grid on a flat Moon or Mars ground colour.
+  - Skills: add-feature (no Play.fun or score HUD was added). From design-taste-frontend, only the UI rules were used (targets, focus, edges, motion). Its photo search, palette dealing, effects and gate were skipped because they are for marketing sites and would make third-party requests.
 - **M1 Data foundation** (2026-11-09).
   - `src/data/schema.ts` (Zod `EntrySchema`) and `src/data/validate.ts` (`validateEntries` checks every gate in GDD §12.5; non-NASA hosts are warnings).
   - `tools/validate-data.ts`: `npm run validate` exits 1 on errors; `-- --report` exits 0.
@@ -27,6 +37,9 @@ next: M2 (after human review of M1)
 - **Timing:** the GDD says Space Apps asks teams not to start project work before 14 Nov, 9:00 local time. Confirm with the Local Lead.
 - **`src/data/artifacts.json`:** an AI-drafted data file (single JSON, `_meta` header) that I did not create. M1 expects one file per entry in `data/artifacts/<world>/`. Decide whether to split it into those files, and have a human check every value against its source first.
 - **Skills:** `use-template` needs the game-creator gallery, which isn't installed, and it copies an example game into a subfolder, so it wasn't used. The phaser and game-architecture skills' Play.fun, leaderboard and "no title screen" guidance is ignored under CLAUDE.md rule 7.
+- **D4 Mars unlock rule:** M2 uses the GDD's proposal (the three Moon flagships, in `src/config/hub.ts`, with the lock reason in `data/text/en.json`). The team must confirm it, or switch to "all 8 Moon entries".
+- **Map imagery:** the `data.zip` tiles (`moon_lro_tile_0_0_0.jpg`, `mars_mola_tile_0_0_0.jpg`) cover only the western hemisphere (−180° to 0°), so half the markers would sit off the image. The eastern tiles (`0_0_1`) or a full global image are needed, plus the exact Trek layer name and a credit URL, fetched at build time by `tools/fetch-assets.ts`.
+- **Phone map:** at 360 px, 9 of the 10 Moon markers fold into one cluster. It works, but zoom or a larger map may be wanted in M6.
 - **Draft statuses:** the stubs leave `status` as `TODO` rather than copying the draft statuses from GDD §2.2. The team fills them from NASA pages (D3).
 - **Mars marker URLs:** the GDD names a source type (Mars24, PDS) but no URLs, so every Mars `source_url` is `TODO`. The GDD §14 conflicts are still open.
 - **Strict validation in the build:** `npm run validate` fails until the content track fills the entries, so it is not yet part of `npm run build` (planned for M7).

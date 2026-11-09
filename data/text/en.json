@@ -1,0 +1,24 @@
+{
+  "hub": {
+    "title": "Echo map",
+    "worldSwitch": "Choose a world",
+    "worlds": { "moon": "Moon", "mars": "Mars" },
+    "mapLabel": "{world} map",
+    "marsLocked": "Mars is locked",
+    "marsLockedReason": "Recover the three Moon flagship echoes to unlock Mars.",
+    "chooseMarker": "Choose an echo on the map.",
+    "clusterTitle": "{count} echoes here",
+    "markerLabel": "{name}: {label}",
+    "clusterLabel": "{count} echoes: {names}",
+    "flyHere": "Fly here",
+    "approximate": "approximate",
+    "statusPending": "Status not yet verified",
+    "status": {
+      "active": "Active",
+      "dormant": "Dormant",
+      "ended": "Ended",
+      "lost": "Lost",
+      "drifting": "Drifting"
+    }
+  }
+}
