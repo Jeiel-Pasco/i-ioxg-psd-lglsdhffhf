@@ -19,6 +19,10 @@ import { LandingHud } from './ui/landing/LandingHud';
 import { About } from './ui/About';
 import { applySettings } from './ui/settings/applySettings';
 import { SettingsMenu } from './ui/settings/Settings';
+import { OPENING_SCENE_KEY, Opening } from './scenes/Opening';
+import { OpeningPanel } from './ui/OpeningPanel';
+import { Epilogue } from './ui/Epilogue';
+import { epilogueSummary } from './systems/epilogue';
 import './ui/styles/mobile.css';
 
 export function startGame(parent: string): Game {
@@ -32,7 +36,7 @@ export function startGame(parent: string): Game {
     scale: { mode: Scale.FIT, autoCenter: Scale.CENTER_BOTH },
     // Keep Phaser's console banner off; it is noise in tests.
     banner: false,
-    scene: [Boot, SiteScene, LandingScene],
+    scene: [Boot, Opening, SiteScene, LandingScene],
   });
 }
 
@@ -80,13 +84,29 @@ document.addEventListener('DOMContentLoaded', () => {
     onOpenChange: syncOverlay,
   });
 
+  // Epilogue (GDD 10.1): opens once when the last entry is recovered, then stays on a hub button.
+  const epilogue = new Epilogue(syncOverlay);
+  const summary = () => epilogueSummary(entries, progress.archivedIds(), progress.readIds());
+  let epiloguePending = false;
+  const openEpilogue = (opener: HTMLElement | null) => {
+    epiloguePending = false;
+    epilogue.open(summary(), opener);
+  };
+
   const hubRoot = document.getElementById('hub');
   const hub = hubRoot
-    ? new HubMap(hubRoot, entries, getArchived, {
-        archive: (opener) => archive.open(opener),
-        settings: openSettings,
-        about: (opener) => about.open(opener),
-      })
+    ? new HubMap(
+        hubRoot,
+        entries,
+        getArchived,
+        {
+          archive: (opener) => archive.open(opener),
+          settings: openSettings,
+          about: (opener) => about.open(opener),
+          epilogue: openEpilogue,
+        },
+        () => summary().complete,
+      )
     : null;
 
   const showNotice = () => {
@@ -108,7 +128,14 @@ document.addEventListener('DOMContentLoaded', () => {
     archive.refresh();
     showNotice();
   });
-  eventBus.on(Events.ENTRY_RECOVERED, ({ entryId, assisted }) => progress.recover(entryId, assisted));
+  eventBus.on(Events.ENTRY_RECOVERED, ({ entryId, assisted }) => {
+    const wasComplete = summary().complete;
+    progress.recover(entryId, assisted);
+    if (wasComplete || !summary().complete) return;
+    // Open now if the hub is showing; otherwise when the player is back on the map.
+    if (hubRoot && !hubRoot.hidden && !document.querySelector('dialog[open]')) openEpilogue(null);
+    else epiloguePending = true;
+  });
 
   // Hub -> site scene -> hub. The hub hides while a site is open so the canvas is visible.
   const siteHud = new SiteHud(document.body, openSettings);
@@ -160,6 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
     assist: () => landing && startLanding(landing.entryId, true),
     back: backToSite,
     settings: openSettings,
+    read: (opener) => landing && archive.openEntry(landing.entryId, opener),
     // Skip completes a visit-only recovery; the save marks it assisted, the Archive never shows that.
     skip: () => {
       if (!landing) return;
@@ -188,7 +216,30 @@ document.addEventListener('DOMContentLoaded', () => {
     hubRoot.hidden = false;
     hub?.refresh();
     hubRoot.querySelector<HTMLElement>('.hub-card')?.focus();
+    if (epiloguePending) openEpilogue(null);
   });
+
+  // Opening (GDD 3.3): plays until finished or skipped once, and again after Reset progress.
+  // The e2e build plays it only for `?opening`, so other tests start at the hub.
+  const wantOpening = import.meta.env.MODE !== 'e2e' || new URLSearchParams(location.search).has('opening');
+  if (hubRoot && wantOpening && !progress.openingSeen) {
+    hubRoot.hidden = true;
+    game.scene.start(OPENING_SCENE_KEY, { reducedMotion: progress.settings.reducedMotion });
+    new OpeningPanel(document.body, {
+      echoCount: entries.filter((e) => e.world === 'moon').length,
+      onStep: (step) => {
+        if (game.scene.isActive(OPENING_SCENE_KEY)) (game.scene.getScene(OPENING_SCENE_KEY) as Opening).show(step);
+      },
+      onDone: () => {
+        game.scene.stop(OPENING_SCENE_KEY);
+        game.canvas.parentElement?.setAttribute('data-scene', 'Hub');
+        progress.finishOpening();
+        hubRoot.hidden = false;
+        hub?.refresh();
+        hubRoot.querySelector<HTMLElement>('.hub-world[aria-pressed="true"]')?.focus();
+      },
+    });
+  }
 
   if (import.meta.env.MODE === 'e2e') installTestHook(game);
 });

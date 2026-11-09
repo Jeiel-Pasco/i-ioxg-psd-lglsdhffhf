@@ -1,4 +1,4 @@
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test, type Page } from './fixtures';
 
 /** The e2e build exposes a small test hook (see src/testHook.ts). */
 interface TestHook {

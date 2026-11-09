@@ -1,4 +1,4 @@
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test, type Page } from './fixtures';
 
 /**
  * Selects every marker in the current world (expanding clusters) and checks the card.

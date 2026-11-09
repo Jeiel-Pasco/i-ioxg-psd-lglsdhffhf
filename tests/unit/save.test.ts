@@ -98,6 +98,14 @@ describe('migrate', () => {
     expect(migrate(JSON.parse(JSON.stringify(s)))).toEqual(s);
   });
 
+  it('keeps a v1 save written before the opening flag existed', () => {
+    const { openingSeen: _, ...old } = defaultSave();
+    old.archived['surveyor-3'] = { assisted: false };
+    const s = migrate(JSON.parse(JSON.stringify(old)));
+    expect(s.archived).toEqual({ 'surveyor-3': { assisted: false } });
+    expect(s.openingSeen).toBe(false);
+  });
+
   it.each([null, 42, 'save', [], { version: 1, archived: 'x' }, { version: 99 }])('resets unusable data %#', (raw) => {
     expect(migrate(raw)).toEqual(defaultSave());
   });
@@ -134,6 +142,21 @@ describe('progress autosave', () => {
     const { progress, saved } = setup();
     progress.updateSettings({ highContrast: true });
     expect(saved().settings.highContrast).toBe(true);
+  });
+
+  it('saves when the opening is finished, and reset plays it again', () => {
+    const { progress, saved } = setup();
+    expect(progress.openingSeen).toBe(false);
+    progress.finishOpening();
+    expect(saved().openingSeen).toBe(true);
+    progress.reset();
+    expect(progress.openingSeen).toBe(false);
+  });
+
+  it('exposes read IDs for the Epilogue', () => {
+    const { progress } = setup();
+    progress.markRead('surveyor-3');
+    expect([...progress.readIds()]).toEqual(['surveyor-3']);
   });
 });
 

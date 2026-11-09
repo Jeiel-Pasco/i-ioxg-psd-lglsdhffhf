@@ -23,12 +23,15 @@ export class HubMap {
   private readonly map = el('div', 'hub-map');
   private readonly card = el('section', 'hub-card');
   private readonly resize = new ResizeObserver(() => this.renderMarkers());
+  private readonly epilogueButton: HTMLButtonElement;
 
   constructor(
     root: HTMLElement,
     private readonly entries: readonly Entry[],
     private readonly getArchived: () => ReadonlySet<string>,
-    menus: Record<'archive' | 'settings' | 'about', (opener: HTMLElement) => void>,
+    menus: Record<'archive' | 'settings' | 'about' | 'epilogue', (opener: HTMLElement) => void>,
+    /** True once every entry is recovered; shows the Epilogue button. */
+    private readonly epilogueReady: () => boolean = () => false,
   ) {
     this.byId = new Map(entries.map((e) => [e.id, e]));
 
@@ -69,7 +72,9 @@ export class HubMap {
       menuButton('hub-open-about', text.about.open, menus.about),
     );
     const actions = el('div', 'hub-actions');
-    actions.append(switcher, menuButton('hub-open-archive', t.openArchive, menus.archive));
+    this.epilogueButton = menuButton('hub-open-epilogue', text.epilogue.open, menus.epilogue);
+    this.epilogueButton.hidden = !this.epilogueReady();
+    actions.append(switcher, menuButton('hub-open-archive', t.openArchive, menus.archive), this.epilogueButton);
     header.append(settings, el('h1', '', t.title), actions);
     const inner = el('div', 'hub-inner');
     inner.append(header, this.lock, layout);
@@ -86,6 +91,7 @@ export class HubMap {
   /** Redraws after progress changes (a recovery or a reset). */
   refresh(): void {
     this.lock.hidden = !this.marsLocked();
+    this.epilogueButton.hidden = !this.epilogueReady();
     this.renderMarkers();
   }
 

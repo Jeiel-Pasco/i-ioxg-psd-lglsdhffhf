@@ -96,10 +96,33 @@
     "back": "Back to site",
     "assist": "Assist",
     "assistHint": "Assist gives you more fuel and a wider pad.",
-    "skip": "Skip challenge"
+    "skip": "Skip challenge",
+    "read": "Read the new entry"
   },
   "story": {
     "tag": "Game story"
+  },
+  "opening": {
+    "label": "Opening",
+    "lines": [
+      "POWER ON.",
+      "LISTENING.",
+      "ECHOES FOUND: {count}.",
+      "OBJECTIVE: VISIT EACH ONE. KEEP THEIR STORIES."
+    ],
+    "next": "Next",
+    "begin": "Begin",
+    "skip": "Skip opening"
+  },
+  "epilogue": {
+    "open": "Epilogue",
+    "title": "Epilogue",
+    "recovered": "Entries recovered: {count} of {total}",
+    "read": "Entries read: {count} of {total}",
+    "statuses": "Status of every machine you found",
+    "statusLine": "{status}: {count}",
+    "closing": "Some are silent, some are still working, all are still out there.",
+    "close": "Close"
   },
   "settings": {
     "open": "Settings",

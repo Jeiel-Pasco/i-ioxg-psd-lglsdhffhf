@@ -97,6 +97,16 @@ export class Archive {
     this.opts.onOpenChange(true);
   }
 
+  /** Entry reveal: opens straight on a recovered entry's page. Back to Archive still leads to the grid. */
+  openEntry(id: string, opener: HTMLElement | null): void {
+    const entry = this.byId.get(id);
+    if (this.dialog.open || !entry || !this.opts.getArchived().has(id)) return;
+    this.opener = opener;
+    this.dialog.showModal();
+    this.opts.onOpenChange(true);
+    this.showEntry(entry);
+  }
+
   close(): void {
     if (this.dialog.open) this.dialog.close();
   }

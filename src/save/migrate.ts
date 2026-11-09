@@ -20,6 +20,8 @@ const SaveV1Schema = z.object({
   position: z.object({ world: z.enum(['moon', 'mars']), siteId: z.string().nullable() }),
   unlocks: z.object({ mars: z.boolean() }),
   settings: SettingsSchema,
+  // Added in M7 without a version bump: older v1 saves simply have not seen the opening.
+  openingSeen: z.boolean().default(false),
 });
 
 export type SaveV1 = z.infer<typeof SaveV1Schema>;
@@ -41,6 +43,7 @@ export function defaultSave(): SaveV1 {
       audio: false,
       captions: true,
     },
+    openingSeen: false,
   };
 }
 

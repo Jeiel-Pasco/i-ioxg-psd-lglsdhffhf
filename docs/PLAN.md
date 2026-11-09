@@ -85,9 +85,9 @@
 - **Skills:** design-taste-frontend, add-feature
 
 ## M7. Core release
-- [ ] Wire up the opening sequence (skippable and captioned) → hub → site → landing → reveal → Archive. The Epilogue summary uses the recovered and read entries.
-- [ ] `npm run build` runs the validator in strict mode and `solve-levels`, and fails on any gate.
-- [ ] Add a network guard: Playwright fails on any request whose host is not the app's own origin.
+- [x] Wire up the opening sequence (skippable and captioned) → hub → site → landing → reveal → Archive. The Epilogue summary uses the recovered and read entries.
+- [x] `npm run build` runs the validator in strict mode and `solve-levels`, and fails on any gate.
+- [x] Add a network guard: Playwright fails on any request whose host is not the app's own origin.
 - **Files:** `src/scenes/Opening.ts`, `src/ui/Epilogue.ts`, `tests/e2e/core-loop.spec.ts`, `tests/e2e/network.spec.ts`
 - **Exit tests:** `core-loop.spec.ts` plays all 3 Moon flagships end to end, checks that Mars unlocks, and that the state survives a reload. `network.spec.ts` sees zero third-party requests. Every §15.2 bullet maps to a passing test or a recorded manual check. The build is green once the content track has filled all 17 entries.
 - **Skills:** game-architecture, phaser, test-driven-development

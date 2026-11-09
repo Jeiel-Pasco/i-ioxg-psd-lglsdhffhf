@@ -13,6 +13,8 @@ export interface LandingActions {
   back(): void;
   assist(): void;
   skip(): void;
+  /** Entry reveal after a safe landing. */
+  read(opener: HTMLElement): void;
   settings(opener: HTMLElement): void;
 }
 
@@ -48,6 +50,7 @@ export class LandingHud {
   private readonly backBtn = this.action('landing-back', t.back, () => this.actions.back());
   private readonly assistBtn = this.action('landing-assist', t.assist, () => this.actions.assist());
   private readonly skipBtn = this.action('landing-skip', t.skip, () => this.actions.skip());
+  private readonly readBtn: HTMLButtonElement = this.action('landing-read', t.read, () => this.actions.read(this.readBtn));
   private readonly held = { left: false, right: false, thrust: false };
   private readonly holds: HTMLButtonElement[];
   private level: ResolvedLevel | null = null;
@@ -77,7 +80,7 @@ export class LandingHud {
     this.result.setAttribute('role', 'status');
     this.result.setAttribute('aria-label', t.title);
     const buttons = el('div', 'landing-actions');
-    buttons.append(this.retryBtn, this.backBtn, this.assistBtn, this.skipBtn);
+    buttons.append(this.readBtn, this.retryBtn, this.backBtn, this.assistBtn, this.skipBtn);
     this.result.append(this.message, this.hint, buttons);
     this.result.hidden = true;
 
@@ -111,11 +114,12 @@ export class LandingHud {
     this.message.textContent = t.result[outcome];
     this.root.dataset.outcome = outcome;
     this.retryBtn.hidden = landed;
+    this.readBtn.hidden = !landed;
     this.assistBtn.hidden = landed || !opts.offerHelp || opts.assisted;
     this.hint.hidden = this.assistBtn.hidden;
     this.skipBtn.hidden = landed || !opts.offerHelp;
     this.result.hidden = false;
-    (landed ? this.backBtn : this.retryBtn).focus();
+    (landed ? this.readBtn : this.retryBtn).focus();
   }
 
   private meters(fuel: number, fuelMax: number, vx: number, vy: number): void {

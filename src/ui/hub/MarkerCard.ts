@@ -54,6 +54,7 @@ export function renderClusterCard(
   for (const m of members) {
     const b = el('button', 'hub-cluster-member', fill(t.markerLabel, { name: m.name, label: m.label }));
     b.type = 'button';
+    b.dataset.key = m.key;
     b.addEventListener('click', () => onPick(m.key));
     const li = el('li');
     li.append(b);

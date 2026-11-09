@@ -91,6 +91,20 @@ export class Progress {
     return new Set(Object.keys(this.save.archived));
   }
 
+  readIds(): ReadonlySet<string> {
+    return new Set(this.save.read);
+  }
+
+  get openingSeen(): boolean {
+    return this.save.openingSeen;
+  }
+
+  finishOpening(): void {
+    if (this.save.openingSeen) return;
+    this.save.openingSeen = true;
+    this.commit();
+  }
+
   hasRead(id: string): boolean {
     return this.save.read.includes(id);
   }
