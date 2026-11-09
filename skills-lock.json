@@ -1,0 +1,467 @@
+{
+  "version": 1,
+  "skills": {
+    "add-3d-assets": {
+      "source": "OpusGameLabs/game-creator",
+      "sourceType": "github",
+      "skillPath": "skills/add-3d-assets/SKILL.md",
+      "computedHash": "2517ddf3019263138e300dbcc8687c3e62628b3bd09457cf76f549910d3176bc"
+    },
+    "add-assets": {
+      "source": "OpusGameLabs/game-creator",
+      "sourceType": "github",
+      "skillPath": "skills/add-assets/SKILL.md",
+      "computedHash": "f31e9e39397e656c9dc7eda329c16d3bedf2c0c41198a48df5872c4369f6db82"
+    },
+    "add-audio": {
+      "source": "OpusGameLabs/game-creator",
+      "sourceType": "github",
+      "skillPath": "skills/add-audio/SKILL.md",
+      "computedHash": "73d47f8498375e2719301c17a5d22276858ccc3e91cccc31bd0b04e41a9b1771"
+    },
+    "add-feature": {
+      "source": "OpusGameLabs/game-creator",
+      "sourceType": "github",
+      "skillPath": "skills/add-feature/SKILL.md",
+      "computedHash": "978af2951e2a53b990749c8e575a5820d3e8e0570b35a385c89448470a42d619"
+    },
+    "add-multiplayer": {
+      "source": "OpusGameLabs/game-creator",
+      "sourceType": "github",
+      "skillPath": "skills/add-multiplayer/SKILL.md",
+      "computedHash": "dfa4366a29130703a73570cfdd96d547ea897a19dba561500985d5211ae519c8"
+    },
+    "brainstorming": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/brainstorming/SKILL.md",
+      "computedHash": "749e6b37996cb97f756fff55da436530a11eb01897aca133fa7befe57b009707"
+    },
+    "cavecrew": {
+      "source": "JuliusBrussee/caveman",
+      "sourceType": "github",
+      "skillPath": "skills/cavecrew/SKILL.md",
+      "computedHash": "a6267b1713b9c5b25cc556273095ccf0eb182151c552a4c4c743e2fc14622c6a"
+    },
+    "caveman": {
+      "source": "JuliusBrussee/caveman",
+      "sourceType": "github",
+      "skillPath": "skills/caveman/SKILL.md",
+      "computedHash": "71b600c88c8d1d36f18c4875db23b53c5d6cb9ba3195e19451d6b1bb67db07c4"
+    },
+    "caveman-commit": {
+      "source": "JuliusBrussee/caveman",
+      "sourceType": "github",
+      "skillPath": "skills/caveman-commit/SKILL.md",
+      "computedHash": "b416cf134b0f33ddadeca7977aebdbb2d3db79a166d0fce2e1aabeec98132766"
+    },
+    "caveman-compress": {
+      "source": "JuliusBrussee/caveman",
+      "sourceType": "github",
+      "skillPath": "skills/caveman-compress/SKILL.md",
+      "computedHash": "6b1d0d5c658999ba47e17442ce9f92eb7236976d4536937e31cde49e38fa7dbe"
+    },
+    "caveman-discover": {
+      "source": "JuliusBrussee/caveman",
+      "sourceType": "github",
+      "skillPath": "skills/caveman-discover/SKILL.md",
+      "computedHash": "6850e0ca7bd7a35a1f447cbd342f91b76ece1fb2e3473ad894e51e69746df8a2"
+    },
+    "caveman-evidence-review": {
+      "source": "JuliusBrussee/caveman",
+      "sourceType": "github",
+      "skillPath": "skills/caveman-evidence-review/SKILL.md",
+      "computedHash": "6a2db0191082500739416c87ff896a7894f98aa867f15c70fe932e4d72edd327"
+    },
+    "caveman-explore": {
+      "source": "JuliusBrussee/caveman",
+      "sourceType": "github",
+      "skillPath": "skills/caveman-explore/SKILL.md",
+      "computedHash": "6e89d5fef24957b921cf021d5bb392c47185ed65233db783acef64a9228dbb1b"
+    },
+    "caveman-help": {
+      "source": "JuliusBrussee/caveman",
+      "sourceType": "github",
+      "skillPath": "skills/caveman-help/SKILL.md",
+      "computedHash": "c7a73a8c6afb6f871690666449209106aba847b4a9b0698686648960ece80012"
+    },
+    "caveman-learn": {
+      "source": "JuliusBrussee/caveman",
+      "sourceType": "github",
+      "skillPath": "skills/caveman-learn/SKILL.md",
+      "computedHash": "df046a04f93e61061082652f0e1b44a3dd81709b35f384b0e243a4fb630a03fb"
+    },
+    "caveman-manage": {
+      "source": "JuliusBrussee/caveman",
+      "sourceType": "github",
+      "skillPath": "skills/caveman-manage/SKILL.md",
+      "computedHash": "fdd3834941a8a576cae0ac96a38dfec6ac4bd26ef209ba9997468ca11aaf19f4"
+    },
+    "caveman-optimize": {
+      "source": "JuliusBrussee/caveman",
+      "sourceType": "github",
+      "skillPath": "skills/caveman-optimize/SKILL.md",
+      "computedHash": "5e859a3a8305b5559b2f528616f634324449a426054704d43ef0b6ec8c1d9807"
+    },
+    "caveman-review": {
+      "source": "JuliusBrussee/caveman",
+      "sourceType": "github",
+      "skillPath": "skills/caveman-review/SKILL.md",
+      "computedHash": "36a4007c5c0c6b90b5accfee1cd769a86e4963b651dece2ce5f17a223a0abb4b"
+    },
+    "caveman-setup": {
+      "source": "JuliusBrussee/caveman",
+      "sourceType": "github",
+      "skillPath": "skills/caveman-setup/SKILL.md",
+      "computedHash": "b12b9f8f3fe6b499334a4b319ae1a16aa2da5c2d11e5bc85efd3236eac5213aa"
+    },
+    "caveman-stats": {
+      "source": "JuliusBrussee/caveman",
+      "sourceType": "github",
+      "skillPath": "skills/caveman-stats/SKILL.md",
+      "computedHash": "cc9fcd21f2a30cff5596b3cbb197fe0f4b1b30b58084a864350853c217ad301a"
+    },
+    "design-game": {
+      "source": "OpusGameLabs/game-creator",
+      "sourceType": "github",
+      "skillPath": "skills/design-game/SKILL.md",
+      "computedHash": "81269ceaa9f5797ad4d8510d81090845be8ce703ae7e192472a7e3cd419e7cd2"
+    },
+    "design-taste-frontend": {
+      "source": "Leonxlnx/taste-skill",
+      "sourceType": "github",
+      "skillPath": "skills/taste-skill/SKILL.md",
+      "computedHash": "974e1bb8cf7c78d3a63f1456d54a97119c03e7ab8bf374e04ade800892326ec7"
+    },
+    "diagnosing-superpowers": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/diagnosing-superpowers/SKILL.md",
+      "computedHash": "3bb0beb4fce3731bb541bce94a629a053598c4cf3a43e5af992202f2bac729f1"
+    },
+    "dispatching-parallel-agents": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/dispatching-parallel-agents/SKILL.md",
+      "computedHash": "b011107f17188e0b2898bb1856b5bac8b49537cc86e737c82126558a235bd62a"
+    },
+    "executing-plans": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/executing-plans/SKILL.md",
+      "computedHash": "dcb31fb9f9b3748f5f4ac2c7d2f2c95c74558383f9dad3695df32f1ad0eca376"
+    },
+    "fetch-tweet": {
+      "source": "OpusGameLabs/game-creator",
+      "sourceType": "github",
+      "skillPath": "skills/fetch-tweet/SKILL.md",
+      "computedHash": "3497d28d74d9511bc2f284a349139cede132ad954fd434af0dbaafa78047bf35"
+    },
+    "finishing-a-development-branch": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/finishing-a-development-branch/SKILL.md",
+      "computedHash": "4f571e7befb8b0946d9d7770232c818812412e9ab1dfb811f847edfba1fc6275"
+    },
+    "game-3d-assets": {
+      "source": "OpusGameLabs/game-creator",
+      "sourceType": "github",
+      "skillPath": "skills/game-3d-assets/SKILL.md",
+      "computedHash": "98013ba3a731c83057c931901be3cde77c61e3c63a7d622d02b4e34c16c1db29"
+    },
+    "game-architecture": {
+      "source": "OpusGameLabs/game-creator",
+      "sourceType": "github",
+      "skillPath": "skills/game-architecture/SKILL.md",
+      "computedHash": "e7d56f1b637bca15a2f8c35c1780225f97e8df99fad39ae6377398dfeb9178a0"
+    },
+    "game-assets": {
+      "source": "OpusGameLabs/game-creator",
+      "sourceType": "github",
+      "skillPath": "skills/game-assets/SKILL.md",
+      "computedHash": "11874de3054e82b21db3b090e45f65555b7540b22b8de98f692a38d7324acda8"
+    },
+    "game-audio": {
+      "source": "OpusGameLabs/game-creator",
+      "sourceType": "github",
+      "skillPath": "skills/game-audio/SKILL.md",
+      "computedHash": "eb2ba3da86b490c299638b201efbdc014ca6f45108e5cae9b7ebcdae7c01c22e"
+    },
+    "game-deploy": {
+      "source": "OpusGameLabs/game-creator",
+      "sourceType": "github",
+      "skillPath": "skills/game-deploy/SKILL.md",
+      "computedHash": "331c802655e52957dd6c76ab75cec3afc309e311efbae8f3a42ca66113e09763"
+    },
+    "game-designer": {
+      "source": "OpusGameLabs/game-creator",
+      "sourceType": "github",
+      "skillPath": "skills/game-designer/SKILL.md",
+      "computedHash": "5ccd43a952fa794c9d77adc24f3f057458d0c0dde777c3155d0d61dfdd0429b7"
+    },
+    "game-qa": {
+      "source": "OpusGameLabs/game-creator",
+      "sourceType": "github",
+      "skillPath": "skills/game-qa/SKILL.md",
+      "computedHash": "3cf305afb5ac64eae01d52c8d087ca5ab7a5518d1a852818ccd0289eb8684fc0"
+    },
+    "graphify": {
+      "source": "Graphify-Labs/graphify",
+      "sourceType": "github",
+      "skillPath": "graphify/SKILL.md",
+      "computedHash": "97bc1b20ce16c9d3fd26943fbc99598e02db56f1e5fafad0b2a6c4d7908ef3e9"
+    },
+    "improve-game": {
+      "source": "OpusGameLabs/game-creator",
+      "sourceType": "github",
+      "skillPath": "skills/improve-game/SKILL.md",
+      "computedHash": "b07a0967b4de766eff01a2e5009e7f1a39c392399d37200d48f3136b3fa0f4d2"
+    },
+    "investigate-first": {
+      "source": "JuliusBrussee/caveman",
+      "sourceType": "github",
+      "skillPath": "skills/investigate-first/SKILL.md",
+      "computedHash": "59b581b5abfc0e19b7dd5a7c3bb2b16621ab5e94e085065c7b724a9c86cc3d4d"
+    },
+    "karpathy-guidelines": {
+      "source": "multica-ai/andrej-karpathy-skills",
+      "sourceType": "github",
+      "skillPath": "skills/karpathy-guidelines/SKILL.md",
+      "computedHash": "0ec1641120accbb458780e0bd19a50a4182f2b97863e90851b91307f29802c9f"
+    },
+    "lean-build": {
+      "source": "JuliusBrussee/caveman",
+      "sourceType": "github",
+      "skillPath": "skills/lean-build/SKILL.md",
+      "computedHash": "6074721f1653e6e9d6381595b094284807b8d5d001d7d3977ec534679b16a63c"
+    },
+    "make-game": {
+      "source": "OpusGameLabs/game-creator",
+      "sourceType": "github",
+      "skillPath": "skills/make-game/SKILL.md",
+      "computedHash": "794b31dec1f90cd8f6c3488d7a0d79aa5afcda25d60faa6a7457c4c5bb9dd8a6"
+    },
+    "megacave": {
+      "source": "JuliusBrussee/caveman",
+      "sourceType": "github",
+      "skillPath": "skills/megacave/SKILL.md",
+      "computedHash": "60da384ce09cedf553e2b6dfe4669ffb4e53f34c3df8ce2c8012a32e06f8e187"
+    },
+    "meshyai": {
+      "source": "OpusGameLabs/game-creator",
+      "sourceType": "github",
+      "skillPath": "skills/meshyai/SKILL.md",
+      "computedHash": "23ee2809bfdf64f039138ec5d0f8a77c827fa0bdc1736f7e81b5663868c9432d"
+    },
+    "migration": {
+      "source": "JuliusBrussee/caveman",
+      "sourceType": "github",
+      "skillPath": "skills/migration/SKILL.md",
+      "computedHash": "7348b2d21ca05bdecc1e4ec2c8b63515ccb1700c8a261fdbd458b04b7383945b"
+    },
+    "monetize-game": {
+      "source": "OpusGameLabs/game-creator",
+      "sourceType": "github",
+      "skillPath": "skills/monetize-game/SKILL.md",
+      "computedHash": "96a2e8d61ca1339cd82ff3694f704535b60700111a0cd6fc821fdabf5613525b"
+    },
+    "phaser": {
+      "source": "OpusGameLabs/game-creator",
+      "sourceType": "github",
+      "skillPath": "skills/phaser/SKILL.md",
+      "computedHash": "db2dacd817400cb9f5f87132081909ed8d3a11663c0ee126562b8d7204b097c2"
+    },
+    "ponytail": {
+      "source": "DietrichGebert/ponytail",
+      "sourceType": "github",
+      "skillPath": "skills/ponytail/SKILL.md",
+      "computedHash": "9feedbe220d039ba30720217b3fce16214817063fb54a48843d89368c86554e9"
+    },
+    "ponytail-audit": {
+      "source": "DietrichGebert/ponytail",
+      "sourceType": "github",
+      "skillPath": "skills/ponytail-audit/SKILL.md",
+      "computedHash": "9375d07b902acf9072a6716d81ab129d274f3a3eab1c47b8a42c38a7a9bb84e7"
+    },
+    "ponytail-debt": {
+      "source": "DietrichGebert/ponytail",
+      "sourceType": "github",
+      "skillPath": "skills/ponytail-debt/SKILL.md",
+      "computedHash": "049731dcd887d8784c829b75fed0a0a5d10ac8974ceb6e51ab2578473d57524a"
+    },
+    "ponytail-gain": {
+      "source": "DietrichGebert/ponytail",
+      "sourceType": "github",
+      "skillPath": "skills/ponytail-gain/SKILL.md",
+      "computedHash": "e551bd30f9b52b155d726f98e57c68fa4aad1ce93003e57a88ba85c5e84dcb7b"
+    },
+    "ponytail-help": {
+      "source": "DietrichGebert/ponytail",
+      "sourceType": "github",
+      "skillPath": "skills/ponytail-help/SKILL.md",
+      "computedHash": "6aa9cc8011b88aa011ba3dc306b249d776c8e920c7c388ac64c4c7dd9a9bdf76"
+    },
+    "ponytail-review": {
+      "source": "DietrichGebert/ponytail",
+      "sourceType": "github",
+      "skillPath": "skills/ponytail-review/SKILL.md",
+      "computedHash": "e090103216f0452e05672991a81078e27316a6b8d468b19e7107934606cfc122"
+    },
+    "promo-video": {
+      "source": "OpusGameLabs/game-creator",
+      "sourceType": "github",
+      "skillPath": "skills/promo-video/SKILL.md",
+      "computedHash": "04a537217299ecb86ba689a2361271d35d62becb2d6a49371ce47c3295bcaa19"
+    },
+    "qa-game": {
+      "source": "OpusGameLabs/game-creator",
+      "sourceType": "github",
+      "skillPath": "skills/qa-game/SKILL.md",
+      "computedHash": "06a7211db01233e4f5d8484057a4a0e3d3776f622c9359158c8e2e09aad15003"
+    },
+    "quick-game": {
+      "source": "OpusGameLabs/game-creator",
+      "sourceType": "github",
+      "skillPath": "skills/quick-game/SKILL.md",
+      "computedHash": "78052c1096c8017ba0c3ab646a88e5bb7187c08288c8c92133f796ace36ae5e5"
+    },
+    "receiving-code-review": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/receiving-code-review/SKILL.md",
+      "computedHash": "59361179fc9225173e0c145ffd9bafbf9fdbf8b43ce3dc308497a0b4f83a6063"
+    },
+    "record-promo": {
+      "source": "OpusGameLabs/game-creator",
+      "sourceType": "github",
+      "skillPath": "skills/record-promo/SKILL.md",
+      "computedHash": "00a1bb8dde6e87bb321c857a3584d8fd32fe578f6110d66b06eafc4c503734f0"
+    },
+    "requesting-code-review": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/requesting-code-review/SKILL.md",
+      "computedHash": "b095ac8c980339436b41de9989328f3f288f2e2a70452df28452bbeb6531d604"
+    },
+    "retrodiffusion": {
+      "source": "OpusGameLabs/game-creator",
+      "sourceType": "github",
+      "skillPath": "skills/retrodiffusion/SKILL.md",
+      "computedHash": "c2d91fdae5bf711d5b423eed1a1b7bba132cdfceddb4ffca54a8a9a7249e5b48"
+    },
+    "review-game": {
+      "source": "OpusGameLabs/game-creator",
+      "sourceType": "github",
+      "skillPath": "skills/review-game/SKILL.md",
+      "computedHash": "3ebb884d4a2631aa942144ab9550a408c60694382cc722d36ca620c9dbfc2790"
+    },
+    "safe-refactor": {
+      "source": "JuliusBrussee/caveman",
+      "sourceType": "github",
+      "skillPath": "skills/safe-refactor/SKILL.md",
+      "computedHash": "9df34a21a7a2c18ce13dbbe4a3f66b4e91df9e4bc33c1c9da8a80261583367ec"
+    },
+    "scaffold-gateables": {
+      "source": "OpusGameLabs/game-creator",
+      "sourceType": "github",
+      "skillPath": "skills/scaffold-gateables/SKILL.md",
+      "computedHash": "10014851c07760dee7646449a91ee5fcdb1907f72f04d19e90000761eec0d9da"
+    },
+    "subagent-driven-development": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/subagent-driven-development/SKILL.md",
+      "computedHash": "d04b3e0b04640f8a5cd8cd94ad1d1c5c062f8257ea2dd0cf67f23062bb835760"
+    },
+    "surgical-patch": {
+      "source": "JuliusBrussee/caveman",
+      "sourceType": "github",
+      "skillPath": "skills/surgical-patch/SKILL.md",
+      "computedHash": "028b9c3574142d19639d9f8eb11fbb01c58479f8f441e957d598a7215e79f95d"
+    },
+    "systematic-debugging": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/systematic-debugging/SKILL.md",
+      "computedHash": "b7b6e98c3bffe371893bdb69845ec61124a65b6a96313dc8d6a2bce4437b13eb"
+    },
+    "test-driven-development": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/test-driven-development/SKILL.md",
+      "computedHash": "3cfe4ebb6fa7288f668d87880d279c8e48f7a92b63415e296857060f5ce22e05"
+    },
+    "threejs-game": {
+      "source": "OpusGameLabs/game-creator",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-game/SKILL.md",
+      "computedHash": "a6211f9e3116bfe784f6181615e16b50e02c2c473ad8dc5a053f70252436ee3b"
+    },
+    "threejs-perf": {
+      "source": "OpusGameLabs/game-creator",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-perf/SKILL.md",
+      "computedHash": "9c8331d6490bd7dcf612905b74666e11da41052365840ff373e162b87fe4d50c"
+    },
+    "ultracave": {
+      "source": "JuliusBrussee/caveman",
+      "sourceType": "github",
+      "skillPath": "skills/ultracave/SKILL.md",
+      "computedHash": "d2e5de7e5e664e95c0c93ea0fb84c6b78a4bb2351c71964c453a8a35c63869eb"
+    },
+    "use-template": {
+      "source": "OpusGameLabs/game-creator",
+      "sourceType": "github",
+      "skillPath": "skills/use-template/SKILL.md",
+      "computedHash": "fedfbc782fbb5f95f4388375132fb410c25af3b4664d8af3481ff1a0b2ef4112"
+    },
+    "using-git-worktrees": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/using-git-worktrees/SKILL.md",
+      "computedHash": "48c8a1040e378e0cb7208107294e3afa9067b9370c3f33b49a443eb6b7528b0d"
+    },
+    "using-superpowers": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/using-superpowers/SKILL.md",
+      "computedHash": "ef8670c2a2d8e2f6ed52d6f3219759903300ca13afc5ec2e25826a735112562b"
+    },
+    "verification-before-completion": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/verification-before-completion/SKILL.md",
+      "computedHash": "b529822bdac4b197b180fe12225cff86b930b65910435103c10622df7f041651"
+    },
+    "verify-and-stop": {
+      "source": "JuliusBrussee/caveman",
+      "sourceType": "github",
+      "skillPath": "skills/verify-and-stop/SKILL.md",
+      "computedHash": "3d67de16a2b3c48b643bc511ebc4cb86e6c7105215d8428b6140cbcb73aba4e6"
+    },
+    "viral-game": {
+      "source": "OpusGameLabs/game-creator",
+      "sourceType": "github",
+      "skillPath": "skills/viral-game/SKILL.md",
+      "computedHash": "c1aa5c831cf35ea1a42eaf55ac60a395c7de9c211ff654da9229ee959ab7fd16"
+    },
+    "worldlabs": {
+      "source": "OpusGameLabs/game-creator",
+      "sourceType": "github",
+      "skillPath": "skills/worldlabs/SKILL.md",
+      "computedHash": "ba6f7817428861c753b190bb39eb7a4facd1289ca6d489911eb8cd71896c7630"
+    },
+    "writing-plans": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/writing-plans/SKILL.md",
+      "computedHash": "c2647b5bf067be353a893e5a39a632cbbeb7ad81e61fa5ae227ece5490029073"
+    },
+    "writing-skills": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "skillPath": "skills/writing-skills/SKILL.md",
+      "computedHash": "7fe2d3c93865d88b5ee1ae0e20637bce31f4d9a43822ed26c7064628bed792ec"
+    }
+  }
+}
